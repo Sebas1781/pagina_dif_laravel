@@ -144,14 +144,11 @@
             <h2 class="text-2xl sm:text-3xl font-extrabold text-dif-dark mb-4">¿Necesitas más información?</h2>
             <p class="text-gray-500 mb-8 max-w-lg mx-auto">Acude a cualquiera de nuestras sedes o contáctanos a través de nuestras redes sociales. Estamos para servirte.</p>
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="#" class="inline-flex items-center gap-2 bg-dif-pink text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:bg-dif-pink-dark hover:scale-105 transition-all duration-300">
+                <a href="https://www.facebook.com/profile.php?id=100069002108088" class="inline-flex items-center gap-2 bg-dif-pink text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:bg-dif-pink-dark hover:scale-105 transition-all duration-300">
                     <i class="fab fa-facebook-f"></i>
                     Facebook
                 </a>
-                <a href="#" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:scale-105 transition-all duration-300">
-                    <i class="fab fa-instagram"></i>
-                    Instagram
-                </a>
+
             </div>
         </div>
     </div>
