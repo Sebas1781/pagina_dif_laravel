@@ -107,7 +107,7 @@
         <div class="scroll-hidden mb-10">
             <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 lg:flex lg:flex-row-reverse">
                 <div class="lg:w-1/3 relative p-8 flex flex-col justify-center text-white overflow-hidden min-h-[280px]">
-                    <img src="/images/page1_img37.png" alt="" class="absolute inset-0 w-full h-full object-cover">
+                    <img src="/images/page1_img29.png" alt="" class="absolute inset-0 w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-br from-green-900/80 to-green-700/80"></div>
                     <div class="relative z-10">
                         <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4">
@@ -136,7 +136,7 @@
         <div class="scroll-hidden mb-10">
             <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 lg:flex">
                 <div class="lg:w-1/3 relative p-8 flex flex-col justify-center text-white overflow-hidden min-h-[280px]">
-                    <img src="/images/page1_img36.png" alt="" class="absolute inset-0 w-full h-full object-cover">
+                    <img src="/images/page1_img38.png" alt="" class="absolute inset-0 w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-br from-blue-900/80 to-blue-700/80"></div>
                     <div class="relative z-10">
                         <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4">
@@ -166,7 +166,7 @@
         <div class="scroll-hidden mb-10">
             <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 lg:flex lg:flex-row-reverse">
                 <div class="lg:w-1/3 relative p-8 flex flex-col justify-center text-white overflow-hidden min-h-[280px]">
-                    <img src="/images/page1_img29.png" alt="" class="absolute inset-0 w-full h-full object-cover">
+                    <img src="/images/page1_img37.png" alt="" class="absolute inset-0 w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-br from-purple-900/80 to-purple-700/80"></div>
                     <div class="relative z-10">
                         <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4">
@@ -196,7 +196,7 @@
         <div class="scroll-hidden mb-10">
             <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 lg:flex">
                 <div class="lg:w-1/3 relative p-8 flex flex-col justify-center text-white overflow-hidden min-h-[280px]">
-                    <img src="/images/page2_img1.png" alt="" class="absolute inset-0 w-full h-full object-cover">
+                    <img src="/images/page1_img11.png" alt="" class="absolute inset-0 w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-br from-teal-900/80 to-teal-700/80"></div>
                     <div class="relative z-10">
                         <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4">
@@ -225,7 +225,7 @@
         <div class="scroll-hidden">
             <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 lg:flex lg:flex-row-reverse">
                 <div class="lg:w-1/3 relative p-8 flex flex-col justify-center text-white overflow-hidden min-h-[280px]">
-                    <img src="/images/page1_img38.png" alt="" class="absolute inset-0 w-full h-full object-cover">
+                    <img src="/images/page1_img21.png" alt="" class="absolute inset-0 w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-br from-amber-900/80 to-amber-700/80"></div>
                     <div class="relative z-10">
                         <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-4">

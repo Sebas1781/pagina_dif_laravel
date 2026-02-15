@@ -32,11 +32,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @php
             $casas = [
-                ['Casa de Cultura, Tecámac Centro', 'Av. 5 de Mayo 46, Tecámac Centro, 55740 Tecámac de Felipe Villanueva, Méx.', 'fa-landmark', 'from-dif-pink to-dif-magenta', '/images/page2_img4.png'],
+                ['Casa de Cultura, Tecámac Centro', 'Av. 5 de Mayo 46, Tecámac Centro, 55740 Tecámac de Felipe Villanueva, Méx.', 'fa-landmark', 'from-dif-pink to-dif-magenta', '/images/page2_img14.png'],
                 ['Casa de Cultura, Los Reyes Acozac', 'Av. Sanchez Colín, Tlalzompa Manzana 036, Reyes Acozac, 55755 Los Reyes Acozac, Méx.', 'fa-palette', 'from-purple-600 to-purple-400', '/images/page1_img3.png'],
-                ['Casa de Cultura, San Pedro Pozohuacan', 'Manzana 013, Centro, San Pedro Pozohuacan, 55744 Santa María Ajoloapan, Méx.', 'fa-masks-theater', 'from-blue-600 to-blue-400', '/images/page1_img4.png'],
-                ['Casa de Cultura, Geo Sierra Hermosa', 'Rancho Grande, Sierra Hermosa, 55749 Ojo de Agua, Méx.', 'fa-music', 'from-indigo-600 to-indigo-400', '/images/page1_img6.png'],
-                ['Casa de Cultura, Héroes Tecámac', 'Manzana 022, Col. Héroes de Tecámac, 55763 Ojo de Agua, Méx.', 'fa-guitar', 'from-teal-600 to-teal-400', '/images/page1_img7.png'],
+                ['Casa de Cultura, San Pedro Pozohuacan', 'Manzana 013, Centro, San Pedro Pozohuacan, 55744 Santa María Ajoloapan, Méx.', 'fa-masks-theater', 'from-blue-600 to-blue-400', '/images/sp_pozo.jpg'],
+                ['Casa de Cultura, Geo Sierra Hermosa', 'Rancho Grande, Sierra Hermosa, 55749 Ojo de Agua, Méx.', 'fa-music', 'from-indigo-600 to-indigo-400', '/images/geo_sierra.jpg'],
+                ['Casa de Cultura, Héroes Tecámac', 'Manzana 022, Col. Héroes de Tecámac, 55763 Ojo de Agua, Méx.', 'fa-guitar', 'from-teal-600 to-teal-400', '/images/heroes_tecamac.jpg'],
                 ['Casa de Cultura, San Jerónimo Xonacahuacan', 'Manzana 029, San Jerónimo Xonacahuacan, 55745 Santa María Ajoloapan, Méx.', 'fa-paintbrush', 'from-rose-600 to-rose-400', '/images/page2_img2.png'],
             ];
             @endphp
@@ -163,7 +163,7 @@
             {{-- Event 1 --}}
             <div class="card-hover scroll-hidden stagger-1 bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/20 text-white group hover:bg-white/20">
                 <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page2_img11.png" alt="Orquesta Filarmónica" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="/images/page2_img3.png" alt="Orquesta Filarmónica" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 </div>
                 <div class="p-8">
@@ -175,7 +175,7 @@
             {{-- Event 2 --}}
             <div class="card-hover scroll-hidden stagger-2 bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/20 text-white group hover:bg-white/20">
                 <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page2_img14.png" alt="Festival Atmósfera 2025" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="/images/page2_img11.png" alt="Festival Atmósfera 2025" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 </div>
                 <div class="p-8">
@@ -186,7 +186,7 @@
             {{-- Event 3 --}}
             <div class="card-hover scroll-hidden stagger-3 bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/20 text-white group hover:bg-white/20">
                 <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page2_img13.png" alt="Feria Regional de Tecámac" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="/images/page2_img12.png" alt="Feria Regional de Tecámac" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 </div>
                 <div class="p-8">

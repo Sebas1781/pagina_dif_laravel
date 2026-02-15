@@ -43,8 +43,8 @@
             </div>
             <div class="hidden lg:flex justify-center scroll-scale">
                 <div class="relative">
-                    <div class="w-80 h-80 bg-white/10 backdrop-blur-sm rounded-3xl rotate-6 animate-float shadow-2xl overflow-hidden">
-                        <img src="/images/page1_img5.png" alt="DIF Tecámac" class="w-full h-full object-cover -rotate-6 scale-125">
+                    <div class="w-96 h-96 bg-white rounded-3xl p-4 flex items-center justify-center animate-float shadow-2xl overflow-hidden">
+                        <img src="/images/dif-new.jpg" alt="DIF Tecámac" class="max-w-full max-h-full object-contain">
                     </div>
                     <div class="absolute -top-4 -right-4 w-20 h-20 bg-green-400/80 backdrop-blur rounded-2xl flex items-center justify-center animate-float shadow-xl" style="animation-delay: 1s;">
                         <i class="fas fa-heart-pulse text-white text-2xl"></i>
@@ -147,7 +147,7 @@
             {{-- Service Card 2 --}}
             <div class="card-hover scroll-hidden stagger-2 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
                 <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page1_img37.png" alt="Centro de Equinoterapia" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="/images/page1_img29.png" alt="Centro de Equinoterapia" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 <div class="p-6">
                     <h3 class="font-bold text-lg text-dif-dark mb-2">Centro de Equinoterapia</h3>
@@ -161,7 +161,7 @@
             {{-- Service Card 3 --}}
             <div class="card-hover scroll-hidden stagger-3 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
                 <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page1_img36.png" alt="Clínica Materno Infantil" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="/images/page1_img38.png" alt="Clínica Materno Infantil" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 <div class="p-6">
                     <h3 class="font-bold text-lg text-dif-dark mb-2">Clínica Materno Infantil</h3>
@@ -175,7 +175,7 @@
             {{-- Service Card 4 --}}
             <div class="card-hover scroll-hidden stagger-4 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
                 <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page1_img29.png" alt="U.B.R.I.S" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="/images/page1_img37.png" alt="U.B.R.I.S" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 <div class="p-6">
                     <h3 class="font-bold text-lg text-dif-dark mb-2">U.B.R.I.S</h3>
@@ -189,7 +189,7 @@
             {{-- Service Card 5 --}}
             <div class="card-hover scroll-hidden stagger-5 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
                 <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page2_img1.png" alt="Unidad Médica Reyes Acozac" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="/images/page1_img11.png" alt="Unidad Médica Reyes Acozac" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 <div class="p-6">
                     <h3 class="font-bold text-lg text-dif-dark mb-2">Unidad Médica Reyes Acozac</h3>
@@ -203,7 +203,7 @@
             {{-- Service Card 6 --}}
             <div class="card-hover scroll-hidden stagger-6 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
                 <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page1_img38.png" alt="Laboratorio de Análisis Clínicos" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="/images/page1_img21.png" alt="Laboratorio de Análisis Clínicos" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                 </div>
                 <div class="p-6">
                     <h3 class="font-bold text-lg text-dif-dark mb-2">Laboratorio de Análisis Clínicos</h3>
@@ -309,7 +309,7 @@
             <div class="scroll-right">
                 <div class="relative">
                     <div class="rounded-3xl overflow-hidden h-[500px] relative">
-                        <img src="/images/page2_img11.png" alt="Orquesta Filarmónica Municipal de Tecámac" class="w-full h-full object-cover">
+                        <img src="/images/page2_img3.png" alt="Orquesta Filarmónica Municipal de Tecámac" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                         <div class="absolute bottom-6 left-6 right-6 text-white">
                             <h3 class="text-2xl font-bold">Orquesta Filarmónica</h3>
