@@ -6,7 +6,7 @@
 {{-- HERO --}}
 <section class="relative py-32 overflow-hidden">
     <div class="absolute inset-0">
-        <img src="/images/page1_img4.png" alt="" class="w-full h-full object-cover">
+        <img src="/images/page1_img2.png" alt="" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-br from-dif-pink-dark/85 via-dif-pink/70 to-dif-magenta/80"></div>
     </div>
     <div class="absolute inset-0 bg-pattern opacity-10"></div>
