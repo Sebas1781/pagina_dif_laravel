@@ -7,7 +7,7 @@
 <section class="relative min-h-screen flex items-center overflow-hidden">
     {{-- Background image with overlay --}}
     <div class="absolute inset-0">
-        <img src="/images/page1_img2.png" alt="" class="w-full h-full object-cover">
+        <img src="/images/directorio.png" alt="" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-br from-dif-pink-dark/85 via-dif-pink/70 to-dif-magenta/80"></div>
     </div>
     <div class="absolute inset-0 bg-pattern opacity-10"></div>
@@ -30,7 +30,7 @@
                 <p class="text-lg sm:text-xl text-white/85 leading-relaxed mb-10 max-w-lg scroll-hidden stagger-2">
                     Por el bien de las y los tecamaquenses, día a día trabajamos por ser una institución que sea una red de apoyo para todos los habitantes de nuestro municipio.
                 </p>
-                <div class="flex flex-wrap gap-4 scroll-hidden stagger-3">
+                <div class="flex flex-wrap gap-4 scroll-hidden stagger-3 mb-8">
                     <a href="{{ route('servicios') }}" class="btn-ripple inline-flex items-center gap-2 bg-white text-dif-pink font-bold px-8 py-4 rounded-xl shadow-2xl hover:shadow-white/25 hover:scale-105 transition-all duration-300">
                         <i class="fas fa-hand-holding-heart"></i>
                         Conoce nuestros servicios
@@ -38,6 +38,18 @@
                     <a href="{{ route('nosotros') }}" class="inline-flex items-center gap-2 border-2 border-white/40 text-white font-semibold px-8 py-4 rounded-xl hover:bg-white/10 backdrop-blur-sm transition-all duration-300">
                         <i class="fas fa-info-circle"></i>
                         Sobre nosotros
+                    </a>
+                </div>
+
+                {{-- PDF Download Buttons --}}
+                <div class="flex flex-wrap gap-4 scroll-hidden stagger-4">
+                    <a href="/pdf/pada.pdf" download class="inline-flex items-center gap-2 bg-dif-pink/90 backdrop-blur text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-dif-pink hover:scale-105 transition-all duration-300 text-xs sm:text-sm">
+                        <i class="fas fa-file-pdf"></i>
+                        Programa Anual de Desarrollo Archivístico (PADA) 2026
+                    </a>
+                    <a href="/pdf/programa.pdf" download class="inline-flex items-center gap-2 bg-dif-pink/90 backdrop-blur text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-dif-pink hover:scale-105 transition-all duration-300 text-xs sm:text-sm">
+                        <i class="fas fa-file-pdf"></i>
+                        Resultados del Programa Anual de Evaluación 2025
                     </a>
                 </div>
             </div>
@@ -76,46 +88,48 @@
             <p class="text-gray-500 mt-4 max-w-2xl mx-auto">Contamos con diversas áreas especializadas para brindarte la mejor atención</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-            {{-- Card 1 --}}
-            <div class="card-hover scroll-hidden stagger-1 group bg-gradient-to-br from-pink-50 to-white p-6 rounded-2xl border border-pink-100 text-center cursor-pointer">
-                <div class="w-16 h-16 mx-auto bg-gradient-to-br from-dif-pink to-dif-magenta rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
-                    <i class="fas fa-hand-holding-heart text-white text-2xl"></i>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {{-- Salud y Bienestar --}}
+            <a href="{{ route('salud') }}" class="card-hover scroll-hidden stagger-1 group flex items-center gap-4 bg-gradient-to-r from-dif-pink to-dif-pink-light rounded-full pl-2 pr-6 py-2 shadow-lg hover:shadow-xl cursor-pointer">
+                <div class="w-14 h-14 bg-white/30 backdrop-blur rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fas fa-stethoscope text-white text-xl"></i>
                 </div>
-                <h3 class="font-bold text-dif-dark text-sm">BIENESTAR SOCIAL</h3>
-                <p class="text-xs text-gray-400 mt-2">Programas de apoyo social</p>
+                <h3 class="font-extrabold text-white text-sm uppercase">Salud y Bienestar</h3>
+            </a>
+            {{-- Educación y Cultura --}}
+            <a href="{{ route('educacion') }}" class="card-hover scroll-hidden stagger-2 group flex items-center gap-4 bg-gradient-to-r from-teal-500 to-teal-400 rounded-full pl-2 pr-6 py-2 shadow-lg hover:shadow-xl cursor-pointer">
+                <div class="w-14 h-14 bg-white/30 backdrop-blur rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fas fa-book-open text-white text-xl"></i>
+                </div>
+                <h3 class="font-extrabold text-white text-sm uppercase">Educación y Cultura</h3>
+            </a>
+            {{-- Jurídico --}}
+            <a href="{{ route('servicios') }}" class="card-hover scroll-hidden stagger-3 group flex items-center gap-4 bg-gradient-to-r from-purple-800 to-purple-600 rounded-full pl-2 pr-6 py-2 shadow-lg hover:shadow-xl cursor-pointer">
+                <div class="w-14 h-14 bg-white/30 backdrop-blur rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fas fa-gavel text-white text-xl"></i>
+                </div>
+                <h3 class="font-extrabold text-white text-sm uppercase">Jurídico</h3>
+            </a>
+            {{-- Centros de Atención Integral a la Diversidad Sexual --}}
+            <div class="card-hover scroll-hidden stagger-4 group flex items-center gap-4 bg-gradient-to-r from-rose-400 to-pink-300 rounded-full pl-2 pr-6 py-2 shadow-lg hover:shadow-xl cursor-pointer">
+                <div class="w-14 h-14 bg-white/30 backdrop-blur rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fas fa-heart text-white text-xl"></i>
+                </div>
+                <h3 class="font-extrabold text-white text-xs uppercase leading-tight">Centros de Atención Integral a la Diversidad Sexual</h3>
             </div>
-            {{-- Card 2 --}}
-            <div class="card-hover scroll-hidden stagger-2 group bg-gradient-to-br from-purple-50 to-white p-6 rounded-2xl border border-purple-100 text-center cursor-pointer">
-                <div class="w-16 h-16 mx-auto bg-gradient-to-br from-purple-600 to-purple-400 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
-                    <i class="fas fa-shield-heart text-white text-2xl"></i>
+            {{-- Centros de Desarrollo Juvenil --}}
+            <div class="card-hover scroll-hidden stagger-5 group flex items-center gap-4 bg-gradient-to-r from-amber-500 to-amber-400 rounded-full pl-2 pr-6 py-2 shadow-lg hover:shadow-xl cursor-pointer">
+                <div class="w-14 h-14 bg-white/30 backdrop-blur rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fas fa-users text-white text-xl"></i>
                 </div>
-                <h3 class="font-bold text-dif-dark text-sm leading-tight">ATENCIÓN Y DEFENSA DE DERECHOS</h3>
-                <p class="text-xs text-gray-400 mt-2">Mujeres, juventud y diversidad</p>
+                <h3 class="font-extrabold text-white text-sm uppercase">Centros de Desarrollo Juvenil</h3>
             </div>
-            {{-- Card 3 --}}
-            <div class="card-hover scroll-hidden stagger-3 group bg-gradient-to-br from-red-50 to-white p-6 rounded-2xl border border-red-100 text-center cursor-pointer">
-                <div class="w-16 h-16 mx-auto bg-gradient-to-br from-red-500 to-rose-400 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
-                    <i class="fas fa-heartbeat text-white text-2xl"></i>
+            {{-- Puerta Violeta --}}
+            <div class="card-hover scroll-hidden stagger-6 group flex items-center gap-4 bg-gradient-to-r from-purple-700 to-purple-500 rounded-full pl-2 pr-6 py-2 shadow-lg hover:shadow-xl cursor-pointer">
+                <div class="w-14 h-14 bg-white/30 backdrop-blur rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <i class="fas fa-door-open text-white text-xl"></i>
                 </div>
-                <h3 class="font-bold text-dif-dark text-sm">SALUD</h3>
-                <p class="text-xs text-gray-400 mt-2">Atención médica integral</p>
-            </div>
-            {{-- Card 4 --}}
-            <div class="card-hover scroll-hidden stagger-4 group bg-gradient-to-br from-blue-50 to-white p-6 rounded-2xl border border-blue-100 text-center cursor-pointer">
-                <div class="w-16 h-16 mx-auto bg-gradient-to-br from-blue-600 to-blue-400 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
-                    <i class="fas fa-book-open text-white text-2xl"></i>
-                </div>
-                <h3 class="font-bold text-dif-dark text-sm">EDUCACIÓN Y CULTURA</h3>
-                <p class="text-xs text-gray-400 mt-2">Aprendizaje y desarrollo</p>
-            </div>
-            {{-- Card 5 --}}
-            <div class="card-hover scroll-hidden stagger-5 group bg-gradient-to-br from-amber-50 to-white p-6 rounded-2xl border border-amber-100 text-center cursor-pointer">
-                <div class="w-16 h-16 mx-auto bg-gradient-to-br from-amber-600 to-amber-400 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg">
-                    <i class="fas fa-scale-balanced text-white text-2xl"></i>
-                </div>
-                <h3 class="font-bold text-dif-dark text-sm">JURÍDICO</h3>
-                <p class="text-xs text-gray-400 mt-2">Asesoría legal gratuita</p>
+                <h3 class="font-extrabold text-white text-sm uppercase">Puerta Violeta</h3>
             </div>
         </div>
     </div>
@@ -325,6 +339,58 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+{{-- BOLETINES PREVIEW --}}
+<section class="py-20 bg-dif-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12 scroll-hidden">
+            <span class="inline-block bg-white text-dif-pink font-semibold text-sm px-4 py-1.5 rounded-full mb-4 shadow-sm">NOTICIAS</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-dif-dark">
+                Últimos <span class="text-dif-pink">Boletines</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {{-- Boletin 1 --}}
+            <div class="card-hover scroll-hidden stagger-1 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                <div class="h-48 overflow-hidden">
+                    <img src="/images/serenata.png" alt="Tardes de Serenata" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-dif-dark text-sm uppercase">Tardes de Serenata</h3>
+                    <p class="text-xs text-gray-500 mt-2 line-clamp-3">Tardes de Serenata en Tecámac nos regaló una jornada llena de sentimiento, donde el Mariachi Municipal acompañó cada dedicatoria.</p>
+                </div>
+            </div>
+            {{-- Boletin 2 --}}
+            <div class="card-hover scroll-hidden stagger-2 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                <div class="h-48 overflow-hidden">
+                    <img src="/images/bodas.png" alt="Bodas Comunitarias" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-dif-dark text-sm uppercase">Bodas Comunitarias 2026</h3>
+                    <p class="text-xs text-gray-500 mt-2 line-clamp-3">Tecámac, Late por Ti. Una celebración llena de amor para las familias tecamaquenses.</p>
+                </div>
+            </div>
+            {{-- Boletin 3 --}}
+            <div class="card-hover scroll-hidden stagger-3 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                <div class="h-48 overflow-hidden">
+                    <img src="/images/atmosfera.png" alt="Atmósfera Mundialista" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-dif-dark text-sm uppercase">Atmósfera Mundialista 2026</h3>
+                    <p class="text-xs text-gray-500 mt-2 line-clamp-3">Estamos a menos de un mes de iniciar este gran festival, ¡no te lo puedes perder!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-12 scroll-hidden">
+            <a href="{{ route('boletines') }}" class="btn-ripple inline-flex items-center gap-2 bg-dif-pink text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:bg-dif-pink-dark hover:shadow-xl hover:scale-105 transition-all duration-300">
+                Ver todos los boletines
+                <i class="fas fa-arrow-right"></i>
+            </a>
         </div>
     </div>
 </section>

@@ -45,4 +45,9 @@ class PageController extends Controller
     {
         return view('pages.remtys');
     }
+
+    public function boletines()
+    {
+        return view('pages.boletines');
+    }
 }

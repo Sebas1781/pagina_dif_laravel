@@ -11,3 +11,4 @@ Route::get('/educacion', [PageController::class, 'educacion'])->name('educacion'
 Route::get('/directorio', [PageController::class, 'directorio'])->name('directorio');
 Route::get('/transparencia', [PageController::class, 'transparencia'])->name('transparencia');
 Route::get('/remtys', [PageController::class, 'remtys'])->name('remtys');
+Route::get('/boletines', [PageController::class, 'boletines'])->name('boletines');
