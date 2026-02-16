@@ -32,7 +32,7 @@
             <p class="text-gray-500 max-w-xl mx-auto">Consulta la información de transparencia a través de los siguientes organismos oficiales.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
             {{-- SEVAC --}}
             <a href="https://www.gob.mx/imta/acciones-y-programas/sistema-de-evaluacion-de-armonizacion-contable-sevac-250543" target="_blank" rel="noopener noreferrer"
@@ -73,6 +73,21 @@
                 <div class="p-6 text-center">
                     <h3 class="text-xl font-bold text-dif-dark group-hover:text-dif-pink transition-colors">Ipomex</h3>
                     <p class="text-sm text-gray-500 mt-2">Información Pública de Oficio Mexiquense</p>
+                    <div class="mt-4 inline-flex items-center text-sm font-semibold text-dif-pink opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        Visitar <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+            </a>
+
+            {{-- INFOEM --}}
+            <a href="https://www.infoem.org.mx/es/content/informacion-publica" target="_blank" rel="noopener noreferrer"
+               class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl hover:border-dif-pink/30 transition-all duration-500 hover:-translate-y-2 scroll-hidden stagger-4">
+                <div class="h-52 bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center p-6 group-hover:from-dif-cream group-hover:to-white transition-all duration-500">
+                    <img src="/images/infoem.png" alt="Infoem" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                </div>
+                <div class="p-6 text-center">
+                    <h3 class="text-xl font-bold text-dif-dark group-hover:text-dif-pink transition-colors">Infoem</h3>
+                    <p class="text-sm text-gray-500 mt-2">Instituto de Transparencia, Acceso a la Información Pública y Protección de Datos Personales del Estado de México</p>
                     <div class="mt-4 inline-flex items-center text-sm font-semibold text-dif-pink opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         Visitar <i class="fas fa-arrow-right ml-2"></i>
                     </div>
