@@ -74,45 +74,45 @@
                 </div>
 
                 {{-- Mobile Menu Button --}}
-                <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-dif-dark hover:bg-dif-cream transition-colors">
-                    <i class="fas fa-bars text-xl"></i>
+                <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-white hover:bg-white/20 transition-colors">
+                    <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
         </div>
 
         {{-- Mobile Menu --}}
-        <div id="mobile-menu" class="lg:hidden hidden bg-white/95 backdrop-blur-lg border-t border-gray-100">
-            <div class="px-4 py-4 space-y-2">
-                <a href="{{ route('inicio') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('inicio') ? 'bg-dif-pink text-white' : 'text-dif-dark hover:bg-dif-cream' }}">INICIO</a>
-                <a href="{{ route('nosotros') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('nosotros') ? 'bg-dif-pink text-white' : 'text-dif-dark hover:bg-dif-cream' }}">NOSOTROS</a>
-                <a href="{{ route('servicios') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('servicios') ? 'bg-dif-pink text-white' : 'text-dif-dark hover:bg-dif-cream' }}">SERVICIOS</a>
-                <a href="{{ route('salud') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('salud') ? 'bg-dif-pink text-white' : 'text-dif-dark hover:bg-dif-cream' }}">SALUD</a>
-                <a href="{{ route('educacion') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('educacion') ? 'bg-dif-pink text-white' : 'text-dif-dark hover:bg-dif-cream' }}">EDUCACIÓN Y CULTURA</a>
-                <a href="{{ route('directorio') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('directorio') ? 'bg-dif-pink text-white' : 'text-dif-dark hover:bg-dif-cream' }}">DIRECTORIO</a>
-                <a href="{{ route('boletines') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('boletines') ? 'bg-dif-pink text-white' : 'text-dif-dark hover:bg-dif-cream' }}">BOLETINES</a>
+        <div id="mobile-menu" class="lg:hidden hidden bg-dif-pink-dark/95 backdrop-blur-lg border-t border-white/10">
+            <div class="px-4 py-4 space-y-1 max-h-[calc(100vh-5rem)] overflow-y-auto">
+                <a href="{{ route('inicio') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('inicio') ? 'bg-dif-pink text-white' : 'text-white/90 hover:bg-white/10' }}">INICIO</a>
+                <a href="{{ route('nosotros') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('nosotros') ? 'bg-dif-pink text-white' : 'text-white/90 hover:bg-white/10' }}">NOSOTROS</a>
+                <a href="{{ route('servicios') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('servicios') ? 'bg-dif-pink text-white' : 'text-white/90 hover:bg-white/10' }}">SERVICIOS</a>
+                <a href="{{ route('salud') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('salud') ? 'bg-dif-pink text-white' : 'text-white/90 hover:bg-white/10' }}">SALUD</a>
+                <a href="{{ route('educacion') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('educacion') ? 'bg-dif-pink text-white' : 'text-white/90 hover:bg-white/10' }}">EDUCACIÓN Y CULTURA</a>
+                <a href="{{ route('directorio') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('directorio') ? 'bg-dif-pink text-white' : 'text-white/90 hover:bg-white/10' }}">DIRECTORIO</a>
+                <a href="{{ route('boletines') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('boletines') ? 'bg-dif-pink text-white' : 'text-white/90 hover:bg-white/10' }}">BOLETINES</a>
 
                 {{-- Mobile: Transparencia --}}
                 <div>
-                    <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('transparencia') ? 'bg-dif-pink text-white' : 'text-dif-dark hover:bg-dif-cream' }}">
+                    <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('transparencia') ? 'bg-dif-pink text-white' : 'text-white/90 hover:bg-white/10' }}">
                         TRANSPARENCIA
                         <i class="fas fa-chevron-down text-xs"></i>
                     </button>
                     <div class="hidden pl-6 space-y-1 mt-1">
-                        <a href="{{ route('transparencia') }}" class="block px-4 py-2 rounded-lg text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink">
-                            <i class="fas fa-balance-scale mr-2 text-dif-pink"></i>Ley General de Contabilidad Gubernamental
+                        <a href="{{ route('transparencia') }}" class="block px-4 py-2 rounded-lg text-sm text-white/80 hover:bg-white/10 hover:text-white">
+                            <i class="fas fa-balance-scale mr-2 text-dif-pink-light"></i>Ley General de Contabilidad Gubernamental
                         </a>
                     </div>
                 </div>
 
                 {{-- Mobile: Trámites y Servicios --}}
                 <div>
-                    <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('remtys') ? 'bg-dif-pink text-white' : 'text-dif-dark hover:bg-dif-cream' }}">
+                    <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('remtys') ? 'bg-dif-pink text-white' : 'text-white/90 hover:bg-white/10' }}">
                         TRÁMITES Y SERVICIOS
                         <i class="fas fa-chevron-down text-xs"></i>
                     </button>
                     <div class="hidden pl-6 space-y-1 mt-1">
-                        <a href="{{ route('remtys') }}" class="block px-4 py-2 rounded-lg text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink">
-                            <i class="fas fa-file-lines mr-2 text-dif-pink"></i>REMTYS
+                        <a href="{{ route('remtys') }}" class="block px-4 py-2 rounded-lg text-sm text-white/80 hover:bg-white/10 hover:text-white">
+                            <i class="fas fa-file-lines mr-2 text-dif-pink-light"></i>REMTYS
                         </a>
                     </div>
                 </div>
@@ -121,42 +121,42 @@
     </nav>
 
     {{-- Main Content --}}
-    <main class="pt-20">
+    <main class="pt-20 overflow-x-hidden">
         @yield('content')
     </main>
 
     {{-- FOOTER --}}
     <footer class="bg-gradient-to-br from-dif-pink-dark via-dif-pink to-dif-magenta text-white">
         {{-- Logos institucionales --}}
-        <div class="border-b border-white/20 py-8">
+        <div class="border-b border-white/20 py-6 sm:py-8">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-wrap items-center justify-center gap-8">
-                    <img src="/images/tecamac.png" alt="Tecámac" class="h-12 object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
-                    <img src="/images/odapas.png" alt="ODAPAS" class="h-12 object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
-                    <img src="/images/imdeporte.png" alt="IMDEPORTE" class="h-12 object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
-                    <img src="/images/guardia-civil.png" alt="Guardia Civil" class="h-12 object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
-                    <img src="/images/proteccion-civil.png" alt="Protección Civil" class="h-12 object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
+                <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-8">
+                    <img src="/images/tecamac.png" alt="Tecámac" class="h-8 sm:h-12 object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
+                    <img src="/images/odapas.png" alt="ODAPAS" class="h-8 sm:h-12 object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
+                    <img src="/images/imdeporte.png" alt="IMDEPORTE" class="h-8 sm:h-12 object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
+                    <img src="/images/guardia-civil.png" alt="Guardia Civil" class="h-8 sm:h-12 object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
+                    <img src="/images/proteccion-civil.png" alt="Protección Civil" class="h-8 sm:h-12 object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
                 </div>
             </div>
         </div>
 
         {{-- Info central --}}
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
             <div class="text-center">
-                <h4 class="font-extrabold text-sm sm:text-base uppercase tracking-wide mb-6">
+                <h4 class="font-extrabold text-xs sm:text-sm lg:text-base uppercase tracking-wide mb-4 sm:mb-6 leading-relaxed">
                     Unidad Administrativa DIF Tecámac : <span class="font-normal">Paseo Villa del Real, Esq. Aranjuez, 3ra Sección Villa del Real, Tecámac, Estado de México.</span>
                 </h4>
 
                 {{-- Links transparencia --}}
-                <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mb-6 text-sm">
+                <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6 mb-6 text-xs sm:text-sm">
                     <a href="https://www.gob.mx/imta/acciones-y-programas/sistema-de-evaluacion-de-armonizacion-contable-sevac-250543" target="_blank" class="text-white/90 hover:text-white transition-colors">
-                        <i class="fas fa-link mr-1"></i>Sistema de Evaluaciones de la Armonización Contable
+                        <i class="fas fa-link mr-1"></i>SEVAC
                     </a>
                     <a href="https://www.conac.gob.mx/" target="_blank" class="text-white/90 hover:text-white transition-colors">
-                        <i class="fas fa-link mr-1"></i>Consejo Nacional de Armonización Contable
+                        <i class="fas fa-link mr-1"></i>CONAC
                     </a>
                     <a href="https://ipomex.org.mx/ipomex/#/" target="_blank" class="text-white/90 hover:text-white transition-colors">
-                        <i class="fas fa-link mr-1"></i>Información Pública de Oficio Mexiquense
+                        <i class="fas fa-link mr-1"></i>IPOMEX
                     </a>
                 </div>
 

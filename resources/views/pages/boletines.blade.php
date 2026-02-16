@@ -4,12 +4,12 @@
 @section('content')
 
 {{-- HERO --}}
-<section class="relative py-32 overflow-hidden">
+<section class="relative py-20 sm:py-32 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-dif-pink-dark/90 via-dif-pink/75 to-dif-magenta/85"></div>
     <div class="absolute inset-0 bg-pattern opacity-10"></div>
     <div class="absolute top-20 right-20 w-72 h-72 bg-dif-pink-light/20 rounded-full blur-3xl animate-float"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white mb-6 scroll-hidden stagger-1 uppercase">
+        <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-white mb-6 scroll-hidden stagger-1 uppercase">
             Boletines
         </h1>
         <p class="text-lg text-white/80 max-w-2xl mx-auto scroll-hidden stagger-2">

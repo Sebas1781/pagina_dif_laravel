@@ -4,52 +4,52 @@
 @section('content')
 
 {{-- HERO SECTION --}}
-<section class="relative min-h-screen flex items-center overflow-hidden">
+<section class="relative min-h-screen flex items-center overflow-x-hidden">
     {{-- Background image with overlay --}}
     <div class="absolute inset-0">
         <img src="/images/directorio.png" alt="" class="w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-br from-dif-pink-dark/85 via-dif-pink/70 to-dif-magenta/80"></div>
     </div>
     <div class="absolute inset-0 bg-pattern opacity-10"></div>
-    {{-- Animated circles --}}
-    <div class="absolute top-20 left-10 w-72 h-72 bg-dif-pink-light/20 rounded-full blur-3xl animate-float"></div>
-    <div class="absolute bottom-20 right-10 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-dif-rose/10 rounded-full blur-3xl"></div>
+    {{-- Animated circles (hidden on mobile to prevent overflow) --}}
+    <div class="hidden sm:block absolute top-20 left-10 w-72 h-72 bg-dif-pink-light/20 rounded-full blur-3xl animate-float"></div>
+    <div class="hidden sm:block absolute bottom-20 right-10 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-dif-rose/10 rounded-full blur-3xl"></div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
             <div class="text-white">
-                <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-5 py-2 mb-8 scroll-hidden">
+                <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-4 sm:px-5 py-2 mb-6 sm:mb-8 scroll-hidden">
                     <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                    <span class="text-sm font-medium">Al servicio de la comunidad</span>
+                    <span class="text-xs sm:text-sm font-medium">Al servicio de la comunidad</span>
                 </div>
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 scroll-hidden stagger-1">
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 sm:mb-6 scroll-hidden stagger-1">
                     TRABAJANDO AL<br>
                     <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-dif-pink-light to-white">SERVICIO DEL PUEBLO</span>
                 </h1>
-                <p class="text-lg sm:text-xl text-white/85 leading-relaxed mb-10 max-w-lg scroll-hidden stagger-2">
+                <p class="text-base sm:text-xl text-white/85 leading-relaxed mb-6 sm:mb-10 max-w-lg scroll-hidden stagger-2">
                     Por el bien de las y los tecamaquenses, día a día trabajamos por ser una institución que sea una red de apoyo para todos los habitantes de nuestro municipio.
                 </p>
-                <div class="flex flex-wrap gap-4 scroll-hidden stagger-3 mb-8">
-                    <a href="{{ route('servicios') }}" class="btn-ripple inline-flex items-center gap-2 bg-white text-dif-pink font-bold px-8 py-4 rounded-xl shadow-2xl hover:shadow-white/25 hover:scale-105 transition-all duration-300">
+                <div class="flex flex-wrap gap-3 sm:gap-4 scroll-hidden stagger-3 mb-6 sm:mb-8">
+                    <a href="{{ route('servicios') }}" class="btn-ripple inline-flex items-center gap-2 bg-white text-dif-pink font-bold px-5 sm:px-8 py-3 sm:py-4 rounded-xl shadow-2xl hover:shadow-white/25 hover:scale-105 transition-all duration-300 text-sm sm:text-base">
                         <i class="fas fa-hand-holding-heart"></i>
                         Conoce nuestros servicios
                     </a>
-                    <a href="{{ route('nosotros') }}" class="inline-flex items-center gap-2 border-2 border-white/40 text-white font-semibold px-8 py-4 rounded-xl hover:bg-white/10 backdrop-blur-sm transition-all duration-300">
+                    <a href="{{ route('nosotros') }}" class="inline-flex items-center gap-2 border-2 border-white/40 text-white font-semibold px-5 sm:px-8 py-3 sm:py-4 rounded-xl hover:bg-white/10 backdrop-blur-sm transition-all duration-300 text-sm sm:text-base">
                         <i class="fas fa-info-circle"></i>
                         Sobre nosotros
                     </a>
                 </div>
 
                 {{-- PDF Download Buttons --}}
-                <div class="flex flex-wrap gap-4 scroll-hidden stagger-4">
-                    <a href="/pdf/pada.pdf" download class="inline-flex items-center gap-2 bg-dif-pink/90 backdrop-blur text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-dif-pink hover:scale-105 transition-all duration-300 text-xs sm:text-sm">
-                        <i class="fas fa-file-pdf"></i>
-                        Programa Anual de Desarrollo Archivístico (PADA) 2026
+                <div class="flex flex-col sm:flex-row flex-wrap gap-3 scroll-hidden stagger-4">
+                    <a href="/pdf/pada.pdf" download class="inline-flex items-center gap-2 bg-dif-pink/90 backdrop-blur text-white font-bold px-4 sm:px-6 py-3 rounded-xl shadow-lg hover:bg-dif-pink hover:scale-105 transition-all duration-300 text-xs sm:text-sm">
+                        <i class="fas fa-file-pdf shrink-0"></i>
+                        <span>Programa Anual de Desarrollo Archivístico 2026</span>
                     </a>
-                    <a href="/pdf/programa.pdf" download class="inline-flex items-center gap-2 bg-dif-pink/90 backdrop-blur text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:bg-dif-pink hover:scale-105 transition-all duration-300 text-xs sm:text-sm">
-                        <i class="fas fa-file-pdf"></i>
-                        Resultados del Programa Anual de Evaluación 2025
+                    <a href="/pdf/programa.pdf" download class="inline-flex items-center gap-2 bg-dif-pink/90 backdrop-blur text-white font-bold px-4 sm:px-6 py-3 rounded-xl shadow-lg hover:bg-dif-pink hover:scale-105 transition-all duration-300 text-xs sm:text-sm">
+                        <i class="fas fa-file-pdf shrink-0"></i>
+                        <span>Programa Anual de Evaluación 2025</span>
                     </a>
                 </div>
             </div>
@@ -78,9 +78,9 @@
 </section>
 
 {{-- CATEGORIES SECTION --}}
-<section class="py-20 bg-white">
+<section class="py-12 sm:py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16 scroll-hidden">
+        <div class="text-center mb-10 sm:mb-16 scroll-hidden">
             <span class="inline-block bg-dif-cream text-dif-pink font-semibold text-sm px-4 py-1.5 rounded-full mb-4">NUESTRAS ÁREAS</span>
             <h2 class="text-3xl sm:text-4xl font-extrabold text-dif-dark">
                 Áreas de <span class="animate-gradient-text">Atención</span>
@@ -136,14 +136,14 @@
 </section>
 
 {{-- SERVICES OVERVIEW --}}
-<section class="py-20 bg-dif-cream bg-pattern">
+<section class="py-12 sm:py-20 bg-dif-cream bg-pattern">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16 scroll-hidden">
+        <div class="text-center mb-10 sm:mb-16 scroll-hidden">
             <span class="inline-block bg-white text-dif-pink font-semibold text-sm px-4 py-1.5 rounded-full mb-4 shadow-sm">SERVICIOS PRINCIPALES</span>
             <h2 class="text-3xl sm:text-4xl font-extrabold text-dif-dark">Servicios de <span class="text-dif-pink">Salud</span></h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {{-- Service Card 1 --}}
             <div class="card-hover scroll-hidden stagger-1 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
                 <div class="h-48 relative overflow-hidden">
@@ -152,9 +152,9 @@
                 <div class="p-6">
                     <h3 class="font-bold text-lg text-dif-dark mb-2">Unidad Médica Mandarinas</h3>
                     <p class="text-sm text-gray-500 mb-4">Fracc. Ojo de Agua, calle Mandarinas, esq. Naranjos, C.P. 55770</p>
-                    <div class="flex items-center gap-2 text-dif-pink text-sm font-medium">
-                        <i class="fas fa-clock"></i>
-                        <span>Lunes a Viernes: 9:00 - 18:00 hrs | Sábados: 9:00 - 13:00 hrs</span>
+                    <div class="flex items-start gap-2 text-dif-pink text-xs sm:text-sm font-medium">
+                        <i class="fas fa-clock mt-0.5 shrink-0"></i>
+                        <span>Lun a Vie: 9:00 - 18:00 hrs | Sáb: 9:00 - 13:00 hrs</span>
                     </div>
                 </div>
             </div>
@@ -166,8 +166,8 @@
                 <div class="p-6">
                     <h3 class="font-bold text-lg text-dif-dark mb-2">Centro de Equinoterapia</h3>
                     <p class="text-sm text-gray-500 mb-4">Carretera Federal México – Pachuca, Km. 38, Sierra Hermosa, 55740</p>
-                    <div class="flex items-center gap-2 text-green-600 text-sm font-medium">
-                        <i class="fas fa-clock"></i>
+                    <div class="flex items-start gap-2 text-green-600 text-xs sm:text-sm font-medium">
+                        <i class="fas fa-clock mt-0.5 shrink-0"></i>
                         <span>Lunes a Viernes: 9:00 - 15:00 hrs</span>
                     </div>
                 </div>
@@ -180,8 +180,8 @@
                 <div class="p-6">
                     <h3 class="font-bold text-lg text-dif-dark mb-2">Clínica Materno Infantil</h3>
                     <p class="text-sm text-gray-500 mb-4">Juana Belén Gutiérrez de Mendoza</p>
-                    <div class="flex items-center gap-2 text-blue-600 text-sm font-medium">
-                        <i class="fas fa-clock"></i>
+                    <div class="flex items-start gap-2 text-blue-600 text-xs sm:text-sm font-medium">
+                        <i class="fas fa-clock mt-0.5 shrink-0"></i>
                         <span>Lunes a Viernes: 9:00 - 15:00 hrs</span>
                     </div>
                 </div>
@@ -194,8 +194,8 @@
                 <div class="p-6">
                     <h3 class="font-bold text-lg text-dif-dark mb-2">U.B.R.I.S</h3>
                     <p class="text-sm text-gray-500 mb-4">Unidad Básica de Rehabilitación e Integración Social</p>
-                    <div class="flex items-center gap-2 text-purple-600 text-sm font-medium">
-                        <i class="fas fa-clock"></i>
+                    <div class="flex items-start gap-2 text-purple-600 text-xs sm:text-sm font-medium">
+                        <i class="fas fa-clock mt-0.5 shrink-0"></i>
                         <span>Lunes a Viernes: 9:00 - 15:00 hrs</span>
                     </div>
                 </div>
@@ -208,9 +208,9 @@
                 <div class="p-6">
                     <h3 class="font-bold text-lg text-dif-dark mb-2">Unidad Médica Reyes Acozac</h3>
                     <p class="text-sm text-gray-500 mb-4">C. Niños Héroes No. 14, Barrio el Calvario, Reyes Acozac, C.P. 55755</p>
-                    <div class="flex items-center gap-2 text-teal-600 text-sm font-medium">
-                        <i class="fas fa-clock"></i>
-                        <span>Lunes a Viernes: 9:00 - 18:00 hrs</span>
+                    <div class="flex items-start gap-2 text-teal-600 text-xs sm:text-sm font-medium">
+                        <i class="fas fa-clock mt-0.5 shrink-0"></i>
+                        <span>Lun a Vie: 9:00 - 18:00 hrs</span>
                     </div>
                 </div>
             </div>
@@ -222,16 +222,16 @@
                 <div class="p-6">
                     <h3 class="font-bold text-lg text-dif-dark mb-2">Laboratorio de Análisis Clínicos</h3>
                     <p class="text-sm text-gray-500 mb-4">Análisis clínicos y pruebas especializadas</p>
-                    <div class="flex items-center gap-2 text-amber-600 text-sm font-medium">
-                        <i class="fas fa-clock"></i>
+                    <div class="flex items-start gap-2 text-amber-600 text-xs sm:text-sm font-medium">
+                        <i class="fas fa-clock mt-0.5 shrink-0"></i>
                         <span>Lunes a Viernes: 9:00 - 15:00 hrs</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="text-center mt-12 scroll-hidden">
-            <a href="{{ route('salud') }}" class="btn-ripple inline-flex items-center gap-2 bg-dif-pink text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:bg-dif-pink-dark hover:shadow-xl hover:scale-105 transition-all duration-300">
+        <div class="text-center mt-8 sm:mt-12 scroll-hidden">
+            <a href="{{ route('salud') }}" class="btn-ripple inline-flex items-center gap-2 bg-dif-pink text-white font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-lg hover:bg-dif-pink-dark hover:shadow-xl hover:scale-105 transition-all duration-300 text-sm sm:text-base">
                 Ver todos los servicios de salud
                 <i class="fas fa-arrow-right"></i>
             </a>
@@ -273,9 +273,9 @@
 </section>
 
 {{-- EDUCATION & CULTURE PREVIEW --}}
-<section class="py-20 bg-white">
+<section class="py-12 sm:py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div class="scroll-left">
                 <span class="inline-block bg-blue-50 text-blue-600 font-semibold text-sm px-4 py-1.5 rounded-full mb-4">EDUCACIÓN Y CULTURA</span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-dif-dark mb-6">
@@ -313,8 +313,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-8">
-                    <a href="{{ route('educacion') }}" class="btn-ripple inline-flex items-center gap-2 bg-dif-pink text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:bg-dif-pink-dark hover:scale-105 transition-all duration-300">
+                <div class="mt-6 sm:mt-8">
+                    <a href="{{ route('educacion') }}" class="btn-ripple inline-flex items-center gap-2 bg-dif-pink text-white font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-lg hover:bg-dif-pink-dark hover:scale-105 transition-all duration-300 text-sm sm:text-base">
                         Explorar Educación y Cultura
                         <i class="fas fa-arrow-right"></i>
                     </a>
@@ -322,18 +322,18 @@
             </div>
             <div class="scroll-right">
                 <div class="relative">
-                    <div class="rounded-3xl overflow-hidden h-[500px] relative">
+                    <div class="rounded-3xl overflow-hidden h-[300px] sm:h-[400px] lg:h-[500px] relative">
                         <img src="/images/page2_img3.png" alt="Orquesta Filarmónica Municipal de Tecámac" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                        <div class="absolute bottom-6 left-6 right-6 text-white">
-                            <h3 class="text-2xl font-bold">Orquesta Filarmónica</h3>
-                            <p class="text-white/80 mt-1">Municipal de Tecámac</p>
-                            <p class="text-sm text-dif-pink-light font-medium mt-1">"Ilustre Músico Tecamaquense"</p>
+                        <div class="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 text-white">
+                            <h3 class="text-xl sm:text-2xl font-bold">Orquesta Filarmónica</h3>
+                            <p class="text-white/80 mt-1 text-sm sm:text-base">Municipal de Tecámac</p>
+                            <p class="text-xs sm:text-sm text-dif-pink-light font-medium mt-1">"Ilustre Músico Tecamaquense"</p>
                         </div>
                     </div>
-                    <div class="absolute -top-4 -right-4 w-24 h-24 bg-dif-pink rounded-2xl flex items-center justify-center animate-float shadow-xl text-white">
+                    <div class="absolute -top-4 -right-4 w-20 h-20 sm:w-24 sm:h-24 bg-dif-pink rounded-2xl hidden sm:flex items-center justify-center animate-float shadow-xl text-white">
                         <div class="text-center">
-                            <i class="fas fa-theater-masks text-2xl"></i>
+                            <i class="fas fa-theater-masks text-xl sm:text-2xl"></i>
                             <p class="text-xs mt-1 font-bold">Cultura</p>
                         </div>
                     </div>
@@ -344,9 +344,9 @@
 </section>
 
 {{-- BOLETINES PREVIEW --}}
-<section class="py-20 bg-dif-cream">
+<section class="py-12 sm:py-20 bg-dif-cream">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12 scroll-hidden">
+        <div class="text-center mb-8 sm:mb-12 scroll-hidden">
             <span class="inline-block bg-white text-dif-pink font-semibold text-sm px-4 py-1.5 rounded-full mb-4 shadow-sm">NOTICIAS</span>
             <h2 class="text-3xl sm:text-4xl font-extrabold text-dif-dark">
                 Últimos <span class="text-dif-pink">Boletines</span>
@@ -386,8 +386,8 @@
             </div>
         </div>
 
-        <div class="text-center mt-12 scroll-hidden">
-            <a href="{{ route('boletines') }}" class="btn-ripple inline-flex items-center gap-2 bg-dif-pink text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:bg-dif-pink-dark hover:shadow-xl hover:scale-105 transition-all duration-300">
+        <div class="text-center mt-8 sm:mt-12 scroll-hidden">
+            <a href="{{ route('boletines') }}" class="btn-ripple inline-flex items-center gap-2 bg-dif-pink text-white font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-lg hover:bg-dif-pink-dark hover:shadow-xl hover:scale-105 transition-all duration-300 text-sm sm:text-base">
                 Ver todos los boletines
                 <i class="fas fa-arrow-right"></i>
             </a>
@@ -396,14 +396,14 @@
 </section>
 
 {{-- CTA SECTION --}}
-<section class="py-20 bg-gradient-to-br from-dif-pink to-dif-magenta relative overflow-hidden">
+<section class="py-12 sm:py-20 bg-gradient-to-br from-dif-pink to-dif-magenta relative overflow-hidden">
     <div class="absolute inset-0 bg-pattern opacity-10"></div>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 scroll-scale">
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-6">¿Necesitas alguno de nuestros servicios?</h2>
-        <p class="text-lg text-white/80 mb-10 max-w-2xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white mb-4 sm:mb-6">¿Necesitas alguno de nuestros servicios?</h2>
+        <p class="text-base sm:text-lg text-white/80 mb-8 sm:mb-10 max-w-2xl mx-auto">
             Consulta nuestro directorio para encontrar la sede más cercana y los horarios de atención disponibles.
         </p>
-        <a href="{{ route('directorio') }}" class="btn-ripple inline-flex items-center gap-2 bg-white text-dif-pink font-bold px-10 py-4 rounded-xl shadow-2xl hover:scale-105 transition-all duration-300">
+        <a href="{{ route('directorio') }}" class="btn-ripple inline-flex items-center gap-2 bg-white text-dif-pink font-bold px-6 sm:px-10 py-3 sm:py-4 rounded-xl shadow-2xl hover:scale-105 transition-all duration-300 text-sm sm:text-base">
             <i class="fas fa-map-location-dot"></i>
             Ver Directorio Completo
         </a>

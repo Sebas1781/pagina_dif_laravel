@@ -4,7 +4,7 @@
 @section('content')
 
 {{-- HERO --}}
-<section class="relative py-32 overflow-hidden">
+<section class="relative py-20 sm:py-32 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-dif-pink-dark/90 via-dif-pink/75 to-dif-magenta/85"></div>
     <div class="absolute inset-0 bg-pattern opacity-10"></div>
     <div class="absolute top-20 right-20 w-72 h-72 bg-dif-pink-light/20 rounded-full blur-3xl animate-float"></div>

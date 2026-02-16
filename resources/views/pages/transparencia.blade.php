@@ -4,7 +4,7 @@
 @section('content')
 
 {{-- HERO --}}
-<section class="relative py-32 overflow-hidden">
+<section class="relative py-20 sm:py-32 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-dif-pink-dark/90 via-dif-pink/75 to-dif-magenta/85"></div>
     <div class="absolute inset-0 bg-pattern opacity-10"></div>
     <div class="absolute top-20 left-20 w-72 h-72 bg-dif-pink-light/20 rounded-full blur-3xl animate-float"></div>
@@ -12,7 +12,7 @@
         <span class="inline-block bg-white/15 text-white font-semibold text-sm px-5 py-2 rounded-full mb-6 scroll-hidden">
             <i class="fas fa-balance-scale mr-2"></i>TRANSPARENCIA
         </span>
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 scroll-hidden stagger-1">
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 scroll-hidden stagger-1">
             Ley General de Contabilidad Gubernamental
         </h1>
         <p class="text-lg text-white/80 max-w-2xl mx-auto scroll-hidden stagger-2">
