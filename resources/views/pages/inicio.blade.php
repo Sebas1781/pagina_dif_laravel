@@ -44,7 +44,7 @@
             <div class="hidden lg:flex justify-center scroll-scale">
                 <div class="relative">
                     <div class="w-96 h-96 bg-white rounded-3xl p-4 flex items-center justify-center animate-float shadow-2xl overflow-hidden">
-                        <img src="/images/dif-new.jpg" alt="DIF Tecámac" class="max-w-full max-h-full object-contain">
+                        <img src="/images/DIF-NEW.jpg" alt="DIF Tecámac" class="max-w-full max-h-full object-contain">
                     </div>
                     <div class="absolute -top-4 -right-4 w-20 h-20 bg-green-400/80 backdrop-blur rounded-2xl flex items-center justify-center animate-float shadow-xl" style="animation-delay: 1s;">
                         <i class="fas fa-heart-pulse text-white text-2xl"></i>
