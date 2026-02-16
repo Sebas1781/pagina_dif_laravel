@@ -35,4 +35,14 @@ class PageController extends Controller
     {
         return view('pages.directorio');
     }
+
+    public function transparencia()
+    {
+        return view('pages.transparencia');
+    }
+
+    public function remtys()
+    {
+        return view('pages.remtys');
+    }
 }

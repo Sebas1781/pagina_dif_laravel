@@ -48,6 +48,32 @@
                     <a href="{{ route('directorio') }}" class="nav-link px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 {{ request()->routeIs('directorio') ? 'bg-dif-pink text-white shadow-lg' : 'text-dif-dark hover:bg-dif-cream hover:text-dif-pink' }}">
                         DIRECTORIO
                     </a>
+
+                    {{-- Dropdown Transparencia --}}
+                    <div class="relative group">
+                        <button class="nav-link px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center gap-1 {{ request()->routeIs('transparencia') ? 'bg-dif-pink text-white shadow-lg' : 'text-dif-dark hover:bg-dif-cream hover:text-dif-pink' }}">
+                            TRANSPARENCIA
+                            <i class="fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div class="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <a href="{{ route('transparencia') }}" class="block px-5 py-3 text-sm font-medium text-dif-dark hover:bg-dif-cream hover:text-dif-pink rounded-xl transition-colors">
+                                <i class="fas fa-balance-scale mr-2 text-dif-pink"></i>Ley General de Contabilidad Gubernamental
+                            </a>
+                        </div>
+                    </div>
+
+                    {{-- Dropdown Trámites y Servicios --}}
+                    <div class="relative group">
+                        <button class="nav-link px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center gap-1 {{ request()->routeIs('remtys') ? 'bg-dif-pink text-white shadow-lg' : 'text-dif-dark hover:bg-dif-cream hover:text-dif-pink' }}">
+                            TRÁMITES Y SERVICIOS
+                            <i class="fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        <div class="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <a href="{{ route('remtys') }}" class="block px-5 py-3 text-sm font-medium text-dif-dark hover:bg-dif-cream hover:text-dif-pink rounded-xl transition-colors">
+                                <i class="fas fa-file-lines mr-2 text-dif-pink"></i>REMTYS
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 {{-- Mobile Menu Button --}}
@@ -66,6 +92,32 @@
                 <a href="{{ route('salud') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('salud') ? 'bg-dif-pink text-white' : 'text-dif-dark hover:bg-dif-cream' }}">SALUD</a>
                 <a href="{{ route('educacion') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('educacion') ? 'bg-dif-pink text-white' : 'text-dif-dark hover:bg-dif-cream' }}">EDUCACIÓN Y CULTURA</a>
                 <a href="{{ route('directorio') }}" class="block px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('directorio') ? 'bg-dif-pink text-white' : 'text-dif-dark hover:bg-dif-cream' }}">DIRECTORIO</a>
+
+                {{-- Mobile: Transparencia --}}
+                <div>
+                    <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('transparencia') ? 'bg-dif-pink text-white' : 'text-dif-dark hover:bg-dif-cream' }}">
+                        TRANSPARENCIA
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+                    <div class="hidden pl-6 space-y-1 mt-1">
+                        <a href="{{ route('transparencia') }}" class="block px-4 py-2 rounded-lg text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink">
+                            <i class="fas fa-balance-scale mr-2 text-dif-pink"></i>Ley General de Contabilidad Gubernamental
+                        </a>
+                    </div>
+                </div>
+
+                {{-- Mobile: Trámites y Servicios --}}
+                <div>
+                    <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-semibold {{ request()->routeIs('remtys') ? 'bg-dif-pink text-white' : 'text-dif-dark hover:bg-dif-cream' }}">
+                        TRÁMITES Y SERVICIOS
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+                    <div class="hidden pl-6 space-y-1 mt-1">
+                        <a href="{{ route('remtys') }}" class="block px-4 py-2 rounded-lg text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink">
+                            <i class="fas fa-file-lines mr-2 text-dif-pink"></i>REMTYS
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>

@@ -9,3 +9,5 @@ Route::get('/servicios', [PageController::class, 'servicios'])->name('servicios'
 Route::get('/salud', [PageController::class, 'salud'])->name('salud');
 Route::get('/educacion', [PageController::class, 'educacion'])->name('educacion');
 Route::get('/directorio', [PageController::class, 'directorio'])->name('directorio');
+Route::get('/transparencia', [PageController::class, 'transparencia'])->name('transparencia');
+Route::get('/remtys', [PageController::class, 'remtys'])->name('remtys');
