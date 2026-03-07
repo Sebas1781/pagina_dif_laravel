@@ -33,7 +33,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard',  [DashboardController::class, 'index'])->name('dashboard');
 
         // Boletines
-        Route::resource('boletines', BoletinController::class)->except(['show']);
+        Route::resource('boletines', BoletinController::class)
+            ->parameters(['boletines' => 'boletin'])
+            ->except(['show']);
 
         // Educación y Cultura
         Route::resource('casas_cultura',        CasaCulturaController::class)->except(['show']);
