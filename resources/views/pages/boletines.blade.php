@@ -24,87 +24,38 @@
 {{-- BOLETINES GRID --}}
 <section class="py-20 bg-white">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-            {{-- Tardes de Serenata --}}
-            <div class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 scroll-hidden stagger-1">
-                <div class="h-64 overflow-hidden">
-                    <img src="/images/serenata.png" alt="Tardes de Serenata" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-extrabold text-dif-dark uppercase mb-3">Tardes de Serenata</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">
-                        Tardes de Serenata en Tecámac nos regaló una jornada llena de sentimiento, donde el Mariachi Municipal "Orgullo de Tecámac" acompañó cada dedicatoria dada con el corazón.
-                    </p>
-                </div>
+        @if($boletines->isEmpty())
+            <p class="text-center text-gray-400 py-16">No hay boletines disponibles por el momento.</p>
+        @else
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                @foreach($boletines as $i => $boletin)
+                    @php
+                        $stagger = ($i % 6) + 1;
+                        $src = $boletin->imagen
+                            ? (str_starts_with($boletin->imagen, 'boletines/')
+                                ? asset('storage/' . $boletin->imagen)
+                                : asset('images/' . $boletin->imagen))
+                            : null;
+                    @endphp
+                    <div class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 scroll-hidden stagger-{{ $stagger }}">
+                        @if($src)
+                            <div class="h-64 overflow-hidden">
+                                <img src="{{ $src }}" alt="{{ $boletin->titulo }}"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            </div>
+                        @endif
+                        <div class="p-6">
+                            <h3 class="text-lg font-extrabold text-dif-dark uppercase mb-3">
+                                {{ $boletin->titulo }}
+                            </h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                {{ $boletin->descripcion }}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-
-            {{-- Bodas Comunitarias --}}
-            <div class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 scroll-hidden stagger-2">
-                <div class="h-64 overflow-hidden">
-                    <img src="/images/bodas.png" alt="Bodas Comunitarias 2026" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-extrabold text-dif-dark uppercase mb-3">Bodas Comunitarias 2026: Tecámac, Late por Ti</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim.
-                    </p>
-                </div>
-            </div>
-
-            {{-- Apoyo a Comunidades Escolares --}}
-            <div class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 scroll-hidden stagger-3">
-                <div class="h-64 overflow-hidden">
-                    <img src="/images/apoyo-comunidades.png" alt="Apoyo a Comunidades Escolares" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-extrabold text-dif-dark uppercase mb-3">Apoyo a Comunidades Escolares</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">
-                        "Apoyo a Comunidades Escolares", por instrucciones de nuestra Presidenta Municipal Rosi Wong, fortaleciendo así los espacios educativos y brindando mejores condiciones para nuestras niñas, niños y jóvenes.
-                    </p>
-                </div>
-            </div>
-
-            {{-- Bienestar para los Hombres --}}
-            <div class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 scroll-hidden stagger-4">
-                <div class="h-64 overflow-hidden">
-                    <img src="/images/bienestar.png" alt="Bienestar para los Hombres de Tecámac" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-extrabold text-dif-dark uppercase mb-3">Bienestar para los Hombres de Tecámac</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">
-                        Por instrucciones de nuestra Presidenta Municipal, Rosi Wong llevamos a cabo la Jornada de Cuidado Integral del Hombre en el, acercando servicios de salud gratuitos a nuestra comunidad.
-                    </p>
-                </div>
-            </div>
-
-            {{-- Inauguración de Cursos y Talleres --}}
-            <div class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 scroll-hidden stagger-5">
-                <div class="h-64 overflow-hidden">
-                    <img src="/images/cursos.png" alt="Inauguración de Cursos y Talleres" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-extrabold text-dif-dark uppercase mb-3">Inauguración de Cursos y Talleres</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">
-                        Con el compromiso de seguir construyendo un Tecámac incluyente y respetuoso, iniciamos nuestros cursos en los Centros de Atención Integral a la Diversidad Sexual.
-                    </p>
-                </div>
-            </div>
-
-            {{-- Atmósfera Mundialista 2026 --}}
-            <div class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 scroll-hidden stagger-6">
-                <div class="h-64 overflow-hidden">
-                    <img src="/images/atmosfera.png" alt="Atmósfera Mundialista 2026" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-6">
-                    <h3 class="text-lg font-extrabold text-dif-dark uppercase mb-3">Atmósfera Mundialista 2026</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">
-                        Estamos a menos de un mes de iniciar este gran festival, no te lo puedes perder. ¡Atmósfera Mundialista 2026!
-                    </p>
-                </div>
-            </div>
-
-        </div>
+        @endif
     </div>
 </section>
 

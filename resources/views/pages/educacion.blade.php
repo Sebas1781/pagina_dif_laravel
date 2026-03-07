@@ -30,32 +30,38 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @php
-            $casas = [
-                ['Casa de Cultura, Tecámac Centro', 'Av. 5 de Mayo 46, Tecámac Centro, 55740 Tecámac de Felipe Villanueva, Méx.', 'fa-landmark', 'from-dif-pink to-dif-magenta', '/images/page2_img14.png'],
-                ['Casa de Cultura, Los Reyes Acozac', 'Av. Sanchez Colín, Tlalzompa Manzana 036, Reyes Acozac, 55755 Los Reyes Acozac, Méx.', 'fa-palette', 'from-purple-600 to-purple-400', '/images/page1_img3.png'],
-                ['Casa de Cultura, San Pedro Pozohuacan', 'Manzana 013, Centro, San Pedro Pozohuacan, 55744 Santa María Ajoloapan, Méx.', 'fa-masks-theater', 'from-blue-600 to-blue-400', '/images/sp_pozo.jpg'],
-                ['Casa de Cultura, Geo Sierra Hermosa', 'Rancho Grande, Sierra Hermosa, 55749 Ojo de Agua, Méx.', 'fa-music', 'from-indigo-600 to-indigo-400', '/images/geo_sierra.jpg'],
-                ['Casa de Cultura, Héroes Tecámac', 'Manzana 022, Col. Héroes de Tecámac, 55763 Ojo de Agua, Méx.', 'fa-guitar', 'from-teal-600 to-teal-400', '/images/heroes_tecamac.jpg'],
-                ['Casa de Cultura, San Jerónimo Xonacahuacan', 'Manzana 029, San Jerónimo Xonacahuacan, 55745 Santa María Ajoloapan, Méx.', 'fa-paintbrush', 'from-rose-600 to-rose-400', '/images/page2_img2.png'],
-            ];
-            @endphp
-
-            @foreach($casas as $i => $casa)
+            @forelse($casas as $i => $casa)
             <div class="card-hover scroll-hidden stagger-{{ ($i % 6) + 1 }} bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 group">
+                @php
+                    $imgSrc = $casa->imagen
+                        ? (str_starts_with($casa->imagen, 'casas_cultura/')
+                            ? asset('storage/'.$casa->imagen)
+                            : asset('images/'.$casa->imagen))
+                        : null;
+                @endphp
                 <div class="h-40 relative overflow-hidden">
-                    <img src="{{ $casa[4] }}" alt="{{ $casa[0] }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t {{ $casa[3] }} opacity-40"></div>
+                    @if($imgSrc)
+                        <img src="{{ $imgSrc }}" alt="{{ $casa->nombre }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    @else
+                        <div class="w-full h-full bg-gradient-to-br {{ $casa->color_gradiente }} flex items-center justify-center">
+                            <i class="fas {{ $casa->icono }} text-white text-4xl"></i>
+                        </div>
+                    @endif
+                    <div class="absolute inset-0 bg-gradient-to-t {{ $casa->color_gradiente }} opacity-40"></div>
                 </div>
                 <div class="p-6">
-                    <h3 class="font-bold text-dif-dark text-lg mb-2">{{ $casa[0] }}</h3>
+                    <h3 class="font-bold text-dif-dark text-lg mb-2">{{ $casa->nombre }}</h3>
+                    @if($casa->direccion)
                     <p class="text-sm text-gray-500 flex items-start gap-2">
                         <i class="fas fa-map-marker-alt text-dif-pink mt-1 shrink-0"></i>
-                        {{ $casa[1] }}
+                        {{ $casa->direccion }}
                     </p>
+                    @endif
                 </div>
             </div>
-            @endforeach
+            @empty
+            <p class="col-span-3 text-center text-gray-400 py-8">No hay Casas de Cultura registradas.</p>
+            @endforelse
         </div>
     </div>
 </section>
@@ -69,23 +75,16 @@
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            @php
-            $bibliotecas = [
-                'Felipe Villanueva', 'San Lucas Xolox', 'Nezahualcóyotl', 'Los Héroes Tecámac',
-                'Acozahuac', 'Amado Nervo', 'Ángeles Mastretta', 'Santa Cruz',
-                'Benito Juárez', 'Ricardo Flores Magón', 'Haciendas Del Bosque',
-                'Sor Juana Inés De La Cruz', 'Joaquín Fernández De Lizardi'
-            ];
-            @endphp
-
-            @foreach($bibliotecas as $i => $bib)
+            @forelse($bibliotecas as $i => $bib)
             <div class="card-hover scroll-hidden stagger-{{ ($i % 6) + 1 }} bg-white rounded-xl p-4 border border-gray-100 text-center group hover:border-blue-300 cursor-pointer">
                 <div class="w-12 h-12 mx-auto bg-blue-50 rounded-xl flex items-center justify-center mb-3 group-hover:bg-blue-600 transition-colors duration-300">
                     <i class="fas fa-book-open text-blue-600 group-hover:text-white transition-colors duration-300"></i>
                 </div>
-                <p class="text-xs font-bold text-dif-dark leading-tight">Biblioteca {{ $bib }}</p>
+                <p class="text-xs font-bold text-dif-dark leading-tight">{{ $bib->nombre }}</p>
             </div>
-            @endforeach
+            @empty
+            <p class="col-span-5 text-center text-gray-400 py-8">No hay Bibliotecas registradas.</p>
+            @endforelse
         </div>
     </div>
 </section>
@@ -100,29 +99,19 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @php
-            $estancias = [
-                ['Estancia Infantil "Paola Espinoza"', 'fa-baby', 'from-pink-500 to-pink-400'],
-                ['Estancia Infantil "Juan Pablo II"', 'fa-child-reaching', 'from-blue-500 to-blue-400'],
-                ['Estancia Infantil "Los Héroes Tecámac"', 'fa-children', 'from-green-500 to-green-400'],
-                ['Estancia Infantil "Hellen Keller"', 'fa-hands-holding-child', 'from-purple-500 to-purple-400'],
-                ['Estancia Infantil "Leona Vicario"', 'fa-child-dress', 'from-amber-500 to-amber-400'],
-                ['Estancia Infantil "Sor Juana Inés de la Cruz"', 'fa-school', 'from-teal-500 to-teal-400'],
-                ['Preescolar "Laura Méndez de Cuenca"', 'fa-graduation-cap', 'from-indigo-500 to-indigo-400'],
-            ];
-            @endphp
-
-            @foreach($estancias as $i => $est)
+            @forelse($estancias as $i => $est)
             <div class="card-hover scroll-hidden stagger-{{ ($i % 6) + 1 }} bg-white rounded-2xl p-6 border border-gray-100 flex items-center gap-4 group hover:border-amber-300">
-                <div class="w-14 h-14 bg-gradient-to-br {{ $est[2] }} rounded-2xl flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <i class="fas {{ $est[1] }} text-white text-xl"></i>
+                <div class="w-14 h-14 bg-gradient-to-br {{ $est->color_gradiente }} rounded-2xl flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    <i class="fas {{ $est->icono }} text-white text-xl"></i>
                 </div>
                 <div>
-                    <h4 class="font-bold text-dif-dark text-sm">{{ $est[0] }}</h4>
+                    <h4 class="font-bold text-dif-dark text-sm">{{ $est->nombre }}</h4>
                     <p class="text-xs text-gray-400 mt-1">Lactantes · Maternales · Preescolar</p>
                 </div>
             </div>
-            @endforeach
+            @empty
+            <p class="col-span-3 text-center text-gray-400 py-8">No hay Estancias Infantiles registradas.</p>
+            @endforelse
         </div>
 
         <div class="mt-12 text-center scroll-hidden">
@@ -160,40 +149,32 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {{-- Event 1 --}}
-            <div class="card-hover scroll-hidden stagger-1 bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/20 text-white group hover:bg-white/20">
+            @forelse($eventos as $i => $evento)
+            @php
+                $evSrc = $evento->imagen
+                    ? (str_starts_with($evento->imagen, 'eventos_culturales/')
+                        ? asset('storage/'.$evento->imagen)
+                        : asset('images/'.$evento->imagen))
+                    : null;
+            @endphp
+            <div class="card-hover scroll-hidden stagger-{{ ($i % 6) + 1 }} bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/20 text-white group hover:bg-white/20">
+                @if($evSrc)
                 <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page2_img3.png" alt="Orquesta Filarmónica" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="{{ $evSrc }}" alt="{{ $evento->titulo }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                 </div>
+                @endif
                 <div class="p-8">
-                <h3 class="text-xl font-extrabold mb-3">Orquesta Filarmónica Municipal</h3>
-                <p class="text-sm font-medium text-dif-pink-light mb-3">"Ilustre Músico Tecamaquense"</p>
-                <p class="text-white/70 text-sm leading-relaxed">Conoce toda la información que necesitas para hacer uso de estos servicios culturales.</p>
+                    <h3 class="text-xl font-extrabold mb-3">{{ $evento->titulo }}</h3>
+                    @if($evento->subtitulo)
+                    <p class="text-sm font-medium text-dif-pink-light mb-3">{{ $evento->subtitulo }}</p>
+                    @endif
+                    <p class="text-white/70 text-sm leading-relaxed">{{ $evento->descripcion }}</p>
                 </div>
             </div>
-            {{-- Event 2 --}}
-            <div class="card-hover scroll-hidden stagger-2 bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/20 text-white group hover:bg-white/20">
-                <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page2_img11.png" alt="Festival Atmósfera 2025" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </div>
-                <div class="p-8">
-                <h3 class="text-xl font-extrabold mb-3">Festival Atmósfera 2025</h3>
-                <p class="text-white/70 text-sm leading-relaxed">Evento cultural y artístico que reúne a la comunidad tecamaquense en un espacio de convivencia y entretenimiento.</p>
-                </div>
-            </div>
-            {{-- Event 3 --}}
-            <div class="card-hover scroll-hidden stagger-3 bg-white/10 backdrop-blur-sm rounded-3xl overflow-hidden border border-white/20 text-white group hover:bg-white/20">
-                <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page2_img12.png" alt="Feria Regional de Tecámac" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </div>
-                <div class="p-8">
-                <h3 class="text-xl font-extrabold mb-3">Feria Regional de Tecámac</h3>
-                <p class="text-white/70 text-sm leading-relaxed">La celebración más importante del municipio con actividades culturales, artísticas y recreativas para toda la familia.</p>
-                </div>
-            </div>
+            @empty
+            <p class="col-span-3 text-center text-white/60 py-8">No hay Eventos Culturales registrados.</p>
+            @endforelse
         </div>
 
         {{-- Programs & Social Service --}}

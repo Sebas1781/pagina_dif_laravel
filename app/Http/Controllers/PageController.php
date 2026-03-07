@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Boletin;
+use App\Models\CasaCultura;
+use App\Models\Biblioteca;
+use App\Models\EstanciaInfantil;
+use App\Models\EventoCultural;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -28,7 +33,12 @@ class PageController extends Controller
 
     public function educacion()
     {
-        return view('pages.educacion');
+        return view('pages.educacion', [
+            'casas'     => CasaCultura::activos()->get(),
+            'bibliotecas' => Biblioteca::activos()->get(),
+            'estancias' => EstanciaInfantil::activos()->get(),
+            'eventos'   => EventoCultural::activos()->get(),
+        ]);
     }
 
     public function directorio()
@@ -48,6 +58,7 @@ class PageController extends Controller
 
     public function boletines()
     {
-        return view('pages.boletines');
+        $boletines = Boletin::activos()->get();
+        return view('pages.boletines', compact('boletines'));
     }
 }
