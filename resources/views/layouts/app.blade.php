@@ -53,9 +53,26 @@
                             <i class="fas fa-chevron-down text-xs transition-transform group-hover:rotate-180"></i>
                         </button>
                         <div class="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                            <a href="{{ route('transparencia') }}" class="block px-5 py-3 text-sm font-medium text-dif-dark hover:bg-dif-cream hover:text-dif-pink rounded-xl transition-colors">
+                            <a href="{{ route('transparencia') }}" class="block px-5 py-3 text-sm font-medium text-dif-dark hover:bg-dif-cream hover:text-dif-pink rounded-t-xl transition-colors">
                                 <i class="fas fa-balance-scale mr-2 text-dif-pink"></i>Ley General de Contabilidad Gubernamental
                             </a>
+                            {{-- SEVAC nested submenu --}}
+                            <div class="group/sevac border-t border-gray-100">
+                                <div class="flex items-center justify-between px-5 py-3 text-sm font-medium text-dif-dark hover:bg-dif-cream hover:text-dif-pink rounded-b-xl group-hover/sevac:rounded-b-none transition-colors cursor-default select-none">
+                                    <span><i class="fas fa-chart-bar mr-2 text-dif-pink"></i>SEVAC</span>
+                                    <i class="fas fa-chevron-down text-xs text-gray-400 transition-transform duration-300 group-hover/sevac:rotate-180"></i>
+                                </div>
+                                <div class="hidden group-hover/sevac:block border-t border-gray-100 bg-gray-50 rounded-b-xl overflow-hidden">
+                                    <a href="{{ route('transparencia') }}#sevac-general" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">General</a>
+                                    <a href="{{ route('transparencia') }}#sevac-2018" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2018</a>
+                                    <a href="{{ route('transparencia') }}#sevac-2019" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2019</a>
+                                    <a href="{{ route('transparencia') }}#sevac-2020" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2020</a>
+                                    <a href="{{ route('transparencia') }}#sevac-2021" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2021</a>
+                                    <a href="{{ route('transparencia') }}#sevac-2022" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2022</a>
+                                    <a href="{{ route('transparencia') }}#sevac-2023" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2023</a>
+                                    <a href="{{ route('transparencia') }}#sevac-2024" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink rounded-b-xl transition-colors">SEVAC 2024</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -101,6 +118,23 @@
                         <a href="{{ route('transparencia') }}" class="block px-4 py-2 rounded-lg text-sm text-white/80 hover:bg-white/10 hover:text-white">
                             <i class="fas fa-balance-scale mr-2 text-dif-pink-light"></i>Ley General de Contabilidad Gubernamental
                         </a>
+                        {{-- SEVAC sub-accordion --}}
+                        <div>
+                            <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="w-full flex items-center justify-between px-4 py-2 rounded-lg text-sm text-white/80 hover:bg-white/10 hover:text-white">
+                                <span><i class="fas fa-chart-bar mr-2 text-dif-pink-light"></i>SEVAC</span>
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                            <div class="hidden pl-4 space-y-1 mt-1">
+                                <a href="{{ route('transparencia') }}#sevac-general" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">General</a>
+                                <a href="{{ route('transparencia') }}#sevac-2018" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2018</a>
+                                <a href="{{ route('transparencia') }}#sevac-2019" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2019</a>
+                                <a href="{{ route('transparencia') }}#sevac-2020" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2020</a>
+                                <a href="{{ route('transparencia') }}#sevac-2021" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2021</a>
+                                <a href="{{ route('transparencia') }}#sevac-2022" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2022</a>
+                                <a href="{{ route('transparencia') }}#sevac-2023" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2023</a>
+                                <a href="{{ route('transparencia') }}#sevac-2024" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2024</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
