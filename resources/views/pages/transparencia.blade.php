@@ -40,7 +40,6 @@
         <div class="flex flex-wrap justify-center gap-3 mb-12 scroll-hidden stagger-1">
             @php
                 $sevacTabs = [
-                    'general' => 'General',
                     '2018'    => 'SEVAC 2018',
                     '2019'    => 'SEVAC 2019',
                     '2020'    => 'SEVAC 2020',
@@ -63,22 +62,193 @@
         {{-- Tab Content Panels --}}
         <div class="min-h-64">
 
-            {{-- Placeholder panels: General, 2018-2023 --}}
-            @foreach(['general','2018','2019','2020','2021','2022','2023'] as $year)
-            <div id="panel-sevac-{{ $year }}" class="sevac-panel hidden">
-                <div class="text-center py-16 px-4">
-                    <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-dif-cream flex items-center justify-center">
-                        <i class="fas fa-chart-bar text-3xl text-dif-pink"></i>
+            {{-- ══════════════ SEVAC 2023 ══════════════ --}}
+            <div id="panel-sevac-2023" class="sevac-panel hidden">
+                @php
+                $sevacData2023 = json_decode(file_get_contents(resource_path('data/sevac.json')), true);
+                $sevac2023Sections = $sevacData2023['2023'] ?? [];
+                @endphp
+
+                <div class="space-y-8">
+                    @foreach($sevac2023Sections as $sectionTitle => $docs)
+                    <div>
+                        <h4 class="text-base font-extrabold text-dif-dark uppercase tracking-wide mb-3 pb-2 border-b-2 border-dif-pink/30">
+                            {{ $sectionTitle }}
+                        </h4>
+                        <div class="border border-gray-200 rounded overflow-hidden">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                                @foreach($docs as $i => [$name, $url])
+                                <a href="{{ $url }}" target="_blank" rel="noopener noreferrer"
+                                   class="flex items-center gap-2 px-4 py-3 border-b border-r border-gray-200 hover:bg-red-50 transition-colors duration-150 group
+                                          {{ ($i % 4 === 3) ? 'lg:border-r-0' : '' }}">
+                                    <i class="fas fa-file-pdf text-dif-pink text-sm shrink-0"></i>
+                                    <span class="text-xs font-semibold text-dif-pink uppercase leading-tight group-hover:underline">{{ $name }}</span>
+                                </a>
+                                @endforeach
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-dif-dark mb-2">
-                        {{ $year === 'general' ? 'SEVAC General' : 'SEVAC ' . $year }}
-                    </h3>
-                    <p class="text-gray-400 text-sm">Contenido en preparaciÃ³n.</p>
+                    @endforeach
                 </div>
             </div>
-            @endforeach
+            {{-- ══════════════ /SEVAC 2023 ══════════════ --}}
 
-            {{-- â•â•â•â•â•â•â•â•â•â•â•â•â•â• SEVAC 2024 â•â•â•â•â•â•â•â•â•â•â•â•â•â• --}}
+            {{-- ══════════════ SEVAC 2022 ══════════════ --}}
+            <div id="panel-sevac-2022" class="sevac-panel hidden">
+                @php
+                $sevacData2022 = json_decode(file_get_contents(resource_path('data/sevac.json')), true);
+                $sevac2022Sections = $sevacData2022['2022'] ?? [];
+                @endphp
+
+                <div class="space-y-8">
+                    @foreach($sevac2022Sections as $sectionTitle => $docs)
+                    <div>
+                        <h4 class="text-base font-extrabold text-dif-dark uppercase tracking-wide mb-3 pb-2 border-b-2 border-dif-pink/30">
+                            {{ $sectionTitle }}
+                        </h4>
+                        <div class="border border-gray-200 rounded overflow-hidden">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                                @foreach($docs as $i => [$name, $url])
+                                <a href="{{ $url }}" target="_blank" rel="noopener noreferrer"
+                                   class="flex items-center gap-2 px-4 py-3 border-b border-r border-gray-200 hover:bg-red-50 transition-colors duration-150 group
+                                          {{ ($i % 4 === 3) ? 'lg:border-r-0' : '' }}">
+                                    <i class="fas fa-file-pdf text-dif-pink text-sm shrink-0"></i>
+                                    <span class="text-xs font-semibold text-dif-pink uppercase leading-tight group-hover:underline">{{ $name }}</span>
+                                </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            {{-- ══════════════ /SEVAC 2022 ══════════════ --}}
+
+            {{-- ══════════════ SEVAC 2021 ══════════════ --}}
+            <div id="panel-sevac-2021" class="sevac-panel hidden">
+                @php
+                $sevacData2021 = json_decode(file_get_contents(resource_path('data/sevac.json')), true);
+                $sevac2021Sections = $sevacData2021['2021'] ?? [];
+                @endphp
+
+                <div class="space-y-8">
+                    @foreach($sevac2021Sections as $sectionTitle => $docs)
+                    <div>
+                        <h4 class="text-base font-extrabold text-dif-dark uppercase tracking-wide mb-3 pb-2 border-b-2 border-dif-pink/30">
+                            {{ $sectionTitle }}
+                        </h4>
+                        <div class="border border-gray-200 rounded overflow-hidden">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                                @foreach($docs as $i => [$name, $url])
+                                <a href="{{ $url }}" target="_blank" rel="noopener noreferrer"
+                                   class="flex items-center gap-2 px-4 py-3 border-b border-r border-gray-200 hover:bg-red-50 transition-colors duration-150 group
+                                          {{ ($i % 4 === 3) ? 'lg:border-r-0' : '' }}">
+                                    <i class="fas fa-file-pdf text-dif-pink text-sm shrink-0"></i>
+                                    <span class="text-xs font-semibold text-dif-pink uppercase leading-tight group-hover:underline">{{ $name }}</span>
+                                </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            {{-- ══════════════ /SEVAC 2021 ══════════════ --}}
+
+            {{-- ══════════════ SEVAC 2020 ══════════════ --}}
+            <div id="panel-sevac-2020" class="sevac-panel hidden">
+                @php
+                $sevacData2020 = json_decode(file_get_contents(resource_path('data/sevac.json')), true);
+                $sevac2020Sections = $sevacData2020['2020'] ?? [];
+                @endphp
+
+                <div class="space-y-8">
+                    @foreach($sevac2020Sections as $sectionTitle => $docs)
+                    <div>
+                        <h4 class="text-base font-extrabold text-dif-dark uppercase tracking-wide mb-3 pb-2 border-b-2 border-dif-pink/30">
+                            {{ $sectionTitle }}
+                        </h4>
+                        <div class="border border-gray-200 rounded overflow-hidden">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                                @foreach($docs as $i => [$name, $url])
+                                <a href="{{ $url }}" target="_blank" rel="noopener noreferrer"
+                                   class="flex items-center gap-2 px-4 py-3 border-b border-r border-gray-200 hover:bg-red-50 transition-colors duration-150 group
+                                          {{ ($i % 4 === 3) ? 'lg:border-r-0' : '' }}">
+                                    <i class="fas fa-file-pdf text-dif-pink text-sm shrink-0"></i>
+                                    <span class="text-xs font-semibold text-dif-pink uppercase leading-tight group-hover:underline">{{ $name }}</span>
+                                </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            {{-- ══════════════ /SEVAC 2020 ══════════════ --}}
+
+            {{-- ══════════════ SEVAC 2019 ══════════════ --}}
+            <div id="panel-sevac-2019" class="sevac-panel hidden">
+                @php
+                $sevacData2019 = json_decode(file_get_contents(resource_path('data/sevac.json')), true);
+                $sevac2019Sections = $sevacData2019['2019'] ?? [];
+                @endphp
+
+                <div class="space-y-8">
+                    @foreach($sevac2019Sections as $sectionTitle => $docs)
+                    <div>
+                        <h4 class="text-base font-extrabold text-dif-dark uppercase tracking-wide mb-3 pb-2 border-b-2 border-dif-pink/30">
+                            {{ $sectionTitle }}
+                        </h4>
+                        <div class="border border-gray-200 rounded overflow-hidden">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                                @foreach($docs as $i => [$name, $url])
+                                <a href="{{ $url }}" target="_blank" rel="noopener noreferrer"
+                                   class="flex items-center gap-2 px-4 py-3 border-b border-r border-gray-200 hover:bg-red-50 transition-colors duration-150 group
+                                          {{ ($i % 4 === 3) ? 'lg:border-r-0' : '' }}">
+                                    <i class="fas fa-file-pdf text-dif-pink text-sm shrink-0"></i>
+                                    <span class="text-xs font-semibold text-dif-pink uppercase leading-tight group-hover:underline">{{ $name }}</span>
+                                </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            {{-- ══════════════ /SEVAC 2019 ══════════════ --}}
+
+            {{-- ══════════════ SEVAC 2018 ══════════════ --}}
+            <div id="panel-sevac-2018" class="sevac-panel hidden">
+                @php
+                $sevacData2018 = json_decode(file_get_contents(resource_path('data/sevac.json')), true);
+                $sevac2018Sections = $sevacData2018['2018'] ?? [];
+                @endphp
+
+                <div class="space-y-8">
+                    @foreach($sevac2018Sections as $sectionTitle => $docs)
+                    <div>
+                        <h4 class="text-base font-extrabold text-dif-dark uppercase tracking-wide mb-3 pb-2 border-b-2 border-dif-pink/30">
+                            {{ $sectionTitle }}
+                        </h4>
+                        <div class="border border-gray-200 rounded overflow-hidden">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                                @foreach($docs as $i => [$name, $url])
+                                <a href="{{ $url }}" target="_blank" rel="noopener noreferrer"
+                                   class="flex items-center gap-2 px-4 py-3 border-b border-r border-gray-200 hover:bg-red-50 transition-colors duration-150 group
+                                          {{ ($i % 4 === 3) ? 'lg:border-r-0' : '' }}">
+                                    <i class="fas fa-file-pdf text-dif-pink text-sm flex-shrink-0"></i>
+                                    <span class="text-xs font-semibold text-dif-pink uppercase leading-tight group-hover:underline">{{ $name }}</span>
+                                </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            {{-- ══════════════ /SEVAC 2018 ══════════════ --}}
+
+            {{-- ══════════════ SEVAC 2024 ══════════════ --}}
             <div id="panel-sevac-2024" class="sevac-panel hidden">
                 @php
                 $sevacData = json_decode(file_get_contents(resource_path('data/sevac.json')), true);
@@ -119,7 +289,7 @@
 
 <script>
     const sevacIds = [
-        'sevac-general','sevac-2018','sevac-2019','sevac-2020',
+        'sevac-2018','sevac-2019','sevac-2020',
         'sevac-2021','sevac-2022','sevac-2023','sevac-2024'
     ];
 
@@ -138,7 +308,7 @@
 
     function initFromHash() {
         const hash = window.location.hash.slice(1);
-        const tabId = sevacIds.includes(hash) ? hash : 'sevac-general';
+        const tabId = sevacIds.includes(hash) ? hash : 'sevac-2024';
         showSevacTab(tabId);
         if (sevacIds.includes(hash)) {
             setTimeout(() => {
