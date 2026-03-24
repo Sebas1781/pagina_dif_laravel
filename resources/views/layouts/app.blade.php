@@ -182,7 +182,7 @@
                 </h4>
 
                 {{-- Links transparencia --}}
-                <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6 mb-6 text-xs sm:text-sm">
+                {{-- <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-6 mb-6 text-xs sm:text-sm">
                     <a href="https://www.gob.mx/imta/acciones-y-programas/sistema-de-evaluacion-de-armonizacion-contable-sevac-250543" target="_blank" class="text-white/90 hover:text-white transition-colors">
                         <i class="fas fa-link mr-1"></i>SEVAC
                     </a>
@@ -192,7 +192,7 @@
                     <a href="https://ipomex.org.mx/ipomex/#/" target="_blank" class="text-white/90 hover:text-white transition-colors">
                         <i class="fas fa-link mr-1"></i>IPOMEX
                     </a>
-                </div>
+                </div> --}}
 
                 {{-- Links inferiores --}}
                 <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs text-white/70">

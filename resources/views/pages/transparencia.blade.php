@@ -32,7 +32,7 @@
             <span class="inline-block bg-dif-pink/10 text-dif-pink font-semibold text-sm px-5 py-2 rounded-full mb-4">
                 <i class="fas fa-chart-bar mr-2"></i>SEVAC
             </span>
-            <h2 class="text-3xl font-extrabold text-dif-dark mb-4">Sistema de EvaluaciÃ³n de ArmonizaciÃ³n Contable</h2>
+            <h2 class="text-3xl font-extrabold text-dif-dark mb-4">Sistema de Evaluación de Armonización Contable</h2>
             <p class="text-gray-500 max-w-xl mx-auto">Selecciona el periodo que deseas consultar.</p>
         </div>
 
@@ -73,7 +73,7 @@
                     <h3 class="text-xl font-bold text-dif-dark mb-2">
                         {{ $year === 'general' ? 'SEVAC General' : 'SEVAC ' . $year }}
                     </h3>
-                    <p class="text-gray-400 text-sm">Contenido en preparaciÃ³n.</p>
+                    <p class="text-gray-400 text-sm">Contenido en preparacin.</p>
                 </div>
             </div>
             @endforeach
