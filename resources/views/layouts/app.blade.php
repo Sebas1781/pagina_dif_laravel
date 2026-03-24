@@ -56,6 +56,9 @@
                             <a href="{{ route('transparencia') }}" class="block px-5 py-3 text-sm font-medium text-dif-dark hover:bg-dif-cream hover:text-dif-pink rounded-t-xl transition-colors">
                                 <i class="fas fa-balance-scale mr-2 text-dif-pink"></i>Ley General de Contabilidad Gubernamental
                             </a>
+                            <a href="https://ipomex.org.mx/ipomex/#/" target="_blank" rel="noopener noreferrer" class="block px-5 py-3 text-sm font-medium text-dif-dark hover:bg-dif-cream hover:text-dif-pink border-t border-gray-100 transition-colors">
+                                <i class="fas fa-globe mr-2 text-dif-pink"></i>IPOMEX
+                            </a>
                             {{-- SEVAC nested submenu --}}
                             <div class="group/sevac border-t border-gray-100">
                                 <div class="flex items-center justify-between px-5 py-3 text-sm font-medium text-dif-dark hover:bg-dif-cream hover:text-dif-pink rounded-b-xl group-hover/sevac:rounded-b-none transition-colors cursor-default select-none">
@@ -63,7 +66,6 @@
                                     <i class="fas fa-chevron-down text-xs text-gray-400 transition-transform duration-300 group-hover/sevac:rotate-180"></i>
                                 </div>
                                 <div class="hidden group-hover/sevac:block border-t border-gray-100 bg-gray-50 rounded-b-xl overflow-hidden">
-                                    <a href="{{ route('transparencia') }}#sevac-general" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">General</a>
                                     <a href="{{ route('transparencia') }}#sevac-2018" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2018</a>
                                     <a href="{{ route('transparencia') }}#sevac-2019" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2019</a>
                                     <a href="{{ route('transparencia') }}#sevac-2020" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2020</a>
@@ -125,7 +127,6 @@
                                 <i class="fas fa-chevron-down text-xs"></i>
                             </button>
                             <div class="hidden pl-4 space-y-1 mt-1">
-                                <a href="{{ route('transparencia') }}#sevac-general" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">General</a>
                                 <a href="{{ route('transparencia') }}#sevac-2018" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2018</a>
                                 <a href="{{ route('transparencia') }}#sevac-2019" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2019</a>
                                 <a href="{{ route('transparencia') }}#sevac-2020" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2020</a>
