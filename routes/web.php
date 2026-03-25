@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\EstanciaInfantilController;
 use App\Http\Controllers\Admin\EventoCulturalController;
 use App\Http\Controllers\Admin\SevacController;
 use App\Http\Controllers\Admin\ConacController;
+use App\Http\Controllers\Admin\PresupuestoController;
 
 Route::get('/', [PageController::class, 'inicio'])->name('inicio');
 Route::get('/nosotros', [PageController::class, 'nosotros'])->name('nosotros');
@@ -50,5 +51,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Documentos CONAC
         Route::resource('conac', ConacController::class)->except(['show']);
+
+        // Documentos Presupuesto
+        Route::resource('presupuesto', PresupuestoController::class)->except(['show']);
     });
 });

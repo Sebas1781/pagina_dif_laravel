@@ -1,20 +1,20 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Editar Documento SEVAC')
-@section('page-title', 'Editar Documento SEVAC')
+@section('title', 'Editar Documento Presupuesto')
+@section('page-title', 'Editar Documento Presupuesto')
 
 @section('content')
 
 <div class="max-w-2xl">
     {{-- Breadcrumb --}}
     <div class="flex items-center gap-2 text-sm text-gray-500 mb-6">
-        <a href="{{ route('admin.sevac.index') }}" class="hover:text-dif-pink transition-colors">Documentos SEVAC</a>
+        <a href="{{ route('admin.presupuesto.index') }}" class="hover:text-dif-pink transition-colors">Documentos Presupuesto</a>
         <i class="fas fa-chevron-right text-xs text-gray-300"></i>
         <span class="text-dif-dark font-medium">Editar</span>
     </div>
 
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-        <form method="POST" action="{{ route('admin.sevac.update', $sevac) }}" enctype="multipart/form-data" novalidate>
+        <form method="POST" action="{{ route('admin.presupuesto.update', $presupuesto) }}" enctype="multipart/form-data" novalidate>
             @csrf
             @method('PUT')
 
@@ -23,7 +23,7 @@
                 <label for="anio" class="block text-sm font-medium text-gray-700 mb-1.5">
                     Año <span class="text-red-500">*</span>
                 </label>
-                <input type="number" id="anio" name="anio" value="{{ old('anio', $sevac->anio) }}" min="2000" max="2099"
+                <input type="number" id="anio" name="anio" value="{{ old('anio', $presupuesto->anio) }}" min="2000" max="2099"
                        class="w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-dif-pink focus:border-transparent
                               {{ $errors->has('anio') ? 'border-red-400 bg-red-50' : 'border-gray-300' }}">
                 @error('anio')
@@ -36,7 +36,7 @@
                 <label for="categoria" class="block text-sm font-medium text-gray-700 mb-1.5">
                     Categoría / Sección <span class="text-red-500">*</span>
                 </label>
-                <input type="text" id="categoria" name="categoria" value="{{ old('categoria', $sevac->categoria) }}" list="lista-categorias"
+                <input type="text" id="categoria" name="categoria" value="{{ old('categoria', $presupuesto->categoria) }}" list="lista-categorias"
                        class="w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-dif-pink focus:border-transparent
                               {{ $errors->has('categoria') ? 'border-red-400 bg-red-50' : 'border-gray-300' }}">
                 <datalist id="lista-categorias">
@@ -55,7 +55,7 @@
                 <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1.5">
                     Nombre del documento <span class="text-red-500">*</span>
                 </label>
-                <input type="text" id="nombre" name="nombre" value="{{ old('nombre', $sevac->nombre) }}"
+                <input type="text" id="nombre" name="nombre" value="{{ old('nombre', $presupuesto->nombre) }}"
                        class="w-full px-4 py-2.5 border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-dif-pink focus:border-transparent
                               {{ $errors->has('nombre') ? 'border-red-400 bg-red-50' : 'border-gray-300' }}">
                 @error('nombre')
@@ -64,16 +64,16 @@
             </div>
 
             {{-- Info actual --}}
-            @if($sevac->tieneArchivo() || $sevac->tieneLink())
+            @if($presupuesto->tieneArchivo() || $presupuesto->tieneLink())
                 <div class="mb-5 p-3 rounded-xl bg-gray-50 border border-gray-200 text-sm">
                     <p class="font-medium text-gray-700 mb-1">Fuente actual:</p>
-                    @if($sevac->tieneArchivo())
-                        <a href="{{ $sevac->url }}" target="_blank" class="text-blue-600 hover:underline flex items-center gap-1">
-                            <i class="fas fa-file-pdf text-dif-pink"></i> {{ basename($sevac->archivo) }}
+                    @if($presupuesto->tieneArchivo())
+                        <a href="{{ $presupuesto->url }}" target="_blank" class="text-blue-600 hover:underline flex items-center gap-1">
+                            <i class="fas fa-file-pdf text-dif-pink"></i> {{ basename($presupuesto->archivo) }}
                         </a>
                     @else
-                        <a href="{{ $sevac->link_externo }}" target="_blank" class="text-purple-600 hover:underline flex items-center gap-1">
-                            <i class="fas fa-link text-purple-500"></i> {{ \Illuminate\Support\Str::limit($sevac->link_externo, 60) }}
+                        <a href="{{ $presupuesto->link_externo }}" target="_blank" class="text-purple-600 hover:underline flex items-center gap-1">
+                            <i class="fas fa-link text-purple-500"></i> {{ \Illuminate\Support\Str::limit($presupuesto->link_externo, 60) }}
                         </a>
                     @endif
                 </div>
@@ -81,7 +81,7 @@
 
             {{-- Tipo de fuente --}}
             @php
-                $tipoActual = old('tipo_fuente', $sevac->tieneArchivo() ? 'archivo' : 'link');
+                $tipoActual = old('tipo_fuente', $presupuesto->tieneArchivo() ? 'archivo' : 'link');
             @endphp
             <div class="mb-5">
                 <label class="block text-sm font-medium text-gray-700 mb-3">
@@ -115,7 +115,7 @@
 
                 {{-- Link externo --}}
                 <div id="fuente-link" class="{{ $tipoActual === 'link' ? '' : 'hidden' }}">
-                    <input type="url" id="link_externo" name="link_externo" value="{{ old('link_externo', $sevac->link_externo) }}"
+                    <input type="url" id="link_externo" name="link_externo" value="{{ old('link_externo', $presupuesto->link_externo) }}"
                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-dif-pink focus:border-transparent"
                            placeholder="https://drive.google.com/file/d/...">
                     <p class="mt-1 text-xs text-gray-400">URL completa del documento (Google Drive, etc.)</p>
@@ -129,14 +129,14 @@
             <div class="grid grid-cols-2 gap-5 mb-6">
                 <div>
                     <label for="orden" class="block text-sm font-medium text-gray-700 mb-1.5">Orden</label>
-                    <input type="number" id="orden" name="orden" value="{{ old('orden', $sevac->orden) }}" min="0"
+                    <input type="number" id="orden" name="orden" value="{{ old('orden', $presupuesto->orden) }}" min="0"
                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-dif-pink focus:border-transparent">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1.5">Estado</label>
                     <label class="flex items-center gap-3 mt-3 cursor-pointer">
                         <input type="checkbox" name="activo" value="1"
-                               {{ old('activo', $sevac->activo) ? 'checked' : '' }}
+                               {{ old('activo', $presupuesto->activo) ? 'checked' : '' }}
                                class="w-4 h-4 accent-dif-pink rounded">
                         <span class="text-sm text-gray-600">Visible en el sitio</span>
                     </label>
@@ -149,7 +149,7 @@
                     class="px-6 py-2.5 bg-dif-pink text-white text-sm font-semibold rounded-xl hover:bg-dif-pink-dark transition-colors duration-200">
                     Actualizar documento
                 </button>
-                <a href="{{ route('admin.sevac.index') }}"
+                <a href="{{ route('admin.presupuesto.index') }}"
                    class="px-5 py-2.5 text-sm font-medium text-gray-600 border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors duration-200">
                     Cancelar
                 </a>

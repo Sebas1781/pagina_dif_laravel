@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\DocumentoConac;
+use App\Models\DocumentoPresupuesto;
 use App\Models\DocumentoSevac;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -26,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         View::composer('layouts.app', function ($view) {
             $view->with('sevacAniosNav', DocumentoSevac::aniosDisponibles());
             $view->with('conacAniosNav', DocumentoConac::aniosDisponibles());
+            $view->with('presupuestoAniosNav', DocumentoPresupuesto::aniosDisponibles());
         });
     }
 }

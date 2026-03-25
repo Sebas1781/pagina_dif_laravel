@@ -9,6 +9,7 @@ use App\Models\EstanciaInfantil;
 use App\Models\EventoCultural;
 use App\Models\DocumentoSevac;
 use App\Models\DocumentoConac;
+use App\Models\DocumentoPresupuesto;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -50,12 +51,14 @@ class PageController extends Controller
 
     public function transparencia()
     {
-        $sevacData  = DocumentoSevac::agrupadosPorAnio();
-        $sevacAnios = DocumentoSevac::aniosDisponibles();
-        $conacData  = DocumentoConac::agrupadosPorAnio();
-        $conacAnios = DocumentoConac::aniosDisponibles();
+        $sevacData        = DocumentoSevac::agrupadosPorAnio();
+        $sevacAnios       = DocumentoSevac::aniosDisponibles();
+        $conacData        = DocumentoConac::agrupadosPorAnio();
+        $conacAnios       = DocumentoConac::aniosDisponibles();
+        $presupuestoData  = DocumentoPresupuesto::agrupadosPorAnio();
+        $presupuestoAnios = DocumentoPresupuesto::aniosDisponibles();
 
-        return view('pages.transparencia', compact('sevacData', 'sevacAnios', 'conacData', 'conacAnios'));
+        return view('pages.transparencia', compact('sevacData', 'sevacAnios', 'conacData', 'conacAnios', 'presupuestoData', 'presupuestoAnios'));
     }
 
     public function remtys()

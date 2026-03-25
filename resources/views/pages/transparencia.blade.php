@@ -146,9 +146,76 @@
     </div>
 </section>
 
+{{-- PRESUPUESTO --}}
+<section id="presupuesto" class="py-20 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center mb-12 scroll-hidden">
+            <span class="inline-block bg-dif-pink/10 text-dif-pink font-semibold text-sm px-5 py-2 rounded-full mb-4">
+                <i class="fas fa-coins mr-2"></i>PRESUPUESTO
+            </span>
+            <h2 class="text-3xl font-extrabold text-dif-dark mb-4">Presupuesto y Ejercicio del Gasto</h2>
+            <p class="text-gray-500 max-w-xl mx-auto">Selecciona el periodo que deseas consultar.</p>
+        </div>
+
+        @if(count($presupuestoAnios) > 0)
+
+        {{-- Tab Buttons --}}
+        <div class="flex flex-wrap justify-center gap-3 mb-12 scroll-hidden stagger-1">
+            @foreach($presupuestoAnios as $anio)
+            <button
+                onclick="showPresupuestoTab('presupuesto-{{ $anio }}')"
+                id="btn-presupuesto-{{ $anio }}"
+                class="presupuesto-tab-btn px-5 py-2.5 rounded-full text-sm font-semibold border-2 bg-white text-dif-dark border-gray-200 hover:border-dif-pink hover:text-dif-pink transition-all duration-300 cursor-pointer">
+                Presupuesto {{ $anio }}
+            </button>
+            @endforeach
+        </div>
+
+        {{-- Tab Content Panels --}}
+        <div class="min-h-64">
+            @foreach($presupuestoData as $anio => $secciones)
+            <div id="panel-presupuesto-{{ $anio }}" class="presupuesto-panel hidden">
+                <div class="space-y-8">
+                    @foreach($secciones as $sectionTitle => $docs)
+                    <div>
+                        <h4 class="text-base font-extrabold text-dif-dark uppercase tracking-wide mb-3 pb-2 border-b-2 border-dif-pink/30">
+                            {{ $sectionTitle }}
+                        </h4>
+                        <div class="border border-gray-200 rounded overflow-hidden">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                                @foreach($docs as $i => $doc)
+                                <a href="{{ $doc->url }}" target="_blank" rel="noopener noreferrer"
+                                   class="flex items-center gap-2 px-4 py-3 border-b border-r border-gray-200 hover:bg-red-50 transition-colors duration-150 group
+                                          {{ ($i % 4 === 3) ? 'lg:border-r-0' : '' }}">
+                                    <i class="fas fa-file-pdf text-dif-pink text-sm shrink-0"></i>
+                                    <span class="text-xs font-semibold text-dif-pink uppercase leading-tight group-hover:underline">{{ $doc->nombre }}</span>
+                                </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        @else
+        <div class="text-center py-20 text-gray-400">
+            <i class="fas fa-folder-open text-5xl mb-4 block"></i>
+            <p class="text-lg font-medium">Próximamente</p>
+            <p class="text-sm mt-1">Los documentos de Presupuesto estarán disponibles en breve.</p>
+        </div>
+        @endif
+
+    </div>
+</section>
+
 <script>
     const sevacIds = [@foreach($sevacAnios as $anio)'sevac-{{ $anio }}',@endforeach];
     const conacIds = [@foreach($conacAnios as $anio)'conac-{{ $anio }}',@endforeach];
+    const presupuestoIds = [@foreach($presupuestoAnios as $anio)'presupuesto-{{ $anio }}',@endforeach];
 
     function showSevacTab(tabId) {
         sevacIds.forEach(id => {
@@ -176,6 +243,19 @@
         active.classList.remove('bg-white', 'text-dif-dark', 'border-gray-200');
     }
 
+    function showPresupuestoTab(tabId) {
+        presupuestoIds.forEach(id => {
+            document.getElementById('panel-' + id).classList.add('hidden');
+            const btn = document.getElementById('btn-' + id);
+            btn.classList.remove('bg-dif-pink', 'text-white', 'border-dif-pink', 'shadow-lg');
+            btn.classList.add('bg-white', 'text-dif-dark', 'border-gray-200');
+        });
+        document.getElementById('panel-' + tabId).classList.remove('hidden');
+        const active = document.getElementById('btn-' + tabId);
+        active.classList.add('bg-dif-pink', 'text-white', 'border-dif-pink', 'shadow-lg');
+        active.classList.remove('bg-white', 'text-dif-dark', 'border-gray-200');
+    }
+
     function initFromHash() {
         const hash = window.location.hash.slice(1);
         // Inicializar SEVAC
@@ -186,12 +266,19 @@
         const defaultConac = conacIds.length ? conacIds[0] : null;
         if (defaultConac && !sevacIds.includes(hash)) showConacTab(defaultConac);
         if (conacIds.includes(hash)) showConacTab(hash);
+        // Inicializar Presupuesto
+        const defaultPresupuesto = presupuestoIds.length ? presupuestoIds[0] : null;
+        if (defaultPresupuesto && !sevacIds.includes(hash) && !conacIds.includes(hash)) showPresupuestoTab(defaultPresupuesto);
+        if (presupuestoIds.includes(hash)) showPresupuestoTab(hash);
         // Scroll al apartado correcto
         if (sevacIds.includes(hash)) {
             setTimeout(() => document.getElementById('sevac').scrollIntoView({ behavior: 'smooth' }), 150);
         }
         if (conacIds.includes(hash)) {
             setTimeout(() => document.getElementById('conac').scrollIntoView({ behavior: 'smooth' }), 150);
+        }
+        if (presupuestoIds.includes(hash)) {
+            setTimeout(() => document.getElementById('presupuesto').scrollIntoView({ behavior: 'smooth' }), 150);
         }
     }
 
@@ -206,6 +293,10 @@
         if (conacIds.includes(hash)) {
             showConacTab(hash);
             document.getElementById('conac').scrollIntoView({ behavior: 'smooth' });
+        }
+        if (presupuestoIds.includes(hash)) {
+            showPresupuestoTab(hash);
+            document.getElementById('presupuesto').scrollIntoView({ behavior: 'smooth' });
         }
     });
 </script>

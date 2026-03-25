@@ -3,17 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\DocumentoSevac;
+use App\Models\DocumentoPresupuesto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class SevacController extends Controller
+class PresupuestoController extends Controller
 {
     public function index(Request $request)
     {
-        $query = DocumentoSevac::query();
+        $query = DocumentoPresupuesto::query();
 
-        // Filtros
         if ($request->filled('anio')) {
             $query->where('anio', $request->anio);
         }
@@ -30,29 +29,27 @@ class SevacController extends Controller
             ->paginate(20)
             ->withQueryString();
 
-        // Años disponibles para el filtro
-        $anios = DocumentoSevac::select('anio')
+        $anios = DocumentoPresupuesto::select('anio')
             ->distinct()
             ->orderByDesc('anio')
             ->pluck('anio');
 
-        return view('admin.sevac.index', compact('documentos', 'anios'));
+        return view('admin.presupuesto.index', compact('documentos', 'anios'));
     }
 
     public function create()
     {
-        // Categorías existentes para el datalist
-        $categorias = DocumentoSevac::select('categoria')
+        $categorias = DocumentoPresupuesto::select('categoria')
             ->distinct()
             ->orderBy('categoria')
             ->pluck('categoria');
 
-        $anios = DocumentoSevac::select('anio')
+        $anios = DocumentoPresupuesto::select('anio')
             ->distinct()
             ->orderByDesc('anio')
             ->pluck('anio');
 
-        return view('admin.sevac.create', compact('categorias', 'anios'));
+        return view('admin.presupuesto.create', compact('categorias', 'anios'));
     }
 
     public function store(Request $request)
@@ -68,7 +65,7 @@ class SevacController extends Controller
             'activo'       => ['nullable', 'boolean'],
         ]);
 
-        $doc = new DocumentoSevac();
+        $doc = new DocumentoPresupuesto();
         $doc->anio      = $data['anio'];
         $doc->categoria = $data['categoria'];
         $doc->nombre    = $data['nombre'];
@@ -76,33 +73,33 @@ class SevacController extends Controller
         $doc->activo    = $request->boolean('activo', true);
 
         if ($request->tipo_fuente === 'archivo' && $request->hasFile('archivo')) {
-            $doc->archivo = $request->file('archivo')->store('sevac/' . $data['anio'], 'public');
+            $doc->archivo = $request->file('archivo')->store('presupuesto/' . $data['anio'], 'public');
         } elseif ($request->tipo_fuente === 'link') {
             $doc->link_externo = $data['link_externo'];
         }
 
         $doc->save();
 
-        return redirect()->route('admin.sevac.index')
-            ->with('success', 'Documento SEVAC creado correctamente.');
+        return redirect()->route('admin.presupuesto.index')
+            ->with('success', 'Documento de Presupuesto creado correctamente.');
     }
 
-    public function edit(DocumentoSevac $sevac)
+    public function edit(DocumentoPresupuesto $presupuesto)
     {
-        $categorias = DocumentoSevac::select('categoria')
+        $categorias = DocumentoPresupuesto::select('categoria')
             ->distinct()
             ->orderBy('categoria')
             ->pluck('categoria');
 
-        $anios = DocumentoSevac::select('anio')
+        $anios = DocumentoPresupuesto::select('anio')
             ->distinct()
             ->orderByDesc('anio')
             ->pluck('anio');
 
-        return view('admin.sevac.edit', compact('sevac', 'categorias', 'anios'));
+        return view('admin.presupuesto.edit', compact('presupuesto', 'categorias', 'anios'));
     }
 
-    public function update(Request $request, DocumentoSevac $sevac)
+    public function update(Request $request, DocumentoPresupuesto $presupuesto)
     {
         $data = $request->validate([
             'anio'         => ['required', 'integer', 'min:2000', 'max:2099'],
@@ -115,45 +112,43 @@ class SevacController extends Controller
             'activo'       => ['nullable', 'boolean'],
         ]);
 
-        $sevac->anio      = $data['anio'];
-        $sevac->categoria = $data['categoria'];
-        $sevac->nombre    = $data['nombre'];
-        $sevac->orden     = $data['orden'] ?? 0;
-        $sevac->activo    = $request->boolean('activo');
+        $presupuesto->anio      = $data['anio'];
+        $presupuesto->categoria = $data['categoria'];
+        $presupuesto->nombre    = $data['nombre'];
+        $presupuesto->orden     = $data['orden'] ?? 0;
+        $presupuesto->activo    = $request->boolean('activo');
 
         if ($request->tipo_fuente === 'archivo') {
             if ($request->hasFile('archivo')) {
-                // Borrar archivo anterior si existe
-                if ($sevac->archivo) {
-                    Storage::disk('public')->delete($sevac->archivo);
+                if ($presupuesto->archivo) {
+                    Storage::disk('public')->delete($presupuesto->archivo);
                 }
-                $sevac->archivo      = $request->file('archivo')->store('sevac/' . $data['anio'], 'public');
-                $sevac->link_externo = null;
+                $presupuesto->archivo      = $request->file('archivo')->store('presupuesto/' . $data['anio'], 'public');
+                $presupuesto->link_externo = null;
             }
         } elseif ($request->tipo_fuente === 'link') {
-            // Borrar archivo si cambia a link
-            if ($sevac->archivo) {
-                Storage::disk('public')->delete($sevac->archivo);
-                $sevac->archivo = null;
+            if ($presupuesto->archivo) {
+                Storage::disk('public')->delete($presupuesto->archivo);
+                $presupuesto->archivo = null;
             }
-            $sevac->link_externo = $data['link_externo'];
+            $presupuesto->link_externo = $data['link_externo'];
         }
 
-        $sevac->save();
+        $presupuesto->save();
 
-        return redirect()->route('admin.sevac.index')
-            ->with('success', 'Documento SEVAC actualizado correctamente.');
+        return redirect()->route('admin.presupuesto.index')
+            ->with('success', 'Documento de Presupuesto actualizado correctamente.');
     }
 
-    public function destroy(DocumentoSevac $sevac)
+    public function destroy(DocumentoPresupuesto $presupuesto)
     {
-        if ($sevac->archivo) {
-            Storage::disk('public')->delete($sevac->archivo);
+        if ($presupuesto->archivo) {
+            Storage::disk('public')->delete($presupuesto->archivo);
         }
 
-        $sevac->delete();
+        $presupuesto->delete();
 
-        return redirect()->route('admin.sevac.index')
-            ->with('success', 'Documento SEVAC eliminado.');
+        return redirect()->route('admin.presupuesto.index')
+            ->with('success', 'Documento de Presupuesto eliminado.');
     }
 }

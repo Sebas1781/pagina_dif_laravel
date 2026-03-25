@@ -86,8 +86,12 @@
                           {{ request()->routeIs('admin.conac.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
                     <i class="fas fa-landmark w-4 text-center"></i>
                     Documentos CONAC
+                </a>                <a href="{{ route('admin.presupuesto.index') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200
+                          {{ request()->routeIs('admin.presupuesto.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-coins w-4 text-center"></i>
+                    Documentos Presupuesto
                 </a>
-
                 {{-- Aquí se agregarán más secciones --}}
             </nav>
 
