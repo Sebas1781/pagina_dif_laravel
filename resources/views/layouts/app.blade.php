@@ -60,19 +60,31 @@
                                 <i class="fas fa-globe mr-2 text-dif-pink"></i>IPOMEX
                             </a>
                             {{-- SEVAC nested submenu --}}
-                            <div class="group/sevac border-t border-gray-100">
-                                <div class="flex items-center justify-between px-5 py-3 text-sm font-medium text-dif-dark hover:bg-dif-cream hover:text-dif-pink rounded-b-xl group-hover/sevac:rounded-b-none transition-colors cursor-default select-none">
+                            <div class="border-t border-gray-100">
+                                <button onclick="toggleNavSubmenu('nav-sevac', this)"
+                                    class="w-full flex items-center justify-between px-5 py-3 text-sm font-medium text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">
                                     <span><i class="fas fa-chart-bar mr-2 text-dif-pink"></i>SEVAC</span>
-                                    <i class="fas fa-chevron-down text-xs text-gray-400 transition-transform duration-300 group-hover/sevac:rotate-180"></i>
+                                    <i class="fas fa-chevron-down text-xs text-gray-400 transition-transform duration-300"></i>
+                                </button>
+                                <div id="nav-sevac" class="hidden border-t border-gray-100 bg-gray-50 overflow-hidden">
+                                    @foreach($sevacAniosNav as $anio)
+                                        <a href="{{ route('transparencia') }}#sevac-{{ $anio }}" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink {{ $loop->last ? 'rounded-b-xl' : '' }} transition-colors">SEVAC {{ $anio }}</a>
+                                    @endforeach
                                 </div>
-                                <div class="hidden group-hover/sevac:block border-t border-gray-100 bg-gray-50 rounded-b-xl overflow-hidden">
-                                    <a href="{{ route('transparencia') }}#sevac-2018" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2018</a>
-                                    <a href="{{ route('transparencia') }}#sevac-2019" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2019</a>
-                                    <a href="{{ route('transparencia') }}#sevac-2020" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2020</a>
-                                    <a href="{{ route('transparencia') }}#sevac-2021" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2021</a>
-                                    <a href="{{ route('transparencia') }}#sevac-2022" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2022</a>
-                                    <a href="{{ route('transparencia') }}#sevac-2023" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink transition-colors">SEVAC 2023</a>
-                                    <a href="{{ route('transparencia') }}#sevac-2024" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink rounded-b-xl transition-colors">SEVAC 2024</a>
+                            </div>
+                            {{-- CONAC nested submenu --}}
+                            <div class="border-t border-gray-100">
+                                <button onclick="toggleNavSubmenu('nav-conac', this)"
+                                    class="w-full flex items-center justify-between px-5 py-3 text-sm font-medium text-dif-dark hover:bg-dif-cream hover:text-dif-pink rounded-b-xl transition-colors">
+                                    <span><i class="fas fa-landmark mr-2 text-dif-pink"></i>CONAC</span>
+                                    <i class="fas fa-chevron-down text-xs text-gray-400 transition-transform duration-300"></i>
+                                </button>
+                                <div id="nav-conac" class="hidden border-t border-gray-100 bg-gray-50 rounded-b-xl overflow-hidden">
+                                    @forelse($conacAniosNav as $anio)
+                                        <a href="{{ route('transparencia') }}#conac-{{ $anio }}" class="block px-8 py-2.5 text-sm text-dif-dark hover:bg-dif-cream hover:text-dif-pink {{ $loop->last ? 'rounded-b-xl' : '' }} transition-colors">CONAC {{ $anio }}</a>
+                                    @empty
+                                        <span class="block px-8 py-2.5 text-sm text-gray-400 italic rounded-b-xl">Sin documentos aún</span>
+                                    @endforelse
                                 </div>
                             </div>
                         </div>
@@ -127,13 +139,22 @@
                                 <i class="fas fa-chevron-down text-xs"></i>
                             </button>
                             <div class="hidden pl-4 space-y-1 mt-1">
-                                <a href="{{ route('transparencia') }}#sevac-2018" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2018</a>
-                                <a href="{{ route('transparencia') }}#sevac-2019" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2019</a>
-                                <a href="{{ route('transparencia') }}#sevac-2020" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2020</a>
-                                <a href="{{ route('transparencia') }}#sevac-2021" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2021</a>
-                                <a href="{{ route('transparencia') }}#sevac-2022" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2022</a>
-                                <a href="{{ route('transparencia') }}#sevac-2023" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2023</a>
-                                <a href="{{ route('transparencia') }}#sevac-2024" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC 2024</a>
+                                @foreach($sevacAniosNav as $anio)
+                                    <a href="{{ route('transparencia') }}#sevac-{{ $anio }}" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">SEVAC {{ $anio }}</a>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div>
+                            <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="w-full flex items-center justify-between px-4 py-2 rounded-lg text-sm text-white/80 hover:bg-white/10 hover:text-white">
+                                <span><i class="fas fa-landmark mr-2 text-dif-pink-light"></i>CONAC</span>
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                            <div class="hidden pl-4 space-y-1 mt-1">
+                                @forelse($conacAniosNav as $anio)
+                                    <a href="{{ route('transparencia') }}#conac-{{ $anio }}" class="block px-4 py-2 rounded-lg text-xs text-white/70 hover:bg-white/10 hover:text-white">CONAC {{ $anio }}</a>
+                                @empty
+                                    <span class="block px-4 py-2 text-xs text-white/40 italic">Sin documentos aún</span>
+                                @endforelse
                             </div>
                         </div>
                     </div>
@@ -305,6 +326,37 @@
         }, { threshold: 0.5 });
 
         document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+    </script>
+
+    <script>
+        // Toggle submenús SEVAC / CONAC en el dropdown de Transparencia (desktop)
+        function toggleNavSubmenu(id, btn) {
+            const menu = document.getElementById(id);
+            const icon = btn.querySelector('.fa-chevron-down');
+            const isHidden = menu.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180', !isHidden);
+            // Cerrar el otro si está abierto
+            const other = id === 'nav-sevac' ? 'nav-conac' : 'nav-sevac';
+            const otherMenu = document.getElementById(other);
+            if (otherMenu && !otherMenu.classList.contains('hidden')) {
+                otherMenu.classList.add('hidden');
+                const otherBtn = otherMenu.previousElementSibling;
+                if (otherBtn) otherBtn.querySelector('.fa-chevron-down')?.classList.remove('rotate-180');
+            }
+        }
+        // Cerrar submenús al hacer clic fuera del dropdown
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.relative.group')) {
+                ['nav-sevac', 'nav-conac'].forEach(id => {
+                    const menu = document.getElementById(id);
+                    if (menu && !menu.classList.contains('hidden')) {
+                        menu.classList.add('hidden');
+                        const btn = menu.previousElementSibling;
+                        if (btn) btn.querySelector('.fa-chevron-down')?.classList.remove('rotate-180');
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>

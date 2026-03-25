@@ -72,6 +72,22 @@
                     <i class="fas fa-star w-4 text-center"></i>
                     Eventos Culturales
                 </a>
+                <p class="px-4 pt-4 pb-1 text-xs font-semibold text-white/30 uppercase tracking-widest">Transparencia</p>
+
+                <a href="{{ route('admin.sevac.index') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                          {{ request()->routeIs('admin.sevac.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-file-pdf w-4 text-center"></i>
+                    Documentos SEVAC
+                </a>
+
+                <a href="{{ route('admin.conac.index') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                          {{ request()->routeIs('admin.conac.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-landmark w-4 text-center"></i>
+                    Documentos CONAC
+                </a>
+
                 {{-- Aquí se agregarán más secciones --}}
             </nav>
 

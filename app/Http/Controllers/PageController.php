@@ -7,6 +7,8 @@ use App\Models\CasaCultura;
 use App\Models\Biblioteca;
 use App\Models\EstanciaInfantil;
 use App\Models\EventoCultural;
+use App\Models\DocumentoSevac;
+use App\Models\DocumentoConac;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -48,7 +50,12 @@ class PageController extends Controller
 
     public function transparencia()
     {
-        return view('pages.transparencia');
+        $sevacData  = DocumentoSevac::agrupadosPorAnio();
+        $sevacAnios = DocumentoSevac::aniosDisponibles();
+        $conacData  = DocumentoConac::agrupadosPorAnio();
+        $conacAnios = DocumentoConac::aniosDisponibles();
+
+        return view('pages.transparencia', compact('sevacData', 'sevacAnios', 'conacData', 'conacAnios'));
     }
 
     public function remtys()

@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\CasaCulturaController;
 use App\Http\Controllers\Admin\BibliotecaController;
 use App\Http\Controllers\Admin\EstanciaInfantilController;
 use App\Http\Controllers\Admin\EventoCulturalController;
+use App\Http\Controllers\Admin\SevacController;
+use App\Http\Controllers\Admin\ConacController;
 
 Route::get('/', [PageController::class, 'inicio'])->name('inicio');
 Route::get('/nosotros', [PageController::class, 'nosotros'])->name('nosotros');
@@ -42,5 +44,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('bibliotecas',          BibliotecaController::class)->except(['show']);
         Route::resource('estancias_infantiles', EstanciaInfantilController::class)->except(['show']);
         Route::resource('eventos_culturales',   EventoCulturalController::class)->except(['show']);
+
+        // Documentos SEVAC
+        Route::resource('sevac', SevacController::class)->except(['show']);
+
+        // Documentos CONAC
+        Route::resource('conac', ConacController::class)->except(['show']);
     });
 });
