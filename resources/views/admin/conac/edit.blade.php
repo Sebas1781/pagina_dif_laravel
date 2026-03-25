@@ -107,7 +107,7 @@
                     <input type="file" id="archivo" name="archivo" accept=".pdf"
                            class="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0
                                   file:text-sm file:font-medium file:bg-dif-pink/10 file:text-dif-pink hover:file:bg-dif-pink/20 cursor-pointer">
-                    <p class="mt-1 text-xs text-gray-400">Dejar vacío para conservar el archivo actual. Solo PDF. Máx. 30 MB.</p>
+                    <p class="mt-1 text-xs text-gray-400">Dejar vacío para conservar el archivo actual. Solo PDF. Máx. 200 MB.</p>
                     @error('archivo')
                         <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
                     @enderror
