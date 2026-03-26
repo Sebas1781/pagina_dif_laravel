@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Boletin extends Model
+class Carrusel extends Model
 {
-    protected $table = 'boletines';
+    protected $table = 'carrusel';
 
     protected $fillable = [
         'titulo',
-        'descripcion',
         'imagen',
-        'url_referencia',
+        'url',
+        'archivo',
         'activo',
         'orden',
     ];

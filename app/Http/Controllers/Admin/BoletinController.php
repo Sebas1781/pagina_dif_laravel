@@ -23,11 +23,12 @@ class BoletinController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'titulo'      => ['required', 'string', 'max:255'],
-            'descripcion' => ['required', 'string'],
-            'imagen'      => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
-            'activo'      => ['nullable', 'boolean'],
-            'orden'       => ['nullable', 'integer', 'min:0'],
+            'titulo'          => ['required', 'string', 'max:255'],
+            'descripcion'     => ['required', 'string'],
+            'imagen'          => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:51200'],
+            'url_referencia'  => ['nullable', 'url', 'max:500'],
+            'activo'          => ['nullable', 'boolean'],
+            'orden'           => ['nullable', 'integer', 'min:0'],
         ]);
 
         if ($request->hasFile('imagen')) {
@@ -50,11 +51,12 @@ class BoletinController extends Controller
     public function update(Request $request, Boletin $boletin)
     {
         $data = $request->validate([
-            'titulo'      => ['required', 'string', 'max:255'],
-            'descripcion' => ['required', 'string'],
-            'imagen'      => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
-            'activo'      => ['nullable', 'boolean'],
-            'orden'       => ['nullable', 'integer', 'min:0'],
+            'titulo'          => ['required', 'string', 'max:255'],
+            'descripcion'     => ['required', 'string'],
+            'imagen'          => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:51200'],
+            'url_referencia'  => ['nullable', 'url', 'max:500'],
+            'activo'          => ['nullable', 'boolean'],
+            'orden'           => ['nullable', 'integer', 'min:0'],
         ]);
 
         if ($request->hasFile('imagen')) {

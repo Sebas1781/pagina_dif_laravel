@@ -3,6 +3,167 @@
 
 @section('content')
 
+{{-- ══════════════════════════════════════════════
+     CARRUSEL PRINCIPAL (Vanilla JS)
+══════════════════════════════════════════════ --}}
+@if($slides->count())
+<style>
+    /* ── Carrusel animations ── */
+    #carrusel-hero .slide {
+        position: absolute; inset: 0;
+        opacity: 0;
+        transform: translateX(60px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+        z-index: 0;
+        pointer-events: none;
+    }
+    #carrusel-hero .slide.active {
+        opacity: 1;
+        transform: translateX(0);
+        z-index: 10;
+        pointer-events: auto;
+    }
+    #carrusel-hero .slide.leaving {
+        opacity: 0;
+        transform: translateX(-60px);
+        z-index: 5;
+    }
+    /* Title animation */
+    @keyframes carruselTitleIn {
+        from { transform: translateY(22px); opacity: 0; }
+        to   { transform: translateY(0);    opacity: 1; }
+    }
+    #carrusel-hero .slide.active .slide-title {
+        animation: carruselTitleIn 0.65s 0.15s ease both;
+    }
+    /* Dot active */
+    .dot-carrusel { width: 10px; height: 10px; border-radius: 9999px; background: rgba(255,255,255,0.45); transition: all 0.35s; cursor: pointer; border: none; }
+    .dot-carrusel.active { width: 24px; background: #fff; }
+</style>
+
+<section class="relative w-full overflow-hidden bg-dif-pink-dark" style="height: clamp(360px, 70vw, 800px);" id="carrusel-hero">
+
+    {{-- Slides --}}
+    <div class="relative w-full h-full">
+        @foreach($slides as $i => $slide)
+            @php
+                $enlace = $slide->archivo
+                    ? asset('storage/' . $slide->archivo)
+                    : ($slide->url ?: null);
+                $target = $enlace ? '_blank' : null;
+            @endphp
+            <div class="slide {{ $i === 0 ? 'active' : '' }}" data-index="{{ $i }}">
+                {{-- Si tiene enlace: toda la imagen es clickeable --}}
+                @if($enlace)
+                    <a href="{{ $enlace }}" target="{{ $target }}" rel="noopener noreferrer" class="absolute inset-0 z-[1]">
+                        <span class="sr-only">{{ $slide->titulo }}</span>
+                    </a>
+                @endif
+
+                {{-- Imagen de fondo --}}
+                @if($slide->imagen)
+                    <img src="{{ asset('storage/' . $slide->imagen) }}" alt="{{ $slide->titulo }}"
+                         class="absolute inset-0 w-full h-full object-cover">
+                @else
+                    <div class="absolute inset-0 bg-linear-to-br from-dif-pink-dark to-dif-magenta"></div>
+                @endif
+
+                {{-- Overlay degradado --}}
+                <div class="absolute inset-0 bg-linear-to-r from-black/60 via-black/25 to-transparent"></div>
+
+                {{-- Título del slide --}}
+                <div class="absolute inset-0 flex items-end sm:items-center pointer-events-none">
+                    <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 w-full pb-16 sm:pb-0">
+                        <h2 class="slide-title text-white font-extrabold text-2xl sm:text-4xl lg:text-5xl leading-tight drop-shadow-lg max-w-xl">
+                            {{ $slide->titulo }}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+    {{-- Botón anterior --}}
+    <button type="button" id="carrusel-prev"
+            class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/35 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/60 transition-all duration-200 cursor-pointer focus:outline-none">
+        <i class="fas fa-chevron-left text-sm sm:text-base"></i>
+    </button>
+
+    {{-- Botón siguiente --}}
+    <button type="button" id="carrusel-next"
+            class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/35 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/60 transition-all duration-200 cursor-pointer focus:outline-none">
+        <i class="fas fa-chevron-right text-sm sm:text-base"></i>
+    </button>
+
+    {{-- Indicadores (dots) --}}
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+        @foreach($slides as $i => $slide)
+            <button type="button" class="dot-carrusel {{ $i === 0 ? 'active' : '' }}" data-goto="{{ $i }}"></button>
+        @endforeach
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const section = document.getElementById('carrusel-hero');
+    if (!section) return;
+
+    const slides = section.querySelectorAll('.slide');
+    const dots   = section.querySelectorAll('.dot-carrusel');
+    const total  = slides.length;
+    if (total === 0) return;
+
+    let current = 0;
+    let timer   = null;
+    let touchX  = 0;
+
+    function goTo(index) {
+        if (index === current || index < 0 || index >= total) return;
+        // leaving
+        slides[current].classList.remove('active');
+        slides[current].classList.add('leaving');
+        dots[current].classList.remove('active');
+        // activate new
+        const prev = current;
+        current = index;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        // remove leaving after transition
+        setTimeout(function () { slides[prev].classList.remove('leaving'); }, 750);
+        resetTimer();
+    }
+
+    function next() { goTo((current + 1) % total); }
+    function prev() { goTo((current - 1 + total) % total); }
+
+    function autoPlay() { timer = setInterval(next, 5000); }
+    function resetTimer() { clearInterval(timer); autoPlay(); }
+
+    // Buttons
+    section.querySelector('#carrusel-prev').addEventListener('click', function (e) { e.stopPropagation(); prev(); });
+    section.querySelector('#carrusel-next').addEventListener('click', function (e) { e.stopPropagation(); next(); });
+
+    // Dots
+    dots.forEach(function (dot) {
+        dot.addEventListener('click', function (e) {
+            e.stopPropagation();
+            goTo(parseInt(this.dataset.goto));
+        });
+    });
+
+    // Touch / Swipe
+    section.addEventListener('touchstart', function (e) { touchX = e.changedTouches[0].clientX; }, { passive: true });
+    section.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - touchX;
+        if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+    }, { passive: true });
+
+    // Start
+    autoPlay();
+});
+</script>
+@endif
+
 {{-- HERO SECTION --}}
 <section class="relative min-h-screen flex items-center overflow-x-hidden">
     {{-- Background image with overlay --}}
@@ -354,36 +515,41 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {{-- Boletin 1 --}}
-            <div class="card-hover scroll-hidden stagger-1 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <div class="h-48 overflow-hidden">
-                    <img src="/images/serenata.png" alt="Tardes de Serenata" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+            @forelse($boletines as $i => $boletin)
+                @php
+                    $src = $boletin->imagen
+                        ? (str_starts_with($boletin->imagen, 'boletines/')
+                            ? asset('storage/' . $boletin->imagen)
+                            : asset('images/' . $boletin->imagen))
+                        : null;
+                @endphp
+                <div class="card-hover scroll-hidden stagger-{{ $i + 1 }} bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                    <a href="{{ route('boletines.show', $boletin) }}" class="block group">
+                        <div class="h-48 overflow-hidden">
+                            @if($src)
+                                <img src="{{ $src }}" alt="{{ $boletin->titulo }}"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            @else
+                                <div class="w-full h-full bg-dif-pink/10 flex items-center justify-center">
+                                    <i class="fas fa-newspaper text-dif-pink text-4xl opacity-40"></i>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-dif-dark text-sm uppercase group-hover:text-dif-pink transition-colors duration-200">{{ $boletin->titulo }}</h3>
+                            <p class="text-xs text-gray-500 mt-2 line-clamp-3">{{ $boletin->descripcion }}</p>
+                            <span class="inline-flex items-center gap-1 mt-3 text-xs font-semibold text-dif-pink">
+                                Leer más <i class="fas fa-arrow-right text-[10px]"></i>
+                            </span>
+                        </div>
+                    </a>
                 </div>
-                <div class="p-5">
-                    <h3 class="font-bold text-dif-dark text-sm uppercase">Tardes de Serenata</h3>
-                    <p class="text-xs text-gray-500 mt-2 line-clamp-3">Tardes de Serenata en Tecámac nos regaló una jornada llena de sentimiento, donde el Mariachi Municipal acompañó cada dedicatoria.</p>
+            @empty
+                <div class="md:col-span-3 text-center py-10 text-gray-400">
+                    <i class="fas fa-newspaper text-4xl mb-2 block"></i>
+                    No hay boletines disponibles.
                 </div>
-            </div>
-            {{-- Boletin 2 --}}
-            <div class="card-hover scroll-hidden stagger-2 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <div class="h-48 overflow-hidden">
-                    <img src="/images/bodas.png" alt="Bodas Comunitarias" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-5">
-                    <h3 class="font-bold text-dif-dark text-sm uppercase">Bodas Comunitarias 2026</h3>
-                    <p class="text-xs text-gray-500 mt-2 line-clamp-3">Tecámac, Late por Ti. Una celebración llena de amor para las familias tecamaquenses.</p>
-                </div>
-            </div>
-            {{-- Boletin 3 --}}
-            <div class="card-hover scroll-hidden stagger-3 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <div class="h-48 overflow-hidden">
-                    <img src="/images/atmosfera.png" alt="Atmósfera Mundialista" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-5">
-                    <h3 class="font-bold text-dif-dark text-sm uppercase">Atmósfera Mundialista 2026</h3>
-                    <p class="text-xs text-gray-500 mt-2 line-clamp-3">Estamos a menos de un mes de iniciar este gran festival, ¡no te lo puedes perder!</p>
-                </div>
-            </div>
+            @endforelse
         </div>
 
         <div class="text-center mt-8 sm:mt-12 scroll-hidden">

@@ -38,6 +38,7 @@
                             : null;
                     @endphp
                     <div class="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 scroll-hidden stagger-{{ $stagger }}">
+                        <a href="{{ route('boletines.show', $boletin) }}" class="block">
                         @if($src)
                             <div class="h-64 overflow-hidden">
                                 <img src="{{ $src }}" alt="{{ $boletin->titulo }}"
@@ -45,13 +46,17 @@
                             </div>
                         @endif
                         <div class="p-6">
-                            <h3 class="text-lg font-extrabold text-dif-dark uppercase mb-3">
+                            <h3 class="text-lg font-extrabold text-dif-dark uppercase mb-3 group-hover:text-dif-pink transition-colors duration-200">
                                 {{ $boletin->titulo }}
                             </h3>
-                            <p class="text-sm text-gray-600 leading-relaxed">
+                            <p class="text-sm text-gray-600 leading-relaxed line-clamp-3">
                                 {{ $boletin->descripcion }}
                             </p>
+                            <span class="inline-flex items-center gap-1.5 mt-4 text-xs font-semibold text-dif-pink">
+                                Leer más <i class="fas fa-arrow-right text-[10px]"></i>
+                            </span>
                         </div>
+                        </a>
                     </div>
                 @endforeach
             </div>

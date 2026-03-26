@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\EventoCulturalController;
 use App\Http\Controllers\Admin\SevacController;
 use App\Http\Controllers\Admin\ConacController;
 use App\Http\Controllers\Admin\PresupuestoController;
+use App\Http\Controllers\Admin\CarruselController;
 
 Route::get('/', [PageController::class, 'inicio'])->name('inicio');
 Route::get('/nosotros', [PageController::class, 'nosotros'])->name('nosotros');
@@ -22,6 +23,7 @@ Route::get('/directorio', [PageController::class, 'directorio'])->name('director
 Route::get('/transparencia', [PageController::class, 'transparencia'])->name('transparencia');
 Route::get('/remtys', [PageController::class, 'remtys'])->name('remtys');
 Route::get('/boletines', [PageController::class, 'boletines'])->name('boletines');
+Route::get('/boletines/{boletin}', [PageController::class, 'boletinDetalle'])->name('boletines.show');
 
 // ── Admin Panel ────────────────────────────────────────────────
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -34,6 +36,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('admin')->group(function () {
         Route::post('/logout',    [AuthController::class, 'logout'])->name('logout');
         Route::get('/dashboard',  [DashboardController::class, 'index'])->name('dashboard');
+
+        // Carrusel de inicio
+        Route::resource('carrusel', CarruselController::class)->except(['show']);
 
         // Boletines
         Route::resource('boletines', BoletinController::class)

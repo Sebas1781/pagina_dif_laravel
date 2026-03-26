@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Boletin;
+use App\Models\Carrusel;
 use App\Models\CasaCultura;
 use App\Models\Biblioteca;
 use App\Models\EstanciaInfantil;
@@ -16,7 +17,9 @@ class PageController extends Controller
 {
     public function inicio()
     {
-        return view('pages.inicio');
+        $slides    = Carrusel::activos()->get();
+        $boletines = Boletin::activos()->take(3)->get();
+        return view('pages.inicio', compact('slides', 'boletines'));
     }
 
     public function nosotros()
@@ -70,5 +73,12 @@ class PageController extends Controller
     {
         $boletines = Boletin::activos()->get();
         return view('pages.boletines', compact('boletines'));
+    }
+
+    public function boletinDetalle(Boletin $boletin)
+    {
+        abort_unless($boletin->activo, 404);
+        $recientes = Boletin::activos()->where('id', '!=', $boletin->id)->take(3)->get();
+        return view('pages.boletin-detalle', compact('boletin', 'recientes'));
     }
 }
