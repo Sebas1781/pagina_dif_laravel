@@ -57,8 +57,45 @@
                 </div>
             </div>
 
+            {{-- Tipo de enlace --}}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de enlace</label>
+                <div class="flex flex-wrap gap-5">
+                    <label class="flex items-center gap-2 cursor-pointer select-none">
+                        <input type="radio" name="tipo_enlace" value="manual" id="tipo_manual"
+                               class="accent-dif-pink" checked>
+                        <span class="text-sm text-gray-700">URL / archivo</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer select-none">
+                        <input type="radio" name="tipo_enlace" value="boletin" id="tipo_boletin"
+                               class="accent-dif-pink">
+                        <span class="text-sm text-gray-700">Conectar con un boletín</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer select-none">
+                        <input type="radio" name="tipo_enlace" value="ninguno" id="tipo_ninguno"
+                               class="accent-dif-pink">
+                        <span class="text-sm text-gray-700">Sin enlace</span>
+                    </label>
+                </div>
+            </div>
+
+            {{-- Selector boletín --}}
+            <div id="seccion-boletin" class="mb-5 hidden">
+                <label for="boletin_sel" class="block text-sm font-medium text-gray-700 mb-1.5">Boletín vinculado</label>
+                <select id="boletin_sel"
+                        class="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-dif-pink focus:border-transparent">
+                    <option value="">— Selecciona un boletín —</option>
+                    @foreach($boletines as $b)
+                        <option value="{{ $b->id }}" data-url="{{ route('boletines.show', $b) }}">
+                            {{ $b->titulo }}
+                        </option>
+                    @endforeach
+                </select>
+                <p class="mt-1.5 text-xs text-gray-400">La URL se llenará automáticamente con el enlace del boletín.</p>
+            </div>
+
             {{-- URL --}}
-            <div class="mb-5">
+            <div id="seccion-url" class="mb-5">
                 <label for="url" class="block text-sm font-medium text-gray-700 mb-1.5">
                     URL de enlace
                     <span class="text-gray-400 font-normal">(opcional — se usa si no hay archivo)</span>
@@ -73,7 +110,7 @@
             </div>
 
             {{-- Archivo --}}
-            <div class="mb-5">
+            <div id="seccion-archivo" class="mb-5">
                 <label for="archivo" class="block text-sm font-medium text-gray-700 mb-1.5">
                     Archivo adjunto
                     <span class="text-gray-400 font-normal">(pdf, doc, xls — máx. 200 MB — tiene prioridad sobre la URL)</span>
@@ -135,16 +172,70 @@
 </div>
 
 <script>
-document.getElementById('imagen').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(ev) {
-        document.getElementById('preview-img').src = ev.target.result;
-        document.getElementById('preview-container').classList.remove('hidden');
-    };
-    reader.readAsDataURL(file);
-});
+(function () {
+    // Image preview
+    document.getElementById('imagen').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+            document.getElementById('preview-img').src = ev.target.result;
+            document.getElementById('preview-container').classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+    });
+
+    // Tipo de enlace toggle
+    const seccionBoletin = document.getElementById('seccion-boletin');
+    const seccionUrl     = document.getElementById('seccion-url');
+    const seccionArchivo = document.getElementById('seccion-archivo');
+    const boletinSel     = document.getElementById('boletin_sel');
+    const urlInput       = document.getElementById('url');
+
+    function actualizarVista() {
+        const val = document.querySelector('input[name="tipo_enlace"]:checked').value;
+        if (val === 'boletin') {
+            seccionBoletin.classList.remove('hidden');
+            seccionUrl.classList.add('hidden');
+            seccionArchivo.classList.add('hidden');
+            const opt = boletinSel.options[boletinSel.selectedIndex];
+            if (opt && opt.dataset.url) urlInput.value = opt.dataset.url;
+        } else if (val === 'manual') {
+            seccionBoletin.classList.add('hidden');
+            seccionUrl.classList.remove('hidden');
+            seccionArchivo.classList.remove('hidden');
+        } else {
+            seccionBoletin.classList.add('hidden');
+            seccionUrl.classList.add('hidden');
+            seccionArchivo.classList.add('hidden');
+            urlInput.value = '';
+        }
+    }
+
+    document.querySelectorAll('input[name="tipo_enlace"]').forEach(function (r) {
+        r.addEventListener('change', actualizarVista);
+    });
+
+    boletinSel.addEventListener('change', function () {
+        const opt = this.options[this.selectedIndex];
+        urlInput.value = (opt && opt.dataset.url) ? opt.dataset.url : '';
+    });
+
+    // Auto-detect: if current URL matches a boletín, pre-select it
+    const currentUrl = urlInput.value.trim();
+    let matched = false;
+    if (currentUrl) {
+        for (let i = 0; i < boletinSel.options.length; i++) {
+            if (boletinSel.options[i].dataset.url === currentUrl) {
+                boletinSel.selectedIndex = i;
+                document.getElementById('tipo_boletin').checked = true;
+                matched = true;
+                break;
+            }
+        }
+    }
+    actualizarVista();
+})();
 </script>
 
 @endsection

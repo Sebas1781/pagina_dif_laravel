@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Boletin;
 use App\Models\Carrusel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +18,8 @@ class CarruselController extends Controller
 
     public function create()
     {
-        return view('admin.carrusel.create');
+        $boletines = Boletin::activos()->get();
+        return view('admin.carrusel.create', compact('boletines'));
     }
 
     public function store(Request $request)
@@ -49,7 +51,8 @@ class CarruselController extends Controller
 
     public function edit(Carrusel $carrusel)
     {
-        return view('admin.carrusel.edit', compact('carrusel'));
+        $boletines = Boletin::activos()->get();
+        return view('admin.carrusel.edit', compact('carrusel', 'boletines'));
     }
 
     public function update(Request $request, Carrusel $carrusel)
