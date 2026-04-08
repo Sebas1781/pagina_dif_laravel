@@ -34,7 +34,7 @@
                     </div>
                     <h3 class="text-2xl font-extrabold text-dif-dark mb-4">Misión</h3>
                     <p class="text-gray-500 leading-relaxed">
-                        Ser una institución que brinde atención integral a las familias tecamaquenses, promoviendo el bienestar social, la salud, la educación y la cultura, con un enfoque de derechos humanos e igualdad de género, contribuyendo al desarrollo pleno de la comunidad.
+                        {{ $mision }}
                     </p>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                     </div>
                     <h3 class="text-2xl font-extrabold text-dif-dark mb-4">Visión</h3>
                     <p class="text-gray-500 leading-relaxed">
-                        Consolidarnos como la institución referente en el municipio de Tecámac en materia de desarrollo integral familiar, reconocida por su calidad en los servicios, innovación en programas sociales y compromiso genuino con las necesidades de cada habitante.
+                        {{ $vision }}
                     </p>
                 </div>
             </div>
@@ -62,12 +62,9 @@
                     </div>
                     <h3 class="text-2xl font-extrabold text-dif-dark mb-4">Valores</h3>
                     <ul class="text-gray-500 space-y-2">
-                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-amber-500 text-sm"></i> Honestidad y transparencia</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-amber-500 text-sm"></i> Respeto a la dignidad humana</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-amber-500 text-sm"></i> Compromiso social</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-amber-500 text-sm"></i> Igualdad e inclusión</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-amber-500 text-sm"></i> Servicio con calidad y calidez</li>
-                        <li class="flex items-center gap-2"><i class="fas fa-check-circle text-amber-500 text-sm"></i> Solidaridad comunitaria</li>
+                        @foreach($valores as $valor)
+                            <li class="flex items-center gap-2"><i class="fas fa-check-circle text-amber-500 text-sm"></i> {{ $valor }}</li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -85,29 +82,43 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @php
-            $sedes = [
-                ['name' => 'Oficinas Centrales DIF Villas del Real', 'icon' => 'fa-building', 'color' => 'dif-pink'],
-                ['name' => 'Unidad Médica Mandarinas', 'icon' => 'fa-hospital', 'color' => 'dif-pink'],
-                ['name' => 'Unidad Médica Los Reyes Acozac', 'icon' => 'fa-stethoscope', 'color' => 'teal-600'],
-                ['name' => 'Centro de Equinoterapia', 'icon' => 'fa-horse', 'color' => 'green-600'],
-                ['name' => 'Centro de Diversidad Los Héroes Tecámac', 'icon' => 'fa-people-group', 'color' => 'purple-600'],
-                ['name' => 'Centro M.I.E.L Urbi Villas', 'icon' => 'fa-hand-holding-heart', 'color' => 'amber-600'],
-                ['name' => 'Solidarios de Corazón', 'icon' => 'fa-heart', 'color' => 'red-500'],
-                ['name' => 'U.B.R.I.S', 'icon' => 'fa-wheelchair', 'color' => 'blue-600'],
-                ['name' => 'Laboratorio de Análisis Clínicos', 'icon' => 'fa-flask', 'color' => 'indigo-600'],
-            ];
+                $mapaColoresSede = [
+                    'dif-pink' => ['bg' => 'bg-dif-pink/10', 'hover' => 'group-hover:bg-dif-pink', 'text' => 'text-dif-pink'],
+                    'teal-600' => ['bg' => 'bg-teal-600/10', 'hover' => 'group-hover:bg-teal-600', 'text' => 'text-teal-600'],
+                    'green-600' => ['bg' => 'bg-green-600/10', 'hover' => 'group-hover:bg-green-600', 'text' => 'text-green-600'],
+                    'purple-600' => ['bg' => 'bg-purple-600/10', 'hover' => 'group-hover:bg-purple-600', 'text' => 'text-purple-600'],
+                    'amber-600' => ['bg' => 'bg-amber-600/10', 'hover' => 'group-hover:bg-amber-600', 'text' => 'text-amber-600'],
+                    'red-500' => ['bg' => 'bg-red-500/10', 'hover' => 'group-hover:bg-red-500', 'text' => 'text-red-500'],
+                    'blue-600' => ['bg' => 'bg-blue-600/10', 'hover' => 'group-hover:bg-blue-600', 'text' => 'text-blue-600'],
+                    'indigo-600' => ['bg' => 'bg-indigo-600/10', 'hover' => 'group-hover:bg-indigo-600', 'text' => 'text-indigo-600'],
+                ];
             @endphp
 
             @foreach($sedes as $i => $sede)
-            <div class="card-hover scroll-hidden stagger-{{ ($i % 6) + 1 }} bg-white rounded-2xl p-6 border border-gray-100 flex items-center gap-4 group cursor-pointer">
-                <div class="w-14 h-14 bg-{{ $sede['color'] }}/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-{{ $sede['color'] }} transition-colors duration-300">
-                    <i class="fas {{ $sede['icon'] }} text-{{ $sede['color'] }} text-xl group-hover:text-white transition-colors duration-300"></i>
-                </div>
-                <div>
-                    <h4 class="font-bold text-dif-dark group-hover:text-dif-pink transition-colors">{{ $sede['name'] }}</h4>
-                </div>
-                <i class="fas fa-chevron-right text-gray-300 ml-auto group-hover:text-dif-pink group-hover:translate-x-1 transition-all"></i>
-            </div>
+                @php
+                    $clasesColor = $mapaColoresSede[$sede->color ?? 'dif-pink'] ?? $mapaColoresSede['dif-pink'];
+                @endphp
+                @if(!empty($sede->enlace))
+                    <a href="{{ $sede->enlace }}" class="card-hover scroll-hidden stagger-{{ ($i % 6) + 1 }} bg-white rounded-2xl p-6 border border-gray-100 flex items-center gap-4 group cursor-pointer">
+                        <div class="w-14 h-14 {{ $clasesColor['bg'] }} rounded-xl flex items-center justify-center shrink-0 {{ $clasesColor['hover'] }} transition-colors duration-300">
+                            <i class="fas {{ $sede->icono }} {{ $clasesColor['text'] }} text-xl group-hover:text-white transition-colors duration-300"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-dif-dark group-hover:text-dif-pink transition-colors">{{ $sede->nombre }}</h4>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-300 ml-auto group-hover:text-dif-pink group-hover:translate-x-1 transition-all"></i>
+                    </a>
+                @else
+                    <div class="card-hover scroll-hidden stagger-{{ ($i % 6) + 1 }} bg-white rounded-2xl p-6 border border-gray-100 flex items-center gap-4 group cursor-pointer">
+                        <div class="w-14 h-14 {{ $clasesColor['bg'] }} rounded-xl flex items-center justify-center shrink-0 {{ $clasesColor['hover'] }} transition-colors duration-300">
+                            <i class="fas {{ $sede->icono }} {{ $clasesColor['text'] }} text-xl group-hover:text-white transition-colors duration-300"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-dif-dark group-hover:text-dif-pink transition-colors">{{ $sede->nombre }}</h4>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-300 ml-auto group-hover:text-dif-pink group-hover:translate-x-1 transition-all"></i>
+                    </div>
+                @endif
             @endforeach
         </div>
     </div>

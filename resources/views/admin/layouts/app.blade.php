@@ -43,11 +43,46 @@
                     Carrusel
                 </a>
 
+                     <a href="{{ route('admin.areas_atencion.index') }}"
+                         class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                                  {{ request()->routeIs('admin.areas_atencion.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                          <i class="fas fa-layer-group w-4 text-center"></i>
+                          Areas de Atencion
+                     </a>
+
+                     <a href="{{ route('admin.servicios_salud.index') }}"
+                         class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                                  {{ request()->routeIs('admin.servicios_salud.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                          <i class="fas fa-notes-medical w-4 text-center"></i>
+                          Servicios de Salud
+                     </a>
+
                 <a href="{{ route('admin.boletines.index') }}"
                    class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
                           {{ request()->routeIs('admin.boletines.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
                     <i class="fas fa-newspaper w-4 text-center"></i>
                     Boletines
+                </a>
+
+                <a href="{{ route('admin.configuracion_nosotros.edit') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                          {{ request()->routeIs('admin.configuracion_nosotros.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-quote-left w-4 text-center"></i>
+                    Mision, Vision y Valores
+                </a>
+
+                <a href="{{ route('admin.sedes_dif.index') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                          {{ request()->routeIs('admin.sedes_dif.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-map-location-dot w-4 text-center"></i>
+                    Sedes DIF Tecamac
+                </a>
+
+                <a href="{{ route('admin.servicio_items.index') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                          {{ request()->routeIs('admin.servicio_items.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-list-check w-4 text-center"></i>
+                    Elementos de Servicios
                 </a>
 
                 <p class="px-4 pt-4 pb-1 text-xs font-semibold text-white/30 uppercase tracking-widest">Educación y Cultura</p>

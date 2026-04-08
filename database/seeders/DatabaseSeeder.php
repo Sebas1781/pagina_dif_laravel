@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             BoletinSeeder::class,
             EducacionSeeder::class,
+            InicioCatalogosSeeder::class,
+            ContenidoInstitucionalSeeder::class,
         ]);
     }
 }

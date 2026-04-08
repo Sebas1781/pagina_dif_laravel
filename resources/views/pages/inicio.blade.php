@@ -250,48 +250,29 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {{-- Salud y Bienestar --}}
-            <a href="{{ route('salud') }}" class="card-hover scroll-hidden stagger-1 group flex items-center gap-4 bg-gradient-to-r from-dif-pink to-dif-pink-light rounded-full pl-2 pr-6 py-2 shadow-lg hover:shadow-xl cursor-pointer">
-                <div class="w-14 h-14 bg-white/30 backdrop-blur rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fas fa-stethoscope text-white text-xl"></i>
-                </div>
-                <h3 class="font-extrabold text-white text-sm uppercase">Salud y Bienestar</h3>
-            </a>
-            {{-- Educación y Cultura --}}
-            <a href="{{ route('educacion') }}" class="card-hover scroll-hidden stagger-2 group flex items-center gap-4 bg-gradient-to-r from-teal-500 to-teal-400 rounded-full pl-2 pr-6 py-2 shadow-lg hover:shadow-xl cursor-pointer">
-                <div class="w-14 h-14 bg-white/30 backdrop-blur rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fas fa-book-open text-white text-xl"></i>
-                </div>
-                <h3 class="font-extrabold text-white text-sm uppercase">Educación y Cultura</h3>
-            </a>
-            {{-- Jurídico --}}
-            <a href="{{ route('servicios') }}" class="card-hover scroll-hidden stagger-3 group flex items-center gap-4 bg-gradient-to-r from-purple-800 to-purple-600 rounded-full pl-2 pr-6 py-2 shadow-lg hover:shadow-xl cursor-pointer">
-                <div class="w-14 h-14 bg-white/30 backdrop-blur rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fas fa-gavel text-white text-xl"></i>
-                </div>
-                <h3 class="font-extrabold text-white text-sm uppercase">Jurídico</h3>
-            </a>
-            {{-- Centros de Atención Integral a la Diversidad Sexual --}}
-            <div class="card-hover scroll-hidden stagger-4 group flex items-center gap-4 bg-gradient-to-r from-rose-400 to-pink-300 rounded-full pl-2 pr-6 py-2 shadow-lg hover:shadow-xl cursor-pointer">
-                <div class="w-14 h-14 bg-white/30 backdrop-blur rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fas fa-heart text-white text-xl"></i>
-                </div>
-                <h3 class="font-extrabold text-white text-xs uppercase leading-tight">Centros de Atención Integral a la Diversidad Sexual</h3>
-            </div>
-            {{-- Centros de Desarrollo Juvenil --}}
-            <div class="card-hover scroll-hidden stagger-5 group flex items-center gap-4 bg-gradient-to-r from-amber-500 to-amber-400 rounded-full pl-2 pr-6 py-2 shadow-lg hover:shadow-xl cursor-pointer">
-                <div class="w-14 h-14 bg-white/30 backdrop-blur rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fas fa-users text-white text-xl"></i>
-                </div>
-                <h3 class="font-extrabold text-white text-sm uppercase">Centros de Desarrollo Juvenil</h3>
-            </div>
-            {{-- Puerta Violeta --}}
-            <div class="card-hover scroll-hidden stagger-6 group flex items-center gap-4 bg-gradient-to-r from-purple-700 to-purple-500 rounded-full pl-2 pr-6 py-2 shadow-lg hover:shadow-xl cursor-pointer">
-                <div class="w-14 h-14 bg-white/30 backdrop-blur rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fas fa-door-open text-white text-xl"></i>
-                </div>
-                <h3 class="font-extrabold text-white text-sm uppercase">Puerta Violeta</h3>
-            </div>
+            @foreach($areasAtencion as $i => $area)
+                @php
+                    $stagger = ($i % 6) + 1;
+                    $enlace = $area->enlace ?: null;
+                    $esTextoLargo = strlen($area->nombre) > 32;
+                @endphp
+
+                @if($enlace)
+                    <a href="{{ $enlace }}" class="card-hover scroll-hidden stagger-{{ $stagger }} group flex items-center gap-4 bg-gradient-to-r {{ $area->color_gradiente }} rounded-full pl-2 pr-6 py-2 shadow-lg hover:shadow-xl cursor-pointer">
+                        <div class="w-14 h-14 bg-white/30 backdrop-blur rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas {{ $area->icono }} text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-extrabold text-white {{ $esTextoLargo ? 'text-xs leading-tight' : 'text-sm' }} uppercase">{{ $area->nombre }}</h3>
+                    </a>
+                @else
+                    <div class="card-hover scroll-hidden stagger-{{ $stagger }} group flex items-center gap-4 bg-gradient-to-r {{ $area->color_gradiente }} rounded-full pl-2 pr-6 py-2 shadow-lg hover:shadow-xl cursor-pointer">
+                        <div class="w-14 h-14 bg-white/30 backdrop-blur rounded-full flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas {{ $area->icono }} text-white text-xl"></i>
+                        </div>
+                        <h3 class="font-extrabold text-white {{ $esTextoLargo ? 'text-xs leading-tight' : 'text-sm' }} uppercase">{{ $area->nombre }}</h3>
+                    </div>
+                @endif
+            @endforeach
         </div>
     </div>
 </section>
@@ -305,90 +286,30 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {{-- Service Card 1 --}}
-            <div class="card-hover scroll-hidden stagger-1 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page1_img8.png" alt="Unidad Médica Mandarinas" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <div class="p-6">
-                    <h3 class="font-bold text-lg text-dif-dark mb-2">Unidad Médica Mandarinas</h3>
-                    <p class="text-sm text-gray-500 mb-4">Fracc. Ojo de Agua, calle Mandarinas, esq. Naranjos, C.P. 55770</p>
-                    <div class="flex items-start gap-2 text-dif-pink text-xs sm:text-sm font-medium">
-                        <i class="fas fa-clock mt-0.5 shrink-0"></i>
-                        <span>Lun a Vie: 9:00 - 18:00 hrs | Sáb: 9:00 - 13:00 hrs</span>
+            @foreach($serviciosSalud as $i => $servicio)
+                @php
+                    $stagger = ($i % 6) + 1;
+                    $src = null;
+                    if (!empty($servicio->imagen)) {
+                        $src = str_starts_with($servicio->imagen, 'servicios_salud/')
+                            ? asset('storage/' . $servicio->imagen)
+                            : asset('images/' . $servicio->imagen);
+                    }
+                @endphp
+                <div class="card-hover scroll-hidden stagger-{{ $stagger }} bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                    <div class="h-48 relative overflow-hidden">
+                        <img src="{{ $src ?: asset('images/page1_img8.png') }}" alt="{{ $servicio->nombre }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-lg text-dif-dark mb-2">{{ $servicio->nombre }}</h3>
+                        <p class="text-sm text-gray-500 mb-4">{{ $servicio->descripcion }}</p>
+                        <div class="flex items-start gap-2 {{ $servicio->color_horario ?: 'text-dif-pink' }} text-xs sm:text-sm font-medium">
+                            <i class="fas fa-clock mt-0.5 shrink-0"></i>
+                            <span>{{ $servicio->horario }}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            {{-- Service Card 2 --}}
-            <div class="card-hover scroll-hidden stagger-2 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page1_img29.png" alt="Centro de Equinoterapia" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <div class="p-6">
-                    <h3 class="font-bold text-lg text-dif-dark mb-2">Centro de Equinoterapia</h3>
-                    <p class="text-sm text-gray-500 mb-4">Carretera Federal México – Pachuca, Km. 38, Sierra Hermosa, 55740</p>
-                    <div class="flex items-start gap-2 text-green-600 text-xs sm:text-sm font-medium">
-                        <i class="fas fa-clock mt-0.5 shrink-0"></i>
-                        <span>Lunes a Viernes: 9:00 - 15:00 hrs</span>
-                    </div>
-                </div>
-            </div>
-            {{-- Service Card 3 --}}
-            <div class="card-hover scroll-hidden stagger-3 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page1_img38.png" alt="Clínica Materno Infantil" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <div class="p-6">
-                    <h3 class="font-bold text-lg text-dif-dark mb-2">Clínica Materno Infantil</h3>
-                    <p class="text-sm text-gray-500 mb-4">Juana Belén Gutiérrez de Mendoza</p>
-                    <div class="flex items-start gap-2 text-blue-600 text-xs sm:text-sm font-medium">
-                        <i class="fas fa-clock mt-0.5 shrink-0"></i>
-                        <span>Lunes a Viernes: 9:00 - 15:00 hrs</span>
-                    </div>
-                </div>
-            </div>
-            {{-- Service Card 4 --}}
-            <div class="card-hover scroll-hidden stagger-4 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page1_img37.png" alt="U.B.R.I.S" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <div class="p-6">
-                    <h3 class="font-bold text-lg text-dif-dark mb-2">U.B.R.I.S</h3>
-                    <p class="text-sm text-gray-500 mb-4">Unidad Básica de Rehabilitación e Integración Social</p>
-                    <div class="flex items-start gap-2 text-purple-600 text-xs sm:text-sm font-medium">
-                        <i class="fas fa-clock mt-0.5 shrink-0"></i>
-                        <span>Lunes a Viernes: 9:00 - 15:00 hrs</span>
-                    </div>
-                </div>
-            </div>
-            {{-- Service Card 5 --}}
-            <div class="card-hover scroll-hidden stagger-5 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page1_img11.png" alt="Unidad Médica Reyes Acozac" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <div class="p-6">
-                    <h3 class="font-bold text-lg text-dif-dark mb-2">Unidad Médica Reyes Acozac</h3>
-                    <p class="text-sm text-gray-500 mb-4">C. Niños Héroes No. 14, Barrio el Calvario, Reyes Acozac, C.P. 55755</p>
-                    <div class="flex items-start gap-2 text-teal-600 text-xs sm:text-sm font-medium">
-                        <i class="fas fa-clock mt-0.5 shrink-0"></i>
-                        <span>Lun a Vie: 9:00 - 18:00 hrs</span>
-                    </div>
-                </div>
-            </div>
-            {{-- Service Card 6 --}}
-            <div class="card-hover scroll-hidden stagger-6 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                <div class="h-48 relative overflow-hidden">
-                    <img src="/images/page1_img21.png" alt="Laboratorio de Análisis Clínicos" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <div class="p-6">
-                    <h3 class="font-bold text-lg text-dif-dark mb-2">Laboratorio de Análisis Clínicos</h3>
-                    <p class="text-sm text-gray-500 mb-4">Análisis clínicos y pruebas especializadas</p>
-                    <div class="flex items-start gap-2 text-amber-600 text-xs sm:text-sm font-medium">
-                        <i class="fas fa-clock mt-0.5 shrink-0"></i>
-                        <span>Lunes a Viernes: 9:00 - 15:00 hrs</span>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
 
         <div class="text-center mt-8 sm:mt-12 scroll-hidden">

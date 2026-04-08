@@ -3,6 +3,14 @@
 
 @section('content')
 
+@php
+    $bienestarItems = $serviciosPorCategoria->get('bienestar_social', collect());
+    $derechosItems = $serviciosPorCategoria->get('derechos', collect());
+    $saludItems = $serviciosPorCategoria->get('salud', collect());
+    $educacionItems = $serviciosPorCategoria->get('educacion_cultura', collect());
+    $juridicoItems = $serviciosPorCategoria->get('juridico', collect());
+@endphp
+
 {{-- HERO --}}
 <section class="relative py-32 overflow-hidden">
     <div class="absolute inset-0">
@@ -37,12 +45,12 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach(['Apoyos alimentarios', 'Programas de asistencia social', 'Atención a grupos vulnerables', 'Solidarios de Corazón', 'Centro M.I.E.L Urbi Villas', 'Comedores comunitarios'] as $i => $s)
+                @foreach($bienestarItems as $i => $s)
                 <div class="card-hover bg-white rounded-xl p-5 border border-gray-100 flex items-center gap-4 group hover:border-dif-pink/30 stagger-{{ $i + 1 }}">
                     <div class="w-10 h-10 bg-dif-cream rounded-lg flex items-center justify-center shrink-0 group-hover:bg-dif-pink transition-colors">
                         <i class="fas fa-check text-dif-pink text-sm group-hover:text-white transition-colors"></i>
                     </div>
-                    <span class="font-medium text-dif-dark text-sm">{{ $s }}</span>
+                    <span class="font-medium text-dif-dark text-sm">{{ $s->nombre }}</span>
                 </div>
                 @endforeach
             </div>
@@ -60,12 +68,12 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach(['Atención a mujeres víctimas de violencia', 'Asesoría psicológica', 'Programas de equidad de género', 'Atención a la diversidad sexual', 'Programas para jóvenes', 'Centro de Diversidad Los Héroes'] as $i => $s)
+                @foreach($derechosItems as $i => $s)
                 <div class="card-hover bg-white rounded-xl p-5 border border-gray-100 flex items-center gap-4 group hover:border-purple-300 stagger-{{ $i + 1 }}">
                     <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-purple-600 transition-colors">
                         <i class="fas fa-check text-purple-600 text-sm group-hover:text-white transition-colors"></i>
                     </div>
-                    <span class="font-medium text-dif-dark text-sm">{{ $s }}</span>
+                    <span class="font-medium text-dif-dark text-sm">{{ $s->nombre }}</span>
                 </div>
                 @endforeach
             </div>
@@ -83,12 +91,12 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach(['Consulta médica general', 'Terapia psicológica', 'Consulta nutricional', 'Consulta dental', 'Consulta ginecología', 'Consulta pediatra', 'Terapia física', 'Equinoterapia', 'Laboratorio de análisis clínicos'] as $i => $s)
+                @foreach($saludItems as $i => $s)
                 <div class="card-hover bg-white rounded-xl p-5 border border-gray-100 flex items-center gap-4 group hover:border-red-300 stagger-{{ ($i % 6) + 1 }}">
                     <div class="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-red-500 transition-colors">
                         <i class="fas fa-check text-red-500 text-sm group-hover:text-white transition-colors"></i>
                     </div>
-                    <span class="font-medium text-dif-dark text-sm">{{ $s }}</span>
+                    <span class="font-medium text-dif-dark text-sm">{{ $s->nombre }}</span>
                 </div>
                 @endforeach
             </div>
@@ -111,12 +119,12 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach(['Casas de Cultura (6 sedes)', 'Bibliotecas municipales (15+)', 'Estancias infantiles (7 sedes)', 'Eventos culturales', 'Orquesta Filarmónica Municipal', 'Servicio social y colaboraciones'] as $i => $s)
+                @foreach($educacionItems as $i => $s)
                 <div class="card-hover bg-white rounded-xl p-5 border border-gray-100 flex items-center gap-4 group hover:border-blue-300 stagger-{{ $i + 1 }}">
                     <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-blue-600 transition-colors">
                         <i class="fas fa-check text-blue-600 text-sm group-hover:text-white transition-colors"></i>
                     </div>
-                    <span class="font-medium text-dif-dark text-sm">{{ $s }}</span>
+                    <span class="font-medium text-dif-dark text-sm">{{ $s->nombre }}</span>
                 </div>
                 @endforeach
             </div>
@@ -139,12 +147,12 @@
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach(['Asesoría jurídica familiar', 'Mediación y conciliación', 'Protección a la infancia', 'Trámites de custodia y pensión', 'Atención a adultos mayores', 'Defensa de derechos'] as $i => $s)
+                @foreach($juridicoItems as $i => $s)
                 <div class="card-hover bg-white rounded-xl p-5 border border-gray-100 flex items-center gap-4 group hover:border-amber-300 stagger-{{ $i + 1 }}">
                     <div class="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-amber-600 transition-colors">
                         <i class="fas fa-check text-amber-600 text-sm group-hover:text-white transition-colors"></i>
                     </div>
-                    <span class="font-medium text-dif-dark text-sm">{{ $s }}</span>
+                    <span class="font-medium text-dif-dark text-sm">{{ $s->nombre }}</span>
                 </div>
                 @endforeach
             </div>

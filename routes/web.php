@@ -13,6 +13,11 @@ use App\Http\Controllers\Admin\SevacController;
 use App\Http\Controllers\Admin\ConacController;
 use App\Http\Controllers\Admin\PresupuestoController;
 use App\Http\Controllers\Admin\CarruselController;
+use App\Http\Controllers\Admin\AreaAtencionController;
+use App\Http\Controllers\Admin\ServicioSaludController;
+use App\Http\Controllers\Admin\ConfiguracionNosotrosController;
+use App\Http\Controllers\Admin\SedeDifController;
+use App\Http\Controllers\Admin\ServicioSeccionItemController;
 
 Route::get('/', [PageController::class, 'inicio'])->name('inicio');
 Route::get('/nosotros', [PageController::class, 'nosotros'])->name('nosotros');
@@ -39,6 +44,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Carrusel de inicio
         Route::resource('carrusel', CarruselController::class)->except(['show']);
+
+        // Inicio: Areas de atencion y Servicios de salud
+        Route::resource('areas_atencion', AreaAtencionController::class)->except(['show']);
+        Route::resource('servicios_salud', ServicioSaludController::class)->except(['show']);
+
+        // Nosotros
+        Route::get('configuracion_nosotros', [ConfiguracionNosotrosController::class, 'edit'])->name('configuracion_nosotros.edit');
+        Route::put('configuracion_nosotros', [ConfiguracionNosotrosController::class, 'update'])->name('configuracion_nosotros.update');
+        Route::resource('sedes_dif', SedeDifController::class)->except(['show']);
+
+        // Pagina Servicios
+        Route::resource('servicio_items', ServicioSeccionItemController::class)
+            ->parameters(['servicio_items' => 'servicioItem'])
+            ->except(['show']);
 
         // Boletines
         Route::resource('boletines', BoletinController::class)
