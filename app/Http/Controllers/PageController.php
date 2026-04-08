@@ -16,6 +16,11 @@ use App\Models\ServicioSalud;
 use App\Models\ConfiguracionNosotros;
 use App\Models\SedeDif;
 use App\Models\ServicioSeccionItem;
+use App\Models\ServicioCategoria;
+use App\Models\SaludServicio;
+use App\Models\UnidadMedica;
+use App\Models\DirectorioItem;
+use App\Models\RemtysCard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
@@ -97,22 +102,55 @@ class PageController extends Controller
 
     public function servicios()
     {
+        $categoriasServicios = collect();
         $serviciosPorCategoria = collect();
+
+        if (Schema::hasTable('servicio_categorias')) {
+            $categoriasServicios = ServicioCategoria::activas()->get();
+        }
         if (Schema::hasTable('servicio_seccion_items')) {
             $serviciosPorCategoria = ServicioSeccionItem::activos()->get()->groupBy('categoria');
         }
 
-        if ($serviciosPorCategoria->isEmpty()) {
+        if ($categoriasServicios->isEmpty() || $serviciosPorCategoria->isEmpty()) {
+            $categoriasServicios = $this->categoriasServiciosPorDefecto();
             $serviciosPorCategoria = $this->serviciosPorCategoriaPorDefecto();
         }
 
-        return view('pages.servicios', compact('serviciosPorCategoria'));
+        return view('pages.servicios', compact('serviciosPorCategoria', 'categoriasServicios'));
     }
 
     public function salud()
     {
-        return view('pages.salud');
+        $saludServicios = collect();
+        if (Schema::hasTable('salud_servicios')) {
+            $saludServicios = SaludServicio::activos()->get();
+        }
+        if ($saludServicios->isEmpty()) {
+            $saludServicios = $this->saludServiciosPorDefecto();
+        }
+
+        $unidadesMedicas = collect();
+        if (Schema::hasTable('unidades_medicas')) {
+            $unidadesMedicas = UnidadMedica::activas()->get();
+        }
+        if ($unidadesMedicas->isEmpty()) {
+            $unidadesMedicas = $this->unidadesMedicasPorDefecto();
+        }
+
+        return view('pages.salud', compact('saludServicios', 'unidadesMedicas'));
     }
+    private function categoriasServiciosPorDefecto(): Collection
+    {
+        return collect([
+            (object) ['clave' => 'bienestar_social', 'nombre' => 'Bienestar Social', 'subtitulo' => 'Programas de apoyo a la comunidad', 'icono' => 'fa-hand-holding-heart', 'tema' => 'pink'],
+            (object) ['clave' => 'derechos', 'nombre' => 'Atencion y Defensa de Derechos', 'subtitulo' => 'Mujeres, juventud y diversidad sexual', 'icono' => 'fa-shield-heart', 'tema' => 'purple'],
+            (object) ['clave' => 'salud', 'nombre' => 'Salud', 'subtitulo' => 'Atencion medica integral', 'icono' => 'fa-heartbeat', 'tema' => 'red'],
+            (object) ['clave' => 'educacion_cultura', 'nombre' => 'Educacion y Cultura', 'subtitulo' => 'Aprendizaje y desarrollo cultural', 'icono' => 'fa-book-open', 'tema' => 'blue'],
+            (object) ['clave' => 'juridico', 'nombre' => 'Juridico', 'subtitulo' => 'Asesoria legal gratuita', 'icono' => 'fa-scale-balanced', 'tema' => 'amber'],
+        ]);
+    }
+
 
     public function educacion()
     {
@@ -126,7 +164,15 @@ class PageController extends Controller
 
     public function directorio()
     {
-        return view('pages.directorio');
+        $directorioItems = collect();
+        if (Schema::hasTable('directorio_items')) {
+            $directorioItems = DirectorioItem::activos()->get();
+        }
+        if ($directorioItems->isEmpty()) {
+            $directorioItems = $this->directorioPorDefecto();
+        }
+
+        return view('pages.directorio', compact('directorioItems'));
     }
 
     public function transparencia()
@@ -143,7 +189,15 @@ class PageController extends Controller
 
     public function remtys()
     {
-        return view('pages.remtys');
+        $remtysCards = collect();
+        if (Schema::hasTable('remtys_cards') && Schema::hasTable('remtys_documentos')) {
+            $remtysCards = RemtysCard::activas()->with(['documentos' => fn ($q) => $q->where('activo', true)->orderBy('orden')->orderBy('id')])->get();
+        }
+        if ($remtysCards->isEmpty()) {
+            $remtysCards = $this->remtysPorDefecto();
+        }
+
+        return view('pages.remtys', compact('remtysCards'));
     }
 
     public function boletines()
@@ -242,6 +296,200 @@ class PageController extends Controller
                 (object) ['nombre' => 'Atencion a adultos mayores'],
                 (object) ['nombre' => 'Defensa de derechos'],
             ]),
+        ]);
+    }
+
+    private function saludServiciosPorDefecto(): Collection
+    {
+        return collect([
+            (object) ['nombre' => 'Consulta medica', 'icono' => 'fa-user-doctor', 'color_gradiente' => 'from-dif-pink to-dif-magenta'],
+            (object) ['nombre' => 'Terapia psicologica', 'icono' => 'fa-brain', 'color_gradiente' => 'from-purple-600 to-purple-400'],
+            (object) ['nombre' => 'Consulta nutricional', 'icono' => 'fa-apple-whole', 'color_gradiente' => 'from-green-600 to-green-400'],
+            (object) ['nombre' => 'Consulta dental', 'icono' => 'fa-tooth', 'color_gradiente' => 'from-blue-500 to-blue-400'],
+            (object) ['nombre' => 'Consulta ginecologia', 'icono' => 'fa-venus', 'color_gradiente' => 'from-pink-500 to-pink-400'],
+            (object) ['nombre' => 'Consulta pediatra', 'icono' => 'fa-baby', 'color_gradiente' => 'from-cyan-500 to-cyan-400'],
+            (object) ['nombre' => 'Terapia fisica', 'icono' => 'fa-person-walking', 'color_gradiente' => 'from-orange-500 to-orange-400'],
+            (object) ['nombre' => 'Terapia ocupacional', 'icono' => 'fa-hands', 'color_gradiente' => 'from-teal-600 to-teal-400'],
+            (object) ['nombre' => 'Terapia de lenguaje', 'icono' => 'fa-comments', 'color_gradiente' => 'from-indigo-500 to-indigo-400'],
+            (object) ['nombre' => 'Equinoterapia', 'icono' => 'fa-horse', 'color_gradiente' => 'from-amber-600 to-amber-400'],
+            (object) ['nombre' => 'Clase de monta', 'icono' => 'fa-horse-head', 'color_gradiente' => 'from-yellow-600 to-yellow-400'],
+            (object) ['nombre' => 'Salud en tu hogar', 'icono' => 'fa-house-medical', 'color_gradiente' => 'from-red-500 to-red-400'],
+            (object) ['nombre' => 'Certificado de discapacidad', 'icono' => 'fa-id-card', 'color_gradiente' => 'from-slate-600 to-slate-400'],
+            (object) ['nombre' => 'Lengua de senas mexicana', 'icono' => 'fa-hands-asl-interpreting', 'color_gradiente' => 'from-violet-600 to-violet-400'],
+            (object) ['nombre' => 'Lectura y escritura braille', 'icono' => 'fa-braille', 'color_gradiente' => 'from-stone-600 to-stone-400'],
+            (object) ['nombre' => 'Curso de oftalmologia', 'icono' => 'fa-eye', 'color_gradiente' => 'from-sky-600 to-sky-400'],
+        ]);
+    }
+
+    private function unidadesMedicasPorDefecto(): Collection
+    {
+        return collect([
+            (object) [
+                'nombre' => 'Unidad Medica Mandarinas',
+                'subtitulo' => null,
+                'direccion' => 'Fracc. Ojo de Agua, calle Mandarinas, esq. Naranjos, C.P. 55770',
+                'icono' => 'fa-hospital',
+                'tema' => 'pink',
+                'imagen' => 'page1_img8.png',
+                'horario_1' => 'Lunes a Viernes: 9:00 - 18:00 hrs',
+                'horario_2' => 'Sabados: 9:00 - 13:00 hrs',
+                'servicios' => ['Consulta medica', 'Terapia psicologica', 'Consulta Nutricion', 'Consulta Dental', 'Salud en tu hogar', 'Consulta ginecologia', 'Consulta pediatra', 'Curso de oftalmologia'],
+            ],
+            (object) [
+                'nombre' => 'Centro de Equinoterapia',
+                'subtitulo' => null,
+                'direccion' => 'Carretera Federal Mexico - Pachuca, Km. 38, Sierra Hermosa, 55740',
+                'icono' => 'fa-horse',
+                'tema' => 'green',
+                'imagen' => 'page1_img29.png',
+                'horario_1' => 'Lunes a Viernes: 9:00 - 15:00 hrs',
+                'horario_2' => null,
+                'servicios' => ['Equinoterapia', 'Clase de monta', 'Terapia psicologica', 'Terapia de lenguaje', 'Lengua de senas mexicanas', 'Lectura y escritura de braille'],
+            ],
+            (object) [
+                'nombre' => 'Clinica Materno Infantil',
+                'subtitulo' => 'Juana Belen Gutierrez de Mendoza',
+                'direccion' => 'Av. Esmeralda S/N colonia Lomas de Tecamac, Tecamac, Mex.',
+                'icono' => 'fa-baby',
+                'tema' => 'blue',
+                'imagen' => 'page1_img38.png',
+                'horario_1' => 'Lunes a Viernes: 9:00 - 18:00 hrs',
+                'horario_2' => null,
+                'servicios' => ['Consulta medica', 'Terapia psicologica', 'Consulta nutricional', 'Consulta dental', 'Consulta ginecologia', 'Consulta pediatra', 'Curso de oftalmologia'],
+            ],
+            (object) [
+                'nombre' => 'U.B.R.I.S',
+                'subtitulo' => 'Unidad Basica de Rehabilitacion e Integracion Social',
+                'direccion' => 'Mandarinas S/N Esq. Naranjos, Col. Fracc. Ojo de Agua, C.P. 55770',
+                'icono' => 'fa-wheelchair',
+                'tema' => 'purple',
+                'imagen' => 'page1_img37.png',
+                'horario_1' => 'Lunes a Viernes: 9:00 - 15:00 hrs',
+                'horario_2' => null,
+                'servicios' => ['Consulta con medico especialista en rehabilitacion', 'Certificado de discapacidad', 'Terapia fisica', 'Terapia ocupacional', 'Terapia psicologica', 'Terapia de lenguaje', 'Curso de lengua de senas mexicana', 'Curso lectura y escritura de braille'],
+            ],
+            (object) [
+                'nombre' => 'Unidad Medica Reyes Acozac',
+                'subtitulo' => null,
+                'direccion' => 'C. Ninos Heroes No. 14, Barrio el Calvario, Pueblo de los Reyes Acozac, C.P. 55755',
+                'icono' => 'fa-stethoscope',
+                'tema' => 'teal',
+                'imagen' => 'page1_img11.png',
+                'horario_1' => 'Lunes a Viernes: 9:00 - 18:00 hrs',
+                'horario_2' => null,
+                'servicios' => ['Consulta medica', 'Terapia psicologica', 'Consulta Nutricion', 'Consulta Dental', 'Terapia Fisica', 'Curso de lengua de senas mexicana', 'Curso lectura y escritura de braille'],
+            ],
+            (object) [
+                'nombre' => 'Laboratorio de Analisis Clinicos',
+                'subtitulo' => null,
+                'direccion' => null,
+                'icono' => 'fa-flask',
+                'tema' => 'amber',
+                'imagen' => 'page1_img21.png',
+                'horario_1' => 'Lunes a Viernes: 9:00 - 15:00 hrs',
+                'horario_2' => null,
+                'servicios' => ['Quimica sanguinea de 25 elementos', 'Examen General de Orina', 'Biometria Hematica', 'Paquete promocion (QS 25, EGO, BH)', 'Prueba de antigeno prostatico', 'Prueba de embarazo', 'Prueba de antidoping', 'Grupo sanguineo y factor RH', 'VSG'],
+            ],
+        ]);
+    }
+
+    private function directorioPorDefecto(): Collection
+    {
+        return collect([
+            (object) [
+                'nombre' => 'Oficinas Centrales DIF Villas del Real',
+                'direccion' => 'Av. Esmeralda S/N colonia Lomas de Tecamac, Tecamac, Mex.',
+                'horario' => 'Lunes a Viernes: 9:00 - 18:00 hrs',
+                'icono' => 'fa-building',
+                'color_gradiente' => 'from-dif-pink to-dif-magenta',
+                'servicios' => ['Atencion ciudadana', 'Informacion general', 'Tramites administrativos'],
+            ],
+            (object) [
+                'nombre' => 'Unidad Medica Mandarinas',
+                'direccion' => 'Fracc. Ojo de Agua, calle Mandarinas, esq. Naranjos, C.P. 55770',
+                'horario' => 'Lunes a Viernes: 9:00 - 18:00 hrs | Sabados: 9:00 - 13:00 hrs',
+                'icono' => 'fa-hospital',
+                'color_gradiente' => 'from-dif-pink to-dif-pink-light',
+                'servicios' => ['Consulta medica', 'Terapia psicologica', 'Consulta Nutricion', 'Consulta Dental', 'Salud en tu hogar'],
+            ],
+            (object) [
+                'nombre' => 'Centro de Equinoterapia',
+                'direccion' => 'Carretera Federal Mexico - Pachuca, Km. 38, Sierra Hermosa, 55740 Tecamac',
+                'horario' => 'Lunes a Viernes: 9:00 - 15:00 hrs',
+                'icono' => 'fa-horse',
+                'color_gradiente' => 'from-green-700 to-green-500',
+                'servicios' => ['Equinoterapia', 'Clase de monta', 'Terapia psicologica', 'Terapia de lenguaje', 'Lengua de senas mexicanas'],
+            ],
+            (object) [
+                'nombre' => 'Clinica Materno Infantil Juana Belen Gutierrez de Mendoza',
+                'direccion' => 'Av. Esmeralda S/N colonia Lomas de Tecamac, Tecamac, Mex.',
+                'horario' => 'Lunes a Viernes: 9:00 - 18:00 hrs',
+                'icono' => 'fa-baby',
+                'color_gradiente' => 'from-blue-700 to-blue-500',
+                'servicios' => ['Consulta medica', 'Terapia psicologica', 'Consulta nutricional', 'Consulta dental', 'Ginecologia', 'Pediatra'],
+            ],
+            (object) [
+                'nombre' => 'U.B.R.I.S',
+                'direccion' => 'Mandarinas S/N Esq. Naranjos, Col. Fracc. Ojo de Agua, C.P. 55770',
+                'horario' => 'Lunes a Viernes: 9:00 - 15:00 hrs',
+                'icono' => 'fa-wheelchair',
+                'color_gradiente' => 'from-purple-700 to-purple-500',
+                'servicios' => ['Medico especialista en rehabilitacion', 'Certificado de discapacidad', 'Terapia fisica', 'Terapia ocupacional', 'Terapia de lenguaje', 'Braille'],
+            ],
+            (object) [
+                'nombre' => 'Unidad Medica Reyes Acozac',
+                'direccion' => 'C. Ninos Heroes No. 14, Barrio el Calvario, Pueblo de los Reyes Acozac, C.P. 55755',
+                'horario' => 'Lunes a Viernes: 9:00 - 18:00 hrs',
+                'icono' => 'fa-stethoscope',
+                'color_gradiente' => 'from-teal-700 to-teal-500',
+                'servicios' => ['Consulta medica', 'Terapia psicologica', 'Consulta Nutricion', 'Consulta Dental', 'Terapia Fisica'],
+            ],
+            (object) [
+                'nombre' => 'Laboratorio de Analisis Clinicos',
+                'direccion' => 'Fracc. Ojo de Agua, calle Mandarinas, esq. Naranjos, C.P. 55770',
+                'horario' => 'Lunes a Viernes: 9:00 - 15:00 hrs',
+                'icono' => 'fa-flask',
+                'color_gradiente' => 'from-amber-700 to-amber-500',
+                'servicios' => ['Quimica sanguinea 25 elementos', 'Examen General de Orina', 'Biometria Hematica', 'Antigeno prostatico', 'Prueba de embarazo'],
+            ],
+            (object) [
+                'nombre' => 'Centro de Diversidad Los Heroes Tecamac',
+                'direccion' => 'Col. Heroes de Tecamac, Ojo de Agua, Mex.',
+                'horario' => 'Lunes a Viernes: 9:00 - 15:00 hrs',
+                'icono' => 'fa-people-group',
+                'color_gradiente' => 'from-indigo-700 to-indigo-500',
+                'servicios' => ['Atencion a la diversidad', 'Asesoria psicologica', 'Programas de inclusion'],
+            ],
+        ]);
+    }
+
+    private function remtysPorDefecto(): Collection
+    {
+        return collect([
+            (object) [
+                'nombre' => 'Consejeria Juridica',
+                'icono' => 'fa-gavel',
+                'color_gradiente' => 'from-purple-700/80 to-purple-500/80',
+                'documentos' => collect([
+                    (object) ['titulo' => 'Lineamientos de asesoria juridica', 'archivo' => null, 'url' => '/pdf/pada.pdf'],
+                ]),
+            ],
+            (object) [
+                'nombre' => 'Tesoreria Municipal',
+                'icono' => 'fa-coins',
+                'color_gradiente' => 'from-red-700/80 to-red-500/80',
+                'documentos' => collect([
+                    (object) ['titulo' => 'Formato de tramites de tesoreria', 'archivo' => null, 'url' => '/pdf/programa.pdf'],
+                ]),
+            ],
+            (object) [
+                'nombre' => 'Organo Interno de Control Municipal',
+                'icono' => 'fa-building-shield',
+                'color_gradiente' => 'from-blue-700/80 to-blue-500/80',
+                'documentos' => collect([
+                    (object) ['titulo' => 'Guia de procedimientos de control interno', 'archivo' => null, 'url' => '/pdf/pada.pdf'],
+                ]),
+            ],
         ]);
     }
 }

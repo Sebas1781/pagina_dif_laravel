@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\ConfiguracionNosotros;
 use App\Models\SedeDif;
+use App\Models\ServicioCategoria;
 use App\Models\ServicioSeccionItem;
 use Illuminate\Database\Seeder;
 
@@ -41,6 +42,18 @@ class ContenidoInstitucionalSeeder extends Seeder
 
         foreach ($sedes as $sede) {
             SedeDif::updateOrCreate(['nombre' => $sede['nombre']], $sede + ['activo' => true]);
+        }
+
+        $categorias = [
+            ['clave' => 'bienestar_social', 'nombre' => 'Bienestar Social', 'subtitulo' => 'Programas de apoyo a la comunidad', 'icono' => 'fa-hand-holding-heart', 'tema' => 'pink', 'orden' => 1],
+            ['clave' => 'derechos', 'nombre' => 'Atencion y Defensa de Derechos', 'subtitulo' => 'Mujeres, juventud y diversidad sexual', 'icono' => 'fa-shield-heart', 'tema' => 'purple', 'orden' => 2],
+            ['clave' => 'salud', 'nombre' => 'Salud', 'subtitulo' => 'Atencion medica integral', 'icono' => 'fa-heartbeat', 'tema' => 'red', 'orden' => 3],
+            ['clave' => 'educacion_cultura', 'nombre' => 'Educacion y Cultura', 'subtitulo' => 'Aprendizaje y desarrollo cultural', 'icono' => 'fa-book-open', 'tema' => 'blue', 'orden' => 4],
+            ['clave' => 'juridico', 'nombre' => 'Juridico', 'subtitulo' => 'Asesoria legal gratuita', 'icono' => 'fa-scale-balanced', 'tema' => 'amber', 'orden' => 5],
+        ];
+
+        foreach ($categorias as $categoria) {
+            ServicioCategoria::updateOrCreate(['clave' => $categoria['clave']], $categoria + ['activo' => true]);
         }
 
         $itemsPorCategoria = [

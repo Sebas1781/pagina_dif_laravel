@@ -5,10 +5,16 @@
 @section('content')
 <div class="flex items-center justify-between mb-6">
     <p class="text-sm text-gray-500">Gestiona los elementos de Bienestar Social, Derechos, Salud, Educacion/Cultura y Juridico.</p>
-    <a href="{{ route('admin.servicio_items.create') }}"
-       class="inline-flex items-center gap-2 px-5 py-2.5 bg-dif-pink text-white text-sm font-semibold rounded-xl shadow hover:bg-dif-pink-dark transition-colors duration-200">
-        <i class="fas fa-plus text-xs"></i> Nuevo Elemento
-    </a>
+    <div class="flex items-center gap-3">
+        <a href="{{ route('admin.servicio_categorias.create') }}"
+           class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-dif-pink text-sm font-semibold rounded-xl border border-dif-pink hover:bg-dif-pink/5 transition-colors duration-200">
+            <i class="fas fa-folder-plus text-xs"></i> Nueva Categoria
+        </a>
+        <a href="{{ route('admin.servicio_items.create') }}"
+           class="inline-flex items-center gap-2 px-5 py-2.5 bg-dif-pink text-white text-sm font-semibold rounded-xl shadow hover:bg-dif-pink-dark transition-colors duration-200">
+            <i class="fas fa-plus text-xs"></i> Nuevo Elemento
+        </a>
+    </div>
 </div>
 
 @if(session('success'))
@@ -17,13 +23,13 @@
     </div>
 @endif
 
-@forelse($categorias as $claveCategoria => $nombreCategoria)
+@forelse($categorias as $categoria)
     @php
-        $items = $itemsPorCategoria->get($claveCategoria, collect());
+        $items = $itemsPorCategoria->get($categoria->clave, collect());
     @endphp
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
         <div class="px-5 py-4 border-b border-gray-100 bg-gray-50 flex items-center justify-between">
-            <h3 class="text-sm font-semibold text-dif-dark">{{ $nombreCategoria }}</h3>
+            <h3 class="text-sm font-semibold text-dif-dark">{{ $categoria->nombre }}</h3>
             <span class="text-xs text-gray-500">{{ $items->count() }} elementos</span>
         </div>
         <table class="w-full text-sm">

@@ -38,48 +38,44 @@
             </p>
         </div>
 
-        {{-- CARDS --}}
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-            {{-- Consejería Jurídica --}}
-            <div class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 scroll-hidden stagger-1">
-                <div class="h-56 bg-gradient-to-br from-purple-700/80 to-purple-500/80 flex items-center justify-center relative">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                    <div class="relative z-10 text-center p-6">
-                        <div class="w-16 h-16 mx-auto mb-4 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-gavel text-white text-2xl"></i>
+        {{-- CARDS + DOCUMENTOS --}}
+        <div class="space-y-6">
+            @foreach($remtysCards as $i => $card)
+            <div class="rounded-2xl overflow-hidden border border-gray-100 shadow-sm scroll-hidden stagger-{{ ($i % 6) + 1 }}" x-data="{ open: false }">
+                <button type="button" class="w-full text-left p-0" @click="open = !open">
+                    <div class="p-6 bg-gradient-to-br {{ $card->color_gradiente }} relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                        <div class="relative z-10 flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center shrink-0">
+                                    <i class="fas {{ $card->icono }} text-white text-2xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-white">{{ $card->nombre }}</h3>
+                            </div>
+                            <i class="fas fa-chevron-down text-white transition-transform duration-200" :class="open ? 'rotate-180' : ''"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white">Consejería Jurídica</h3>
                     </div>
+                </button>
+
+                <div class="p-6 bg-white" x-show="open">
+                    @php $documentos = $card->documentos ?? collect(); @endphp
+                    @if($documentos->isNotEmpty())
+                    <ul class="space-y-3">
+                        @foreach($documentos as $doc)
+                        <li class="flex items-center justify-between gap-3 p-4 rounded-xl border border-gray-100 bg-gray-50">
+                            <span class="text-sm font-medium text-gray-700">{{ $doc->titulo }}</span>
+                            <a href="{{ $doc->archivo ? asset('storage/' . $doc->archivo) : $doc->url }}" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg bg-dif-pink text-white hover:bg-dif-pink-dark transition-colors duration-200" target="_self">
+                                <i class="fas fa-eye"></i> Ver
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                    @else
+                    <p class="text-sm text-gray-500">No hay documentos disponibles para esta card.</p>
+                    @endif
                 </div>
             </div>
-
-            {{-- Tesorería Municipal --}}
-            <div class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 scroll-hidden stagger-2">
-                <div class="h-56 bg-gradient-to-br from-red-700/80 to-red-500/80 flex items-center justify-center relative">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                    <div class="relative z-10 text-center p-6">
-                        <div class="w-16 h-16 mx-auto mb-4 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-coins text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Tesorería Municipal</h3>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Órgano Interno de Control Municipal --}}
-            <div class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 scroll-hidden stagger-3">
-                <div class="h-56 bg-gradient-to-br from-blue-700/80 to-blue-500/80 flex items-center justify-center relative">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                    <div class="relative z-10 text-center p-6">
-                        <div class="w-16 h-16 mx-auto mb-4 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-building-shield text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white">Órgano Interno de Control Municipal</h3>
-                    </div>
-                </div>
-            </div>
-
+            @endforeach
         </div>
     </div>
 </section>

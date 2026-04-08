@@ -3,14 +3,6 @@
 
 @section('content')
 
-@php
-    $bienestarItems = $serviciosPorCategoria->get('bienestar_social', collect());
-    $derechosItems = $serviciosPorCategoria->get('derechos', collect());
-    $saludItems = $serviciosPorCategoria->get('salud', collect());
-    $educacionItems = $serviciosPorCategoria->get('educacion_cultura', collect());
-    $juridicoItems = $serviciosPorCategoria->get('juridico', collect());
-@endphp
-
 {{-- HERO --}}
 <section class="relative py-32 overflow-hidden">
     <div class="absolute inset-0">
@@ -32,131 +24,65 @@
 {{-- ALL AREAS --}}
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        @php
+            $mapaTema = [
+                'pink' => ['header' => 'from-dif-pink to-dif-magenta', 'hoverBorder' => 'hover:border-dif-pink/30', 'iconBg' => 'bg-dif-cream', 'iconHover' => 'group-hover:bg-dif-pink', 'iconText' => 'text-dif-pink', 'linkColor' => 'text-dif-pink'],
+                'purple' => ['header' => 'from-purple-600 to-purple-400', 'hoverBorder' => 'hover:border-purple-300', 'iconBg' => 'bg-purple-50', 'iconHover' => 'group-hover:bg-purple-600', 'iconText' => 'text-purple-600', 'linkColor' => 'text-purple-600'],
+                'red' => ['header' => 'from-red-500 to-rose-400', 'hoverBorder' => 'hover:border-red-300', 'iconBg' => 'bg-red-50', 'iconHover' => 'group-hover:bg-red-500', 'iconText' => 'text-red-500', 'linkColor' => 'text-dif-pink'],
+                'blue' => ['header' => 'from-blue-600 to-blue-400', 'hoverBorder' => 'hover:border-blue-300', 'iconBg' => 'bg-blue-50', 'iconHover' => 'group-hover:bg-blue-600', 'iconText' => 'text-blue-600', 'linkColor' => 'text-blue-600'],
+                'amber' => ['header' => 'from-amber-600 to-amber-400', 'hoverBorder' => 'hover:border-amber-300', 'iconBg' => 'bg-amber-50', 'iconHover' => 'group-hover:bg-amber-600', 'iconText' => 'text-amber-600', 'linkColor' => 'text-amber-600'],
+                'teal' => ['header' => 'from-teal-600 to-teal-400', 'hoverBorder' => 'hover:border-teal-300', 'iconBg' => 'bg-teal-50', 'iconHover' => 'group-hover:bg-teal-600', 'iconText' => 'text-teal-600', 'linkColor' => 'text-teal-600'],
+                'green' => ['header' => 'from-green-600 to-green-400', 'hoverBorder' => 'hover:border-green-300', 'iconBg' => 'bg-green-50', 'iconHover' => 'group-hover:bg-green-600', 'iconText' => 'text-green-600', 'linkColor' => 'text-green-600'],
+            ];
+        @endphp
 
-        {{-- BIENESTAR SOCIAL --}}
-        <div class="mb-20 scroll-hidden">
-            <div class="flex items-center gap-4 mb-8">
-                <div class="w-14 h-14 bg-gradient-to-br from-dif-pink to-dif-magenta rounded-2xl flex items-center justify-center shadow-lg">
-                    <i class="fas fa-hand-holding-heart text-white text-xl"></i>
-                </div>
-                <div>
-                    <h2 class="text-2xl font-extrabold text-dif-dark">Bienestar Social</h2>
-                    <p class="text-sm text-gray-400">Programas de apoyo a la comunidad</p>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach($bienestarItems as $i => $s)
-                <div class="card-hover bg-white rounded-xl p-5 border border-gray-100 flex items-center gap-4 group hover:border-dif-pink/30 stagger-{{ $i + 1 }}">
-                    <div class="w-10 h-10 bg-dif-cream rounded-lg flex items-center justify-center shrink-0 group-hover:bg-dif-pink transition-colors">
-                        <i class="fas fa-check text-dif-pink text-sm group-hover:text-white transition-colors"></i>
-                    </div>
-                    <span class="font-medium text-dif-dark text-sm">{{ $s->nombre }}</span>
-                </div>
-                @endforeach
-            </div>
-        </div>
+        @foreach($categoriasServicios as $categoria)
+            @php
+                $tema = $mapaTema[$categoria->tema ?? 'pink'] ?? $mapaTema['pink'];
+                $itemsCategoria = $serviciosPorCategoria->get($categoria->clave, collect());
+            @endphp
 
-        {{-- DERECHOS --}}
-        <div class="mb-20 scroll-hidden">
-            <div class="flex items-center gap-4 mb-8">
-                <div class="w-14 h-14 bg-gradient-to-br from-purple-600 to-purple-400 rounded-2xl flex items-center justify-center shadow-lg">
-                    <i class="fas fa-shield-heart text-white text-xl"></i>
-                </div>
-                <div>
-                    <h2 class="text-2xl font-extrabold text-dif-dark">Atención y Defensa de Derechos</h2>
-                    <p class="text-sm text-gray-400">Mujeres, juventud y diversidad sexual</p>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach($derechosItems as $i => $s)
-                <div class="card-hover bg-white rounded-xl p-5 border border-gray-100 flex items-center gap-4 group hover:border-purple-300 stagger-{{ $i + 1 }}">
-                    <div class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-purple-600 transition-colors">
-                        <i class="fas fa-check text-purple-600 text-sm group-hover:text-white transition-colors"></i>
+            <div class="{{ $loop->last ? '' : 'mb-20' }} scroll-hidden">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-14 h-14 bg-gradient-to-br {{ $tema['header'] }} rounded-2xl flex items-center justify-center shadow-lg">
+                        <i class="fas {{ $categoria->icono ?: 'fa-check' }} text-white text-xl"></i>
                     </div>
-                    <span class="font-medium text-dif-dark text-sm">{{ $s->nombre }}</span>
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-dif-dark">{{ $categoria->nombre }}</h2>
+                        @if(!empty($categoria->subtitulo))
+                            <p class="text-sm text-gray-400">{{ $categoria->subtitulo }}</p>
+                        @endif
+                    </div>
                 </div>
-                @endforeach
-            </div>
-        </div>
 
-        {{-- SALUD --}}
-        <div class="mb-20 scroll-hidden">
-            <div class="flex items-center gap-4 mb-8">
-                <div class="w-14 h-14 bg-gradient-to-br from-red-500 to-rose-400 rounded-2xl flex items-center justify-center shadow-lg">
-                    <i class="fas fa-heartbeat text-white text-xl"></i>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    @foreach($itemsCategoria as $i => $s)
+                        <div class="card-hover bg-white rounded-xl p-5 border border-gray-100 flex items-center gap-4 group {{ $tema['hoverBorder'] }} stagger-{{ ($i % 6) + 1 }}">
+                            <div class="w-10 h-10 {{ $tema['iconBg'] }} rounded-lg flex items-center justify-center shrink-0 {{ $tema['iconHover'] }} transition-colors">
+                                <i class="fas fa-check {{ $tema['iconText'] }} text-sm group-hover:text-white transition-colors"></i>
+                            </div>
+                            <span class="font-medium text-dif-dark text-sm">{{ $s->nombre }}</span>
+                        </div>
+                    @endforeach
                 </div>
-                <div>
-                    <h2 class="text-2xl font-extrabold text-dif-dark">Salud</h2>
-                    <p class="text-sm text-gray-400">Atención médica integral</p>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach($saludItems as $i => $s)
-                <div class="card-hover bg-white rounded-xl p-5 border border-gray-100 flex items-center gap-4 group hover:border-red-300 stagger-{{ ($i % 6) + 1 }}">
-                    <div class="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-red-500 transition-colors">
-                        <i class="fas fa-check text-red-500 text-sm group-hover:text-white transition-colors"></i>
-                    </div>
-                    <span class="font-medium text-dif-dark text-sm">{{ $s->nombre }}</span>
-                </div>
-                @endforeach
-            </div>
-            <div class="mt-6">
-                <a href="{{ route('salud') }}" class="inline-flex items-center gap-2 text-dif-pink font-semibold hover:underline">
-                    Ver detalle completo de salud <i class="fas fa-arrow-right text-sm"></i>
-                </a>
-            </div>
-        </div>
 
-        {{-- EDUCACIÓN --}}
-        <div class="mb-20 scroll-hidden">
-            <div class="flex items-center gap-4 mb-8">
-                <div class="w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-400 rounded-2xl flex items-center justify-center shadow-lg">
-                    <i class="fas fa-book-open text-white text-xl"></i>
-                </div>
-                <div>
-                    <h2 class="text-2xl font-extrabold text-dif-dark">Educación y Cultura</h2>
-                    <p class="text-sm text-gray-400">Aprendizaje y desarrollo cultural</p>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach($educacionItems as $i => $s)
-                <div class="card-hover bg-white rounded-xl p-5 border border-gray-100 flex items-center gap-4 group hover:border-blue-300 stagger-{{ $i + 1 }}">
-                    <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-blue-600 transition-colors">
-                        <i class="fas fa-check text-blue-600 text-sm group-hover:text-white transition-colors"></i>
+                @if($categoria->clave === 'salud')
+                    <div class="mt-6">
+                        <a href="{{ route('salud') }}" class="inline-flex items-center gap-2 {{ $tema['linkColor'] }} font-semibold hover:underline">
+                            Ver detalle completo de salud <i class="fas fa-arrow-right text-sm"></i>
+                        </a>
                     </div>
-                    <span class="font-medium text-dif-dark text-sm">{{ $s->nombre }}</span>
-                </div>
-                @endforeach
-            </div>
-            <div class="mt-6">
-                <a href="{{ route('educacion') }}" class="inline-flex items-center gap-2 text-blue-600 font-semibold hover:underline">
-                    Ver detalle de educación y cultura <i class="fas fa-arrow-right text-sm"></i>
-                </a>
-            </div>
-        </div>
+                @endif
 
-        {{-- JURÍDICO --}}
-        <div class="scroll-hidden">
-            <div class="flex items-center gap-4 mb-8">
-                <div class="w-14 h-14 bg-gradient-to-br from-amber-600 to-amber-400 rounded-2xl flex items-center justify-center shadow-lg">
-                    <i class="fas fa-scale-balanced text-white text-xl"></i>
-                </div>
-                <div>
-                    <h2 class="text-2xl font-extrabold text-dif-dark">Jurídico</h2>
-                    <p class="text-sm text-gray-400">Asesoría legal gratuita</p>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach($juridicoItems as $i => $s)
-                <div class="card-hover bg-white rounded-xl p-5 border border-gray-100 flex items-center gap-4 group hover:border-amber-300 stagger-{{ $i + 1 }}">
-                    <div class="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-amber-600 transition-colors">
-                        <i class="fas fa-check text-amber-600 text-sm group-hover:text-white transition-colors"></i>
+                @if($categoria->clave === 'educacion_cultura')
+                    <div class="mt-6">
+                        <a href="{{ route('educacion') }}" class="inline-flex items-center gap-2 {{ $tema['linkColor'] }} font-semibold hover:underline">
+                            Ver detalle de educación y cultura <i class="fas fa-arrow-right text-sm"></i>
+                        </a>
                     </div>
-                    <span class="font-medium text-dif-dark text-sm">{{ $s->nombre }}</span>
-                </div>
-                @endforeach
+                @endif
             </div>
-        </div>
+        @endforeach
     </div>
 </section>
 

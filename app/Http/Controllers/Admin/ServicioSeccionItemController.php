@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ServicioCategoria;
 use App\Models\ServicioSeccionItem;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,7 @@ class ServicioSeccionItemController extends Controller
 {
     public function index()
     {
-        $categorias = ServicioSeccionItem::CATEGORIAS;
+        $categorias = ServicioCategoria::orderBy('orden')->orderBy('id')->get(['clave', 'nombre']);
         $itemsPorCategoria = ServicioSeccionItem::orderBy('categoria')
             ->orderBy('orden')
             ->orderBy('id')
@@ -22,7 +23,7 @@ class ServicioSeccionItemController extends Controller
 
     public function create()
     {
-        $categorias = ServicioSeccionItem::CATEGORIAS;
+        $categorias = ServicioCategoria::orderBy('orden')->orderBy('id')->pluck('nombre', 'clave')->toArray();
 
         return view('admin.servicio_items.create', compact('categorias'));
     }
@@ -30,7 +31,7 @@ class ServicioSeccionItemController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'categoria' => ['required', 'in:' . implode(',', array_keys(ServicioSeccionItem::CATEGORIAS))],
+            'categoria' => ['required', 'exists:servicio_categorias,clave'],
             'nombre' => ['required', 'string', 'max:255'],
             'activo' => ['nullable', 'boolean'],
             'orden' => ['nullable', 'integer', 'min:0'],
@@ -45,7 +46,7 @@ class ServicioSeccionItemController extends Controller
 
     public function edit(ServicioSeccionItem $servicioItem)
     {
-        $categorias = ServicioSeccionItem::CATEGORIAS;
+        $categorias = ServicioCategoria::orderBy('orden')->orderBy('id')->pluck('nombre', 'clave')->toArray();
 
         return view('admin.servicio_items.edit', ['item' => $servicioItem, 'categorias' => $categorias]);
     }
@@ -53,7 +54,7 @@ class ServicioSeccionItemController extends Controller
     public function update(Request $request, ServicioSeccionItem $servicioItem)
     {
         $data = $request->validate([
-            'categoria' => ['required', 'in:' . implode(',', array_keys(ServicioSeccionItem::CATEGORIAS))],
+            'categoria' => ['required', 'exists:servicio_categorias,clave'],
             'nombre' => ['required', 'string', 'max:255'],
             'activo' => ['nullable', 'boolean'],
             'orden' => ['nullable', 'integer', 'min:0'],

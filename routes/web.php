@@ -18,6 +18,12 @@ use App\Http\Controllers\Admin\ServicioSaludController;
 use App\Http\Controllers\Admin\ConfiguracionNosotrosController;
 use App\Http\Controllers\Admin\SedeDifController;
 use App\Http\Controllers\Admin\ServicioSeccionItemController;
+use App\Http\Controllers\Admin\ServicioCategoriaController;
+use App\Http\Controllers\Admin\SaludServicioController;
+use App\Http\Controllers\Admin\UnidadMedicaController;
+use App\Http\Controllers\Admin\DirectorioItemController;
+use App\Http\Controllers\Admin\RemtysCardController;
+use App\Http\Controllers\Admin\RemtysDocumentoController;
 
 Route::get('/', [PageController::class, 'inicio'])->name('inicio');
 Route::get('/nosotros', [PageController::class, 'nosotros'])->name('nosotros');
@@ -58,6 +64,30 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('servicio_items', ServicioSeccionItemController::class)
             ->parameters(['servicio_items' => 'servicioItem'])
             ->except(['show']);
+        Route::get('servicio_categorias/create', [ServicioCategoriaController::class, 'create'])->name('servicio_categorias.create');
+        Route::post('servicio_categorias', [ServicioCategoriaController::class, 'store'])->name('servicio_categorias.store');
+
+        // Pagina Salud
+        Route::resource('salud_servicios', SaludServicioController::class)
+            ->parameters(['salud_servicios' => 'saludServicio'])
+            ->except(['show']);
+        Route::resource('unidades_medicas', UnidadMedicaController::class)
+            ->parameters(['unidades_medicas' => 'unidadesMedica'])
+            ->except(['show']);
+
+        // Directorio
+        Route::resource('directorio_items', DirectorioItemController::class)
+            ->parameters(['directorio_items' => 'directorioItem'])
+            ->except(['show']);
+
+        // REMTYS
+        Route::resource('remtys_cards', RemtysCardController::class)
+            ->parameters(['remtys_cards' => 'remtysCard'])
+            ->except(['show']);
+        Route::get('remtys_cards/{remtysCard}/documentos', [RemtysDocumentoController::class, 'index'])->name('remtys_documentos.index');
+        Route::get('remtys_cards/{remtysCard}/documentos/create', [RemtysDocumentoController::class, 'create'])->name('remtys_documentos.create');
+        Route::post('remtys_cards/{remtysCard}/documentos', [RemtysDocumentoController::class, 'store'])->name('remtys_documentos.store');
+        Route::delete('remtys_cards/{remtysCard}/documentos/{remtysDocumento}', [RemtysDocumentoController::class, 'destroy'])->name('remtys_documentos.destroy');
 
         // Boletines
         Route::resource('boletines', BoletinController::class)
