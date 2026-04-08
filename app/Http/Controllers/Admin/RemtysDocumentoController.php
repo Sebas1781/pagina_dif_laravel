@@ -10,21 +10,34 @@ use Illuminate\Support\Facades\Storage;
 
 class RemtysDocumentoController extends Controller
 {
-    public function index(RemtysCard $remtysCard)
+    public function index(Request $request)
     {
-        $documentos = $remtysCard->documentos()->get();
+        $categorias = RemtysCard::orderBy('orden')->orderBy('id')->get();
+        $categoriaId = $request->input('categoria');
+        $buscar = trim((string) $request->input('buscar'));
 
-        return view('admin.remtys_documentos.index', ['card' => $remtysCard, 'documentos' => $documentos]);
+        $documentos = RemtysDocumento::with('card')
+            ->when($categoriaId, fn ($q) => $q->where('remtys_card_id', $categoriaId))
+            ->when($buscar !== '', fn ($q) => $q->where('titulo', 'like', '%' . $buscar . '%'))
+            ->orderBy('orden')
+            ->orderBy('id')
+            ->paginate(30)
+            ->withQueryString();
+
+        return view('admin.remtys_documentos.index', compact('categorias', 'categoriaId', 'buscar', 'documentos'));
     }
 
-    public function create(RemtysCard $remtysCard)
+    public function create()
     {
-        return view('admin.remtys_documentos.create', ['card' => $remtysCard]);
+        $categorias = RemtysCard::orderBy('orden')->orderBy('id')->get();
+
+        return view('admin.remtys_documentos.create', compact('categorias'));
     }
 
-    public function store(Request $request, RemtysCard $remtysCard)
+    public function store(Request $request)
     {
         $data = $request->validate([
+            'remtys_card_id' => ['required', 'exists:remtys_cards,id'],
             'titulo' => ['required', 'string', 'max:255'],
             'archivo' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
             'url' => ['nullable', 'string', 'max:255'],
@@ -39,21 +52,65 @@ class RemtysDocumentoController extends Controller
         if ($request->hasFile('archivo')) {
             $data['archivo'] = $request->file('archivo')->store('remtys', 'public');
             $data['url'] = null;
+        } else {
+            $data['archivo'] = null;
         }
 
-        $data['remtys_card_id'] = $remtysCard->id;
         $data['activo'] = $request->boolean('activo', true);
 
         RemtysDocumento::create($data);
 
-        return redirect()->route('admin.remtys_cards.edit', $remtysCard)->with('success', 'Documento agregado correctamente.');
+        return redirect()->route('admin.remtys_documentos.index', ['categoria' => $data['remtys_card_id']])->with('success', 'Documento agregado correctamente.');
     }
 
-    public function destroy(RemtysCard $remtysCard, RemtysDocumento $remtysDocumento)
+    public function edit(RemtysDocumento $remtysDocumento)
     {
-        if ($remtysDocumento->remtys_card_id !== $remtysCard->id) {
-            abort(404);
+        $categorias = RemtysCard::orderBy('orden')->orderBy('id')->get();
+
+        return view('admin.remtys_documentos.edit', compact('remtysDocumento', 'categorias'));
+    }
+
+    public function update(Request $request, RemtysDocumento $remtysDocumento)
+    {
+        $data = $request->validate([
+            'remtys_card_id' => ['required', 'exists:remtys_cards,id'],
+            'titulo' => ['required', 'string', 'max:255'],
+            'archivo' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
+            'url' => ['nullable', 'string', 'max:255'],
+            'orden' => ['nullable', 'integer', 'min:0'],
+            'activo' => ['nullable', 'boolean'],
+        ]);
+
+        if (!$request->hasFile('archivo') && empty($data['url']) && empty($remtysDocumento->archivo)) {
+            return back()->withErrors(['archivo' => 'Debes subir un PDF o indicar una URL.'])->withInput();
         }
+
+        if ($request->hasFile('archivo')) {
+            if ($remtysDocumento->archivo && str_starts_with($remtysDocumento->archivo, 'remtys/')) {
+                Storage::disk('public')->delete($remtysDocumento->archivo);
+            }
+            $data['archivo'] = $request->file('archivo')->store('remtys', 'public');
+            $data['url'] = null;
+        } elseif (!empty($data['url'])) {
+            if ($remtysDocumento->archivo && str_starts_with($remtysDocumento->archivo, 'remtys/')) {
+                Storage::disk('public')->delete($remtysDocumento->archivo);
+            }
+            $data['archivo'] = null;
+        } else {
+            $data['archivo'] = $remtysDocumento->archivo;
+            $data['url'] = $remtysDocumento->url;
+        }
+
+        $data['activo'] = $request->boolean('activo', true);
+
+        $remtysDocumento->update($data);
+
+        return redirect()->route('admin.remtys_documentos.index', ['categoria' => $data['remtys_card_id']])->with('success', 'Documento actualizado correctamente.');
+    }
+
+    public function destroy(RemtysDocumento $remtysDocumento)
+    {
+        $categoriaId = $remtysDocumento->remtys_card_id;
 
         if ($remtysDocumento->archivo && str_starts_with($remtysDocumento->archivo, 'remtys/')) {
             Storage::disk('public')->delete($remtysDocumento->archivo);
@@ -61,6 +118,6 @@ class RemtysDocumentoController extends Controller
 
         $remtysDocumento->delete();
 
-        return redirect()->route('admin.remtys_cards.edit', $remtysCard)->with('success', 'Documento eliminado.');
+        return redirect()->route('admin.remtys_documentos.index', ['categoria' => $categoriaId])->with('success', 'Documento eliminado.');
     }
 }

@@ -84,10 +84,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('remtys_cards', RemtysCardController::class)
             ->parameters(['remtys_cards' => 'remtysCard'])
             ->except(['show']);
-        Route::get('remtys_cards/{remtysCard}/documentos', [RemtysDocumentoController::class, 'index'])->name('remtys_documentos.index');
-        Route::get('remtys_cards/{remtysCard}/documentos/create', [RemtysDocumentoController::class, 'create'])->name('remtys_documentos.create');
-        Route::post('remtys_cards/{remtysCard}/documentos', [RemtysDocumentoController::class, 'store'])->name('remtys_documentos.store');
-        Route::delete('remtys_cards/{remtysCard}/documentos/{remtysDocumento}', [RemtysDocumentoController::class, 'destroy'])->name('remtys_documentos.destroy');
+        Route::get('remtys_documentos', [RemtysDocumentoController::class, 'index'])->name('remtys_documentos.index');
+        Route::get('remtys_documentos/create', [RemtysDocumentoController::class, 'create'])->name('remtys_documentos.create');
+        Route::post('remtys_documentos', [RemtysDocumentoController::class, 'store'])->name('remtys_documentos.store');
+        Route::get('remtys_documentos/{remtysDocumento}/edit', [RemtysDocumentoController::class, 'edit'])->name('remtys_documentos.edit');
+        Route::put('remtys_documentos/{remtysDocumento}', [RemtysDocumentoController::class, 'update'])->name('remtys_documentos.update');
+        Route::delete('remtys_documentos/{remtysDocumento}', [RemtysDocumentoController::class, 'destroy'])->name('remtys_documentos.destroy');
 
         // Boletines
         Route::resource('boletines', BoletinController::class)

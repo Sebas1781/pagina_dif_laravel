@@ -17,9 +17,9 @@
         {{-- Sidebar --}}
         <aside class="w-64 flex-shrink-0 bg-dif-pink-dark flex flex-col shadow-xl">
             {{-- Logo --}}
-            <div class="flex items-center gap-3 px-6 py-5 border-b border-white/10">
-                <img src="/images/logo-dif.png" alt="DIF Tecámac" class="h-10 w-auto brightness-0 invert">
-                <div>
+            <div class="px-4 py-4 border-b border-white/10">
+                <img src="/images/logo-dif.png" alt="DIF Tecámac" class="h-12 w-full object-contain object-left brightness-0 invert">
+                <div class="mt-2 px-1">
                     <p class="text-white font-bold text-sm leading-tight">DIF Tecámac</p>
                     <p class="text-white/60 text-xs">Panel de Administrador</p>
                 </div>

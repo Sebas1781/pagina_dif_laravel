@@ -38,46 +38,80 @@
             </p>
         </div>
 
-        {{-- CARDS + DOCUMENTOS --}}
-        <div class="space-y-6">
+        {{-- CATEGORIAS --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-10">
             @foreach($remtysCards as $i => $card)
-            <div class="rounded-2xl overflow-hidden border border-gray-100 shadow-sm scroll-hidden stagger-{{ ($i % 6) + 1 }}" x-data="{ open: false }">
-                <button type="button" class="w-full text-left p-0" @click="open = !open">
-                    <div class="p-6 bg-gradient-to-br {{ $card->color_gradiente }} relative">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                        <div class="relative z-10 flex items-center justify-between gap-4">
-                            <div class="flex items-center gap-4">
-                                <div class="w-14 h-14 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center shrink-0">
-                                    <i class="fas {{ $card->icono }} text-white text-2xl"></i>
-                                </div>
-                                <h3 class="text-xl font-bold text-white">{{ $card->nombre }}</h3>
-                            </div>
-                            <i class="fas fa-chevron-down text-white transition-transform duration-200" :class="open ? 'rotate-180' : ''"></i>
+                <a href="{{ route('remtys', ['categoria' => $card->id]) }}#tramites" class="group relative rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 scroll-hidden stagger-{{ ($i % 6) + 1 }}">
+                    <div class="h-56 bg-gradient-to-br {{ $card->color_gradiente }} flex items-end relative p-6">
+                        <div class="absolute top-6 left-6 w-14 h-14 bg-white/20 backdrop-blur rounded-2xl flex items-center justify-center">
+                            <i class="fas {{ $card->icono }} text-white text-2xl"></i>
+                        </div>
+                        <div class="absolute top-5 right-6 text-white/30 text-5xl"><i class="fas fa-check"></i></div>
+                        <div class="relative z-10 max-w-full">
+                            <p class="text-lg md:text-xl font-extrabold text-white uppercase leading-snug break-words">{{ $card->nombre }}</p>
+                            <p class="text-white/90 mt-2 text-lg">Ver tramites <i class="fas fa-arrow-down ml-2"></i></p>
                         </div>
                     </div>
-                </button>
+                </a>
+            @endforeach
+        </div>
 
-                <div class="p-6 bg-white" x-show="open">
-                    @php $documentos = $card->documentos ?? collect(); @endphp
-                    @if($documentos->isNotEmpty())
-                    <ul class="space-y-3">
-                        @foreach($documentos as $doc)
-                        <li class="flex items-center justify-between gap-3 p-4 rounded-xl border border-gray-100 bg-gray-50">
-                            <span class="text-sm font-medium text-gray-700">{{ $doc->titulo }}</span>
-                            <a href="{{ $doc->archivo ? asset('storage/' . $doc->archivo) : $doc->url }}" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold rounded-lg bg-dif-pink text-white hover:bg-dif-pink-dark transition-colors duration-200" target="_self">
-                                <i class="fas fa-eye"></i> Ver
-                            </a>
-                        </li>
-                        @endforeach
-                    </ul>
-                    @else
-                    <p class="text-sm text-gray-500">No hay documentos disponibles para esta card.</p>
-                    @endif
+        {{-- TABLA DE TRAMITES --}}
+        <div id="tramites" class="rounded-2xl border border-gray-200 overflow-hidden bg-gray-50">
+            <div class="px-8 py-6 border-b border-gray-200 bg-white flex items-center justify-between gap-4 flex-wrap">
+                <h3 class="text-4xl font-extrabold text-slate-900">{{ $remtysCategoriaSeleccionada?->nombre }} - Tramites y Servicios</h3>
+                <a href="{{ route('remtys') }}" class="text-gray-400 hover:text-gray-600 text-4xl leading-none">&times;</a>
+            </div>
+
+            <div class="p-8 bg-white border-b border-gray-200 flex justify-end">
+                <input type="text" id="buscarTramite" placeholder="Buscar tramite..." class="w-full max-w-sm px-4 py-2.5 border border-gray-300 rounded-lg text-sm">
+            </div>
+
+            <div class="p-8 bg-white">
+                <div class="overflow-x-auto rounded-xl border border-gray-200">
+                    <table class="w-full text-sm" id="tablaTramites">
+                        <thead class="bg-dif-pink-dark text-white">
+                            <tr>
+                                <th class="px-5 py-3.5 text-left w-14">#</th>
+                                <th class="px-5 py-3.5 text-left">Tramite / Servicio</th>
+                                <th class="px-5 py-3.5 text-left w-36">Archivo</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100 bg-white">
+                            @forelse(($remtysCategoriaSeleccionada?->documentos ?? collect()) as $doc)
+                                <tr class="tramite-row">
+                                    <td class="px-5 py-4 text-gray-500">{{ $loop->iteration }}</td>
+                                    <td class="px-5 py-4 font-medium text-slate-800 tramite-titulo">{{ $doc->titulo }}</td>
+                                    <td class="px-5 py-4">
+                                        <a href="{{ $doc->archivo ? asset('storage/' . $doc->archivo) : $doc->url }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-dif-pink-dark text-white font-semibold text-xs hover:bg-dif-pink transition-colors"><i class="fas fa-file-alt"></i> Ver</a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr><td colspan="3" class="px-5 py-10 text-center text-gray-400">No hay tramites en esta categoria.</td></tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            @endforeach
         </div>
     </div>
 </section>
+
+<script>
+(function () {
+    const input = document.getElementById('buscarTramite');
+    const rows = Array.from(document.querySelectorAll('.tramite-row'));
+
+    if (!input || rows.length === 0) return;
+
+    input.addEventListener('input', function () {
+        const term = this.value.toLowerCase().trim();
+        rows.forEach((row) => {
+            const text = row.querySelector('.tramite-titulo')?.textContent?.toLowerCase() || '';
+            row.style.display = text.includes(term) ? '' : 'none';
+        });
+    });
+})();
+</script>
 
 @endsection

@@ -187,7 +187,7 @@ class PageController extends Controller
         return view('pages.transparencia', compact('sevacData', 'sevacAnios', 'conacData', 'conacAnios', 'presupuestoData', 'presupuestoAnios'));
     }
 
-    public function remtys()
+    public function remtys(Request $request)
     {
         $remtysCards = collect();
         if (Schema::hasTable('remtys_cards') && Schema::hasTable('remtys_documentos')) {
@@ -197,7 +197,10 @@ class PageController extends Controller
             $remtysCards = $this->remtysPorDefecto();
         }
 
-        return view('pages.remtys', compact('remtysCards'));
+        $categoriaId = $request->query('categoria');
+        $remtysCategoriaSeleccionada = $remtysCards->firstWhere('id', (int) $categoriaId) ?: $remtysCards->first();
+
+        return view('pages.remtys', compact('remtysCards', 'remtysCategoriaSeleccionada'));
     }
 
     public function boletines()

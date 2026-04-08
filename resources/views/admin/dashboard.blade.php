@@ -60,8 +60,81 @@
 
     {{-- Panel de accesos rápidos --}}
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <h3 class="text-base font-semibold text-dif-dark mb-4">Accesos rápidos</h3>
-        <p class="text-sm text-gray-400">Próximamente podrás gestionar boletines, servicios, directorio y más desde aquí.</p>
+        <h3 class="text-base font-semibold text-dif-dark mb-5">Accesos rápidos</h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a href="{{ route('admin.boletines.index') }}" class="group rounded-xl border border-gray-200 p-4 hover:border-dif-pink/40 hover:bg-dif-pink/5 transition-colors">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-dif-pink/10 text-dif-pink flex items-center justify-center">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-dif-dark">Boletines</p>
+                        <p class="text-xs text-gray-500">Crear y editar notas</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ route('admin.remtys_cards.index') }}" class="group rounded-xl border border-gray-200 p-4 hover:border-indigo-300 hover:bg-indigo-50/60 transition-colors">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-dif-dark">REMTYS: Categorías</p>
+                        <p class="text-xs text-gray-500">Gestionar categorías</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ route('admin.remtys_documentos.index') }}" class="group rounded-xl border border-gray-200 p-4 hover:border-indigo-300 hover:bg-indigo-50/60 transition-colors">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-dif-dark">REMTYS: Documentos</p>
+                        <p class="text-xs text-gray-500">Alta, filtro y edición</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ route('admin.directorio_items.index') }}" class="group rounded-xl border border-gray-200 p-4 hover:border-green-300 hover:bg-green-50/60 transition-colors">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-green-100 text-green-600 flex items-center justify-center">
+                        <i class="fas fa-address-book"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-dif-dark">Directorio</p>
+                        <p class="text-xs text-gray-500">Sedes y servicios</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ route('admin.salud_servicios.index') }}" class="group rounded-xl border border-gray-200 p-4 hover:border-rose-300 hover:bg-rose-50/60 transition-colors">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center">
+                        <i class="fas fa-heart-pulse"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-dif-dark">Salud: Servicios</p>
+                        <p class="text-xs text-gray-500">Catálogo de servicios</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{{ route('admin.unidades_medicas.index') }}" class="group rounded-xl border border-gray-200 p-4 hover:border-rose-300 hover:bg-rose-50/60 transition-colors">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-rose-100 text-rose-600 flex items-center justify-center">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm font-semibold text-dif-dark">Salud: Unidades</p>
+                        <p class="text-xs text-gray-500">Gestionar unidades médicas</p>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 
 @endsection

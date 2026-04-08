@@ -41,8 +41,6 @@ class RemtysCardController extends Controller
 
     public function edit(RemtysCard $remtysCard)
     {
-        $remtysCard->load(['documentos' => fn ($q) => $q->orderBy('orden')->orderBy('id')]);
-
         return view('admin.remtys_cards.edit', ['card' => $remtysCard]);
     }
 
@@ -62,7 +60,7 @@ class RemtysCardController extends Controller
 
         $remtysCard->update($data);
 
-        return redirect()->route('admin.remtys_cards.edit', $remtysCard)->with('success', 'Card de REMTYS actualizada.');
+        return redirect()->route('admin.remtys_cards.index')->with('success', 'Categoria REMTYS actualizada.');
     }
 
     public function destroy(RemtysCard $remtysCard)
