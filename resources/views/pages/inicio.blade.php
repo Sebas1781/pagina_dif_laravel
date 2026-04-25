@@ -203,16 +203,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
 
                 {{-- PDF Download Buttons --}}
+                @if($documentosInicio->count())
                 <div class="flex flex-col sm:flex-row flex-wrap gap-3 scroll-hidden stagger-4">
-                    <a href="/pdf/pada.pdf" download class="inline-flex items-center gap-2 bg-dif-pink/90 backdrop-blur text-white font-bold px-4 sm:px-6 py-3 rounded-xl shadow-lg hover:bg-dif-pink hover:scale-105 transition-all duration-300 text-xs sm:text-sm">
-                        <i class="fas fa-file-pdf shrink-0"></i>
-                        <span>Programa Anual de Desarrollo Archivístico 2026</span>
-                    </a>
-                    <a href="/pdf/programa.pdf" download class="inline-flex items-center gap-2 bg-dif-pink/90 backdrop-blur text-white font-bold px-4 sm:px-6 py-3 rounded-xl shadow-lg hover:bg-dif-pink hover:scale-105 transition-all duration-300 text-xs sm:text-sm">
-                        <i class="fas fa-file-pdf shrink-0"></i>
-                        <span>Programa Anual de Evaluación 2025</span>
-                    </a>
+                    @foreach($documentosInicio as $docInicio)
+                        <a href="{{ $docInicio->url }}"
+                           {{ $docInicio->tieneArchivo() ? 'download' : 'target="_blank" rel="noopener noreferrer"' }}
+                           class="inline-flex items-center gap-2 bg-dif-pink/90 backdrop-blur text-white font-bold px-4 sm:px-6 py-3 rounded-xl shadow-lg hover:bg-dif-pink hover:scale-105 transition-all duration-300 text-xs sm:text-sm">
+                            <i class="fas fa-file-pdf shrink-0"></i>
+                            <span>{{ $docInicio->nombre }}</span>
+                        </a>
+                    @endforeach
                 </div>
+                @endif
             </div>
             <div class="hidden lg:flex justify-center scroll-scale">
                 <div class="relative">

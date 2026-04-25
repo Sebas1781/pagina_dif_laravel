@@ -43,6 +43,13 @@
                     Carrusel
                 </a>
 
+                <a href="{{ route('admin.documentos_inicio.index') }}"
+                   class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                          {{ request()->routeIs('admin.documentos_inicio.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
+                    <i class="fas fa-file-pdf w-4 text-center"></i>
+                    PDFs de Inicio
+                </a>
+
                      <a href="{{ route('admin.areas_atencion.index') }}"
                          class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
                                   {{ request()->routeIs('admin.areas_atencion.*') ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }}">

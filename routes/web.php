@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\UnidadMedicaController;
 use App\Http\Controllers\Admin\DirectorioItemController;
 use App\Http\Controllers\Admin\RemtysCardController;
 use App\Http\Controllers\Admin\RemtysDocumentoController;
+use App\Http\Controllers\Admin\DocumentoInicioController;
 
 Route::get('/', [PageController::class, 'inicio'])->name('inicio');
 Route::get('/nosotros', [PageController::class, 'nosotros'])->name('nosotros');
@@ -50,6 +51,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Carrusel de inicio
         Route::resource('carrusel', CarruselController::class)->except(['show']);
+
+        // PDFs de inicio
+        Route::resource('documentos_inicio', DocumentoInicioController::class)->except(['show']);
 
         // Inicio: Areas de atencion y Servicios de salud
         Route::resource('areas_atencion', AreaAtencionController::class)->except(['show']);

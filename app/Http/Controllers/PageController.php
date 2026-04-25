@@ -21,6 +21,7 @@ use App\Models\SaludServicio;
 use App\Models\UnidadMedica;
 use App\Models\DirectorioItem;
 use App\Models\RemtysCard;
+use App\Models\DocumentoInicio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
@@ -31,6 +32,11 @@ class PageController extends Controller
     {
         $slides    = Carrusel::activos()->get();
         $boletines = Boletin::activos()->take(3)->get();
+
+        $documentosInicio = DocumentoInicio::activos()
+            ->orderBy('orden')
+            ->orderBy('id')
+            ->get();
 
         $areasAtencion = collect();
         if (Schema::hasTable('areas_atencion')) {
@@ -48,7 +54,7 @@ class PageController extends Controller
             $serviciosSalud = $this->serviciosSaludPorDefecto();
         }
 
-        return view('pages.inicio', compact('slides', 'boletines', 'areasAtencion', 'serviciosSalud'));
+        return view('pages.inicio', compact('slides', 'boletines', 'areasAtencion', 'serviciosSalud', 'documentosInicio'));
     }
 
     private function areasAtencionPorDefecto(): Collection
